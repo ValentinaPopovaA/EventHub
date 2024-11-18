@@ -19,6 +19,7 @@ extension UILabel {
     {
         let label = UILabel()
         label.text = text
+        label.font = .systemFont(ofSize: fontSize)
         label.numberOfLines = numberOfLines ?? 0
         label.textColor = textColor
         label.textAlignment = textAligment ?? .left
@@ -40,6 +41,7 @@ extension UILabel {
     {
         let label = UILabel()
         label.text = text
+        label.font = .systemFont(ofSize: fontSize)
         label.numberOfLines = numberOfLines ?? 0
         label.font = .boldSystemFont(ofSize: fontSize)
         label.textColor = textColor
