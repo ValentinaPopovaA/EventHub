@@ -23,6 +23,8 @@
 		A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */; };
 		A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */; };
 		A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */; };
+		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
+		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
+		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
+		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 			isa = PBXGroup;
 			children = (
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
+				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
+				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -284,6 +290,8 @@
 				A7CAF9A22CEA0E4400719F7D /* EventsViewController.swift in Sources */,
 				A7CAF99E2CEA0E2A00719F7D /* EventsDetailViewController.swift in Sources */,
 				A7CAF99A2CEA0D9A00719F7D /* LoginViewController.swift in Sources */,
+				A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */,
+				A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */,
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7BA04992CE888D0009A9EF3 /* ViewController.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* EventsError.swift in Sources */,
