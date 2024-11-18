@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var label = UILabel.makeCustomLabel(text: "Hello", fontSize: 16, textColor: .white, numberOfLines: 0, textAligment: .center)
+    var label = UILabel.makeCustomLabel(text: "Hello", fontSize: 56, textColor: .white, numberOfLines: 0, textAligment: .center)
     
     override func viewDidLoad() {
         super.viewDidLoad()
