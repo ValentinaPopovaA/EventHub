@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188F51472CEBED3E00963E42 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188F51462CEBED3B00963E42 /* CustomSegmentedControl.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
 		A7BA04992CE888D0009A9EF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04982CE888D0009A9EF3 /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188F51462CEBED3B00963E42 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 		A7CAF9862CEA088F00719F7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				188F51462CEBED3B00963E42 /* CustomSegmentedControl.swift */,
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
 			);
 			path = Extensions;
@@ -287,6 +290,7 @@
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7BA04992CE888D0009A9EF3 /* ViewController.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* EventsError.swift in Sources */,
+				188F51472CEBED3E00963E42 /* CustomSegmentedControl.swift in Sources */,
 				A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */,
 				A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */,
 				A7CAF99C2CEA0E0D00719F7D /* ExploreViewController.swift in Sources */,
