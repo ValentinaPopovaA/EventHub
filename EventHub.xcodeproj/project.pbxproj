@@ -24,6 +24,8 @@
 		A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */; };
 		A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */; };
 		A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */; };
+		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
+		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +51,8 @@
 		A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
+		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +137,8 @@
 			children = (
 				188F51452CEBD89500963E42 /* UIFont + Extencion.swift */,
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
+				E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */,
+				E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
 				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
 			);
@@ -305,8 +311,10 @@
 				A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */,
 				A7CAF99C2CEA0E0D00719F7D /* ExploreViewController.swift in Sources */,
 				A7CAF9922CEA0CC100719F7D /* EventsModel.swift in Sources */,
+				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
+				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
