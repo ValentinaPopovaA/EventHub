@@ -5,7 +5,6 @@
 //  Created by Валентина Попова on 17.11.2024.
 //
 
-import Foundation
 import UIKit
 
 class EventsDetailViewController: UIViewController {
@@ -205,4 +204,84 @@ class EventsDetailViewController: UIViewController {
         
     }
     
+    private func makeConstraits() {
+        let scrollContentGuide = scrollView.contentLayoutGuide
+        let scrollFrameGuide = scrollView.frameLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            imageView.topAnchor.constraint(equalTo: view.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            imageView.heightAnchor.constraint(equalToConstant: 244),
+        
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -25),
+            saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
+            saveButton.heightAnchor.constraint(equalToConstant: 36),
+            saveButton.widthAnchor.constraint(equalToConstant: 36),
+            
+            shareButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -5),
+            shareButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
+            shareButton.heightAnchor.constraint(equalToConstant: 36),
+            shareButton.widthAnchor.constraint(equalToConstant: 36),
+                       
+            scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
+            scrollView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            eventLabel.topAnchor.constraint(equalTo: scrollContentGuide.topAnchor, constant: 50),
+            eventLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            eventLabel.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
+            
+            dateView.topAnchor.constraint(equalToSystemSpacingBelow: eventLabel.bottomAnchor, multiplier: 2),
+            dateView.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
+            dateView.heightAnchor.constraint(equalToConstant: 48),
+            dateView.widthAnchor.constraint(equalToConstant: 48),
+            
+            dateIcon.centerYAnchor.constraint(equalTo: dateView.centerYAnchor),
+            dateIcon.centerXAnchor.constraint(equalTo: dateView.centerXAnchor),
+            
+            dateLabel.topAnchor.constraint(equalToSystemSpacingBelow: eventLabel.bottomAnchor, multiplier: 2),
+            dateLabel.leadingAnchor.constraint(equalTo: dateView.trailingAnchor, constant: 10),
+            dateLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            timeLabel.topAnchor.constraint(equalToSystemSpacingBelow: dateLabel.bottomAnchor, multiplier: 1),
+            timeLabel.leadingAnchor.constraint(equalTo: dateView.trailingAnchor, constant: 10),
+            timeLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            locationView.topAnchor.constraint(equalToSystemSpacingBelow: dateView.bottomAnchor, multiplier: 2),
+            locationView.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
+            locationView.heightAnchor.constraint(equalToConstant: 48),
+            locationView.widthAnchor.constraint(equalToConstant: 48),
+            
+            locationIcon.centerYAnchor.constraint(equalTo: locationView.centerYAnchor),
+            locationIcon.centerXAnchor.constraint(equalTo: locationView.centerXAnchor),
+            
+            locationLabel.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 24),
+            locationLabel.leadingAnchor.constraint(equalTo: locationView.trailingAnchor, constant: 10),
+            locationLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            adressLabel.topAnchor.constraint(equalToSystemSpacingBelow: locationLabel.bottomAnchor, multiplier: 1),
+            adressLabel.leadingAnchor.constraint(equalTo: locationView.trailingAnchor, constant: 10),
+            adressLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            photoIcon.topAnchor.constraint(equalToSystemSpacingBelow: locationView.bottomAnchor, multiplier: 2),
+            photoIcon.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
+            photoIcon.heightAnchor.constraint(equalToConstant: 48),
+            photoIcon.widthAnchor.constraint(equalToConstant: 48),
+            
+            nameLabel.topAnchor.constraint(equalTo: adressLabel.bottomAnchor, constant: 24),
+            nameLabel.leadingAnchor.constraint(equalTo: photoIcon.trailingAnchor, constant: 10),
+            nameLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            organizerLabel.topAnchor.constraint(equalToSystemSpacingBelow: nameLabel.bottomAnchor, multiplier: 1),
+            organizerLabel.leadingAnchor.constraint(equalTo: photoIcon.trailingAnchor, constant: 10),
+            organizerLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            
+            descriptionStackView.topAnchor.constraint(equalTo: photoIcon.bottomAnchor, constant: 24),
+            descriptionStackView.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
+            descriptionStackView.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
+            descriptionStackView.bottomAnchor.constraint(equalTo: scrollContentGuide.bottomAnchor),
+        ])
     }
+}
