@@ -81,7 +81,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             image: UIImage(systemName: ""),
             selectedImage: UIImage(systemName: ""))
         
-        let mapVC = MapViewController()
+        let mapVC = EventsDetailViewController()
         mapVC.tabBarItem = UITabBarItem(
             title: "Map",
             image: UIImage(named: "Location_blue"),
