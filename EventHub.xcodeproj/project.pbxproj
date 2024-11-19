@@ -24,10 +24,10 @@
 		A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */; };
 		A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */; };
 		A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */; };
-		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
-		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
+		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
+		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,10 +51,10 @@
 		A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A62CEA0E6C00719F7D /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarViewController.swift; sourceTree = "<group>"; };
-		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +89,7 @@
 			children = (
 				188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */,
 				A7BA04A82CE88B30009A9EF3 /* App */,
+				A7DDB4952CECDAA600015FE1 /* Components */,
 				A7CAF9882CEA092000719F7D /* Models */,
 				A7CAF9892CEA0BC900719F7D /* Network */,
 				A7CAF9862CEA088F00719F7D /* Extensions */,
@@ -101,6 +102,7 @@
 				A7CAF98E2CEA0C5C00719F7D /* ProfileScreen */,
 				A7CAF98F2CEA0C6900719F7D /* FavoritesScreen */,
 				A7CAF9902CEA0C8100719F7D /* SearchBarScreen */,
+				A7DDB4962CECDAD100015FE1 /* MapScreen */,
 				A7CAF9872CEA090F00719F7D /* Resources */,
 			);
 			path = EventHub;
@@ -137,8 +139,6 @@
 			children = (
 				188F51452CEBD89500963E42 /* UIFont + Extencion.swift */,
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
-				E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */,
-				E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
 				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
 			);
@@ -224,6 +224,22 @@
 				A7CAF9A82CEA0E7C00719F7D /* SearchBarViewController.swift */,
 			);
 			path = SearchBarScreen;
+			sourceTree = "<group>";
+		};
+		A7DDB4952CECDAA600015FE1 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		A7DDB4962CECDAD100015FE1 /* MapScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */,
+			);
+			path = MapScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

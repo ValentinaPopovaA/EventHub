@@ -138,7 +138,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if selectedIndex != 2 {
-            centerButton.backgroundColor = .systemBlue
+            centerButton.backgroundColor = .primaryBlue
             let blueImage = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
             centerButton.setImage(blueImage, for: .normal)
             centerButton.tintColor = .white
