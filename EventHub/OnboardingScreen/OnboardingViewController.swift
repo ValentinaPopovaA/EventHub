@@ -37,6 +37,8 @@ class OnboardingViewController: UIViewController {
         stackView.spacing = 16
         stackView.alignment = .fill
         stackView.distribution = .fill
+        
+//        stackView.backgroundColor = UIColor(named: "primaryBlue")
         stackView.backgroundColor = UIColor(red: 0.337, green: 0.41, blue: 1, alpha: 1)
         stackView.layer.cornerRadius = 48
         stackView.layer.masksToBounds = true
@@ -75,7 +77,8 @@ class OnboardingViewController: UIViewController {
     private let descriptionLabel: UILabel = {
         let label = UILabel()
         let text = "Discover events happening around you and stay updated with the latest happenings in your area"
-//        label.font = UIFont.systemFont(ofSize: 14)
+//        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
+        label.font = UIFont(name: "AirbnbCerealWBd", size: 15)
         label.textColor = .white
         label.numberOfLines = 0
         
@@ -237,8 +240,8 @@ class OnboardingViewController: UIViewController {
     
 }
 
-//#Preview {
-//    OnboardingViewController()
-//}
+#Preview {
+    OnboardingViewController()
+}
 
 
