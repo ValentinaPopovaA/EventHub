@@ -37,6 +37,14 @@ class EventsDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
+    private(set) lazy var scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     var eventLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 35)
@@ -75,6 +83,7 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+        
     let locationView: UIView = {
         let view = UIView()
         view.backgroundColor = .lightGray
@@ -136,6 +145,7 @@ class EventsDetailViewController: UIViewController {
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
+    
     var aboutEventsLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18)
@@ -152,6 +162,47 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
    override func viewDidLoad() {
         super.viewDidLoad()
+       setupUI()
+       makeConstraits()
+    }
+    
+    @objc private func saveToFavorites() {
+        
+    }
+    
+    @objc private func sharePressedButton() {
+        
+    }
+    
+    private func setupUI() {
+        view.backgroundColor = .systemBackground
+        view.addSubview(imageView)
+       
+        imageView.addSubview(saveButton)
+        imageView.addSubview(shareButton)
+        view.addSubview(scrollView)
+        scrollView.addSubview(eventLabel)
+        
+        scrollView.addSubview(dateView)
+        dateView.addSubview(dateIcon)
+        scrollView.addSubview(dateLabel)
+        scrollView.addSubview(timeLabel)
+        
+        scrollView.addSubview(locationView)
+        locationView.addSubview(locationIcon)
+        scrollView.addSubview(locationLabel)
+        scrollView.addSubview(adressLabel)
+        
+        scrollView.addSubview(photoIcon)
+        scrollView.addSubview(nameLabel)
+        scrollView.addSubview(organizerLabel)
+        scrollView.addSubview(descriptionStackView)
+        descriptionStackView.addArrangedSubview(aboutEventsLabel)
+        descriptionStackView.addArrangedSubview(descriptionLabel)
+        
+    }
+    
     }
