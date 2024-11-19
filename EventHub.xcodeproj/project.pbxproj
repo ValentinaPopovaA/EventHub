@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		188F51442CEBD81300963E42 /* AirbnbCerealWBd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
 		A7BA04992CE888D0009A9EF3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04982CE888D0009A9EF3 /* ViewController.swift */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCerealWBd.otf; sourceTree = "<group>"; };
+		188F51452CEBD89500963E42 /* UIFont + Extencion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extencion.swift"; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		A7BA04932CE888D0009A9EF3 /* EventHub */ = {
 			isa = PBXGroup;
 			children = (
+				188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */,
 				A7BA04A82CE88B30009A9EF3 /* App */,
 				A7CAF9882CEA092000719F7D /* Models */,
 				A7CAF9892CEA0BC900719F7D /* Network */,
@@ -127,6 +131,7 @@
 		A7CAF9862CEA088F00719F7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				188F51452CEBD89500963E42 /* UIFont + Extencion.swift */,
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
 				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
@@ -273,6 +278,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188F51442CEBD81300963E42 /* AirbnbCerealWBd.otf in Resources */,
 				A7BA04A12CE888D4009A9EF3 /* LaunchScreen.storyboard in Resources */,
 				A7BA049E2CE888D4009A9EF3 /* Assets.xcassets in Resources */,
 			);
