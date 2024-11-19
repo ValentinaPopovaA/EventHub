@@ -57,7 +57,7 @@ class EventsDetailViewController: UIViewController {
     
     let dateView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .grayForDetail
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -80,13 +80,14 @@ class EventsDetailViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.text = "Tuesday, 4:00PM - 9:00PM"
+        label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
         
     let locationView: UIView = {
         let view = UIView()
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .grayForDetail
         view.layer.cornerRadius = 10
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -110,6 +111,7 @@ class EventsDetailViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.text = "36 Guild Street London, UK"
+        label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -134,6 +136,7 @@ class EventsDetailViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12)
         label.text = "Organizer"
+        label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

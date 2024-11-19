@@ -15,6 +15,7 @@ extension UIColor {
     static let darkCyanAccent = UIColor(named: "darkCyanAccent")
     static let yellowAccent = UIColor(named: "yellowAccent")
     static let purpleAccent = UIColor(named: "purpleAccent")
+    static let grayForDetail = UIColor(named: "grayForDetail")
     
     // Text Color
     static let titleColor = UIColor(named: "titleColor")
