@@ -15,8 +15,10 @@ class CustomTabBar: UITabBar {
         element.layer.shadowColor = UIColor.black.cgColor
         element.layer.shadowColor = UIColor.black.cgColor
         element.layer.shadowOffset = CGSize(width: 0, height: -3)
-        element.layer.shadowOpacity = 0.1
+        element.layer.shadowOpacity = 0.5
         element.layer.shadowRadius = 10
+        element.layer.shouldRasterize = true
+        element.layer.rasterizationScale = UIScreen.main.scale
         element.translatesAutoresizingMaskIntoConstraints = false
         return element
     }()
@@ -24,8 +26,15 @@ class CustomTabBar: UITabBar {
     override func layoutSubviews() {
         super.layoutSubviews()
         self.backgroundColor = .white
+        
         let curveWidth: CGFloat = 60
         let curveHeight: CGFloat = 30
+        layer.shadowColor = UIColor.gray.cgColor
+        layer.shadowOpacity = 0.2
+        layer.shadowOffset = CGSize(width: 0, height: -2)
+        layer.shadowRadius = 15
+        layer.masksToBounds = false
+
         
         centerView.frame = CGRect(
             x: (frame.width - curveWidth) / 2,
@@ -36,18 +45,24 @@ class CustomTabBar: UITabBar {
         
         if centerView.superview == nil {
             addSubview(centerView)
+
         }
+  
     }
 }
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
+    let customTabBar = CustomTabBar()
     
     let centerButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setValue(customTabBar, forKey: "tabBar")
         setupTabBar()
         setupCenterButton()
         delegate = self
+        
+        
         
     }
     
@@ -55,23 +70,22 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     private func setupTabBar() {
         
-        let customTabBar = CustomTabBar()
+       
         
-        tabBar.tintColor = .systemBlue
-        tabBar.unselectedItemTintColor = .gray
+        tabBar.tintColor = .primaryBlue
         
         let exploreVC = ExploreViewController()
         exploreVC.tabBarItem = UITabBarItem(
             title: "Explore",
-            image: UIImage(systemName: "safari"),
-            selectedImage: UIImage(systemName: "safari.fill"))
+            image: UIImage(named: "Compass"),
+            selectedImage: UIImage(named: "Compass_blue"))
         
         
         let eventsVC = EventsViewController()
         eventsVC.tabBarItem = UITabBarItem(
             title: "Events",
-            image: UIImage(systemName: "calendar"),
-            selectedImage: UIImage(systemName: "calendar.circle.fill"))
+            image: UIImage(named: "Calendar_blue"),
+            selectedImage: UIImage(named: "Calendar_blue"))
         
         
         let favoritesVC = FavoritesViewController()
@@ -84,15 +98,15 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let mapVC = MapViewController()
         mapVC.tabBarItem = UITabBarItem(
             title: "Map",
-            image: UIImage(systemName: "map"),
-            selectedImage: UIImage(systemName: "map.fill"))
+            image: UIImage(named: "Location_blue"),
+            selectedImage: UIImage(named: "Location_blue"))
         
         
         let profileVC = ProfileViewController ()
         profileVC.tabBarItem = UITabBarItem(
             title: "Profile",
-            image: UIImage(systemName: "person"),
-            selectedImage: UIImage(systemName: "person.fill"))
+            image: UIImage(named: "Profile_blue"),
+            selectedImage: UIImage(named: "Profile_blue"))
         
         viewControllers = [exploreVC, eventsVC, favoritesVC, mapVC, profileVC]
         
@@ -134,17 +148,19 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     @objc private func centerButtonTapped(_ sender: UIButton) {
         selectedIndex = 2
         
-        let redColor = UIImage(systemName: "bookmark.fill")?.withRenderingMode(.alwaysTemplate)
+        let redColor = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
         centerButton.setImage(redColor, for: .normal)
-        centerButton.tintColor = .systemRed
+        centerButton.backgroundColor = .systemRed
+        centerButton.tintColor = .white
         
         
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
         if selectedIndex != 2 {
-            let whiteImage = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
-            centerButton.setImage(whiteImage, for: .normal)
+            centerButton.backgroundColor = .systemBlue
+            let blueImage = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
+            centerButton.setImage(blueImage, for: .normal)
             centerButton.tintColor = .white
         }
         
