@@ -19,45 +19,16 @@ class EventsViewController: UIViewController {
         return label
     }()
     
-    private let noUpcomingEventLabel: UILabel = {
-        let label = UILabel()
-        label.text = "No Upcoming Event"
-        label.font = .systemFont(ofSize: 24)
-        label.textColor = .black
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    private let noUpcomDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Lorem ipsum dolor sit amet,\nconsectetur "
-        label.font =  .airbnbCerealWBd16()
-        label.textAlignment = .center
-        label.numberOfLines = 2
-        label.textColor = .lightGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     private let segmentedControl = CustomSegmentedControl(items: ["UPCOMING", "PAST EVENTS"])
     
-    private let noEventsImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "schedule")
-        imageView.contentMode = .bottomRight
-        imageView.backgroundColor = .lightGray
-        imageView.layer.cornerRadius = 100
-        imageView.clipsToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
+    private let noEventsView = NoUpcomingEventView()
     
     private let exploreEventsButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .blue
         button.setTitle("EXPLORE EVENTS", for: .normal)
         button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = 10
+        button.layer.cornerRadius = 15
         button.titleLabel?.font = .systemFont(ofSize: 16)
         button.tintColor = .white
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -89,23 +60,15 @@ class EventsViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
-        
-        for family in UIFont.familyNames {
-            print("\(family)")
-            
-            for name in UIFont.fontNames(forFamilyName: family) {
-                print("  \(name)")
-            }
-        }
+
     }
     
     private func setupViews() {
         view.addSubview(eventsLabel)
         view.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(noEventsImageView)
-        view.addSubview(noUpcomingEventLabel)
-        view.addSubview(noUpcomDescriptionLabel)
+        view.addSubview(noEventsView)
+        noEventsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(exploreEventsButton)
         
     }
@@ -126,23 +89,14 @@ extension EventsViewController {
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
-            noEventsImageView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 100),
-            noEventsImageView.heightAnchor.constraint(equalToConstant: 200),
-            noEventsImageView.widthAnchor.constraint(equalToConstant: 200),
-            noEventsImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            noUpcomingEventLabel.topAnchor.constraint(equalTo: noEventsImageView.bottomAnchor, constant: 15),
-            noUpcomingEventLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            noUpcomDescriptionLabel.topAnchor.constraint(equalTo: noUpcomingEventLabel.bottomAnchor, constant: 15),
-            noUpcomDescriptionLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            noEventsView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 130),
+            noEventsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             exploreEventsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -128),
-            exploreEventsButton.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -48),
-            exploreEventsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 48),
-            exploreEventsButton.heightAnchor.constraint(equalToConstant: 58)
+            exploreEventsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            exploreEventsButton.heightAnchor.constraint(equalToConstant: 58),
+            exploreEventsButton.widthAnchor.constraint(equalToConstant: 271)
             
         ])
-        
     }
 }
