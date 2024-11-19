@@ -240,8 +240,8 @@ class OnboardingViewController: UIViewController {
     
 }
 
-#Preview {
-    OnboardingViewController()
-}
+//#Preview {
+//    OnboardingViewController()
+//}
 
 
