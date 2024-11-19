@@ -6,13 +6,11 @@
 
 import UIKit
 
-
 class CustomTabBar: UITabBar {
     private lazy var centerView: UIView  = {
         let element = UIView()
         element.backgroundColor = .white
         element.layer.cornerRadius = 30
-        element.layer.shadowColor = UIColor.black.cgColor
         element.layer.shadowColor = UIColor.black.cgColor
         element.layer.shadowOffset = CGSize(width: 0, height: -3)
         element.layer.shadowOpacity = 0.5
@@ -34,7 +32,6 @@ class CustomTabBar: UITabBar {
         layer.shadowOffset = CGSize(width: 0, height: -2)
         layer.shadowRadius = 15
         layer.masksToBounds = false
-
         
         centerView.frame = CGRect(
             x: (frame.width - curveWidth) / 2,
@@ -45,9 +42,7 @@ class CustomTabBar: UITabBar {
         
         if centerView.superview == nil {
             addSubview(centerView)
-
         }
-  
     }
 }
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
@@ -61,17 +56,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         setupTabBar()
         setupCenterButton()
         delegate = self
-        
-        
-        
     }
     
     //MARK: - Setup TabBar
     
     private func setupTabBar() {
-        
-       
-        
         tabBar.tintColor = .primaryBlue
         
         let exploreVC = ExploreViewController()
@@ -80,13 +69,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             image: UIImage(named: "Compass"),
             selectedImage: UIImage(named: "Compass_blue"))
         
-        
         let eventsVC = EventsViewController()
         eventsVC.tabBarItem = UITabBarItem(
             title: "Events",
             image: UIImage(named: "Calendar_blue"),
             selectedImage: UIImage(named: "Calendar_blue"))
-        
         
         let favoritesVC = FavoritesViewController()
         favoritesVC.tabBarItem = UITabBarItem(
@@ -94,13 +81,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             image: UIImage(systemName: ""),
             selectedImage: UIImage(systemName: ""))
         
-        
         let mapVC = MapViewController()
         mapVC.tabBarItem = UITabBarItem(
             title: "Map",
             image: UIImage(named: "Location_blue"),
             selectedImage: UIImage(named: "Location_blue"))
-        
         
         let profileVC = ProfileViewController ()
         profileVC.tabBarItem = UITabBarItem(
@@ -109,7 +94,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             selectedImage: UIImage(named: "Profile_blue"))
         
         viewControllers = [exploreVC, eventsVC, favoritesVC, mapVC, profileVC]
-        
     }
     
     //MARK: - Setup Center Button
@@ -118,9 +102,8 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         let buttonSize: CGFloat = 50
         
         centerButton.frame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
-        centerButton.backgroundColor = .systemBlue
+        centerButton.backgroundColor = .primaryBlue
         centerButton.layer.cornerRadius = buttonSize / 2
-        
         
         centerButton.layer.shadowColor = UIColor.black.cgColor
         centerButton.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -140,7 +123,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             centerButton.centerYAnchor.constraint(equalTo: tabBar.topAnchor),
             centerButton.widthAnchor.constraint(equalToConstant: buttonSize),
             centerButton.heightAnchor.constraint(equalToConstant: buttonSize),
-            
         ])
         
     }
@@ -152,8 +134,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         centerButton.setImage(redColor, for: .normal)
         centerButton.backgroundColor = .systemRed
         centerButton.tintColor = .white
-        
-        
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
@@ -163,7 +143,5 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             centerButton.setImage(blueImage, for: .normal)
             centerButton.tintColor = .white
         }
-        
     }
 }
-    
