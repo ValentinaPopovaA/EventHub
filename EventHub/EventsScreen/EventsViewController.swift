@@ -13,7 +13,7 @@ class EventsViewController: UIViewController {
     private let eventsLabel: UILabel = {
         let label = UILabel()
         label.text = "Events"
-        label.font = .airbnbCerealWBd24()
+        label.font = .systemFont(ofSize: 24) //.airbnbCerealWBd24()
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -22,6 +22,7 @@ class EventsViewController: UIViewController {
     private let segmentedControl = CustomSegmentedControl(items: ["UPCOMING", "PAST EVENTS"])
     
     private let noEventsView = NoUpcomingEventView()
+    private let tableView = EventsTableView()
     
     private let exploreEventsButton: UIButton = {
         let button = UIButton()
@@ -60,7 +61,7 @@ class EventsViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
-
+        
     }
     
     private func setupViews() {
@@ -70,6 +71,7 @@ class EventsViewController: UIViewController {
         view.addSubview(noEventsView)
         noEventsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(exploreEventsButton)
+        view.addSubview(tableView)
         
     }
     
@@ -95,7 +97,12 @@ extension EventsViewController {
             exploreEventsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -128),
             exploreEventsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             exploreEventsButton.heightAnchor.constraint(equalToConstant: 58),
-            exploreEventsButton.widthAnchor.constraint(equalToConstant: 271)
+            exploreEventsButton.widthAnchor.constraint(equalToConstant: 271),
+            
+            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             
         ])
     }

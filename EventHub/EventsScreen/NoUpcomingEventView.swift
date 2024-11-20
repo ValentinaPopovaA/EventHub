@@ -32,7 +32,7 @@ class NoUpcomingEventView: UIView {
     private let noUpcomDescriptionLabel: UILabel = {
         let label = UILabel()
         label.text = "Lorem ipsum dolor sit amet,\nconsectetur "
-        label.font =  .airbnbCerealWBd16()
+        label.font = .systemFont(ofSize: 16) //.airbnbCerealWBd16()
         label.textAlignment = .center
         label.numberOfLines = 2
         label.textColor = .lightGray
