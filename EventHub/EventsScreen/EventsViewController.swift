@@ -56,6 +56,8 @@ class EventsViewController: UIViewController {
         return button
     }()
     
+    //private var eventsArray = [EventsModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -78,6 +80,11 @@ class EventsViewController: UIViewController {
     @objc private func segmentedChange() {
         
     }
+    
+//    private func checkEventsToday() {
+//        noEventsView.isHidden = !eventsArray.isEmpty
+//        tableView.isHidden = eventsArray.isEmpty
+//    }
 }
 
 extension EventsViewController {
