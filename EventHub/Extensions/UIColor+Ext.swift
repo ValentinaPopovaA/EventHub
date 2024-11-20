@@ -8,17 +8,17 @@
 import UIKit
 
 extension UIColor {
-    static let primaryBlue = UIColor(named: "primaryBlue")
-    static let redAccent = UIColor(named: "redAccent")
-    static let orangeAccent = UIColor(named: "orangeAccent")
-    static let greenAccent = UIColor(named: "greenAccent")
-    static let darkCyanAccent = UIColor(named: "darkCyanAccent")
-    static let yellowAccent = UIColor(named: "yellowAccent")
-    static let purpleAccent = UIColor(named: "purpleAccent")
-    static let grayForDetail = UIColor(named: "grayForDetail")
+    static let primaryBlue = UIColor(named: "primaryBlue") ?? UIColor.blue
+    static let redAccent = UIColor(named: "redAccent") ?? UIColor.red
+    static let orangeAccent = UIColor(named: "orangeAccent") ?? UIColor.orange
+    static let greenAccent = UIColor(named: "greenAccent") ?? UIColor.green
+    static let darkCyanAccent = UIColor(named: "darkCyanAccent") ?? UIColor.cyan
+    static let yellowAccent = UIColor(named: "yellowAccent") ?? UIColor.yellow
+    static let purpleAccent = UIColor(named: "purpleAccent") ?? UIColor.purple
+    static let grayForDetail = UIColor(named: "grayForDetail") ?? UIColor.gray
     
     // Text Color
-    static let titleColor = UIColor(named: "titleColor")
-    static let subColor = UIColor(named: "subColor")
-    static let greyLight = UIColor(named: "greyLight")
+    static let titleColor = UIColor(named: "titleColor") ?? UIColor.black
+    static let subColor = UIColor(named: "subColor") ?? UIColor.gray
+    static let greyLight = UIColor(named: "greyLight") ?? UIColor.systemGray6
 }
