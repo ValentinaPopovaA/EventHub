@@ -64,7 +64,7 @@ class EventsDetailViewController: UIViewController {
     }()
     var dateIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Calendar")
+        image.image = UIImage(named: "Calendar_blue")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
