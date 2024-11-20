@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		188F51442CEBD81300963E42 /* AirbnbCerealWBd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */; };
+		46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C94BC22CEE575D000E5E4F /* ShareView.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
 		A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04982CE888D0009A9EF3 /* OnboardingViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		188F51432CEBD81300963E42 /* AirbnbCerealWBd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCerealWBd.otf; sourceTree = "<group>"; };
 		188F51452CEBD89500963E42 /* UIFont + Extencion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extencion.swift"; sourceTree = "<group>"; };
+		46C94BC22CEE575D000E5E4F /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				A7CAF99D2CEA0E2A00719F7D /* EventsDetailViewController.swift */,
+				46C94BC22CEE575D000E5E4F /* ShareView.swift */,
 			);
 			path = EventDetailsScreen;
 			sourceTree = "<group>";
@@ -330,6 +333,7 @@
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
+				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
