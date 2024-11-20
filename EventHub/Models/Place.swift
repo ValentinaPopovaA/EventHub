@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Place: Decodable {
-    let id: Int
-    let title: String
-    let address: String
+struct Place: Codable {
+    let id: Int?
+    let title: String?
+    let address: String?
 }

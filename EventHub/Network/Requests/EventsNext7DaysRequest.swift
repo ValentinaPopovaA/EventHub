@@ -8,6 +8,8 @@
 import Foundation
 
 struct EventsNext7DaysRequest: DataRequest {
+    typealias Response = [Event]
+    
     var headers: [String : String]
     var citySlug: String
 
@@ -28,8 +30,8 @@ struct EventsNext7DaysRequest: DataRequest {
 
     var method: HTTPMethod { .get }
 
-    func decode(_ data: Data) throws -> EventResponse {
+    func decode(_ data: Data) throws -> [Event] {
         let decoder = JSONDecoder()
-        return try decoder.decode(EventResponse.self, from: data)
+        return try decoder.decode([Event].self, from: data)
     }
 }

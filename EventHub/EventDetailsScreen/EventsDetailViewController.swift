@@ -36,7 +36,7 @@ class EventsDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private(set) lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -83,7 +83,7 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-        
+    
     let locationView: UIView = {
         let view = UIView()
         view.backgroundColor = .grayForDetail
@@ -165,10 +165,122 @@ class EventsDetailViewController: UIViewController {
         return label
     }()
     
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-       setupUI()
-       makeConstraits()
+        setupUI()
+        makeConstraits()
+        loadEventDetails(eventID: 60844)
+    }
+    
+    func configure(with event: Event) {
+        // Название события
+        eventLabel.text = event.title
+        
+        // Краткое описание
+        descriptionLabel.text = event.bodyText?.htmlToString() ?? "Description not available"
+        
+        // Загрузка информации о месте
+        if let placeID = event.place?.id {
+            loadPlaceDetails(placeID: placeID)
+        } else {
+            locationLabel.text = "Location not available"
+            adressLabel.text = "Address not available"
+        }
+        
+        // Даты и время проведения
+        if let firstDate = event.dates?.first {
+            // Отображение даты
+            dateLabel.text = firstDate.start?.formattedDate() ?? "Date not available"
+            
+            // Форматирование времени
+            let startTimeWithWeekday = firstDate.start?.formattedTimeWithWeekday() ?? "Start time not available"
+            let startTime = firstDate.start?.formattedTime() ?? "Start time not available"
+            let endTime = firstDate.end?.formattedTime() ?? "End time not available"
+            
+            // Если время начала и окончания одинаковое
+            if startTime == endTime {
+                timeLabel.text = startTimeWithWeekday
+            } else {
+                timeLabel.text = "\(startTimeWithWeekday) - \(endTime)"
+            }
+        } else {
+            dateLabel.text = "Date not available"
+            timeLabel.text = ""
+        }
+        
+        // Картинка события
+        if let imageUrl = event.images?.first?.image {
+            imageView.loadImage(from: imageUrl)
+        } else {
+            imageView.image = UIImage(named: "placeholder")
+        }
+    }
+    
+    private func loadEventDetails(eventID: Int) {
+        let request = EventDetailsRequest(eventID: eventID)
+        
+        let networkService = NetworkService()
+        networkService.request(request) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let news):
+                    self?.configure(with: news)
+                case .failure(let error):
+                    print("Error loading news details: \(error.localizedDescription)")
+                    self?.debugResponse(for: request)
+                }
+            }
+        }
+    }
+    
+    private func loadPlaceDetails(placeID: Int) {
+        let request = PlaceDetailsRequest(placeID: placeID)
+        let networkService = NetworkService()
+        
+        networkService.request(request) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let place):
+                    self?.configurePlaceUI(with: place)
+                case .failure(let error):
+                    print("Error loading place details: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func configurePlaceUI(with place: Place) {
+        locationLabel.text = place.title ?? "Unknown location"
+
+        adressLabel.text = place.address ?? "Address not available"
+    }
+    
+    private func debugResponse<Request: DataRequest>(for request: Request) {
+        var urlComponents = URLComponents(string: request.url)
+        urlComponents?.queryItems = request.queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
+        
+        guard let url = urlComponents?.url else {
+            print("Invalid URL: \(request.url)")
+            return
+        }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = request.method.rawValue
+        urlRequest.allHTTPHeaderFields = request.headers
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                print("Network error: \(error.localizedDescription)")
+                return
+            }
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+            
+            print("Raw JSON response:")
+            print(String(data: data, encoding: .utf8) ?? "Unreadable JSON")
+        }.resume()
     }
     
     @objc private func saveToFavorites() {
@@ -182,7 +294,7 @@ class EventsDetailViewController: UIViewController {
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
-       
+        
         imageView.addSubview(saveButton)
         imageView.addSubview(shareButton)
         view.addSubview(scrollView)
@@ -216,7 +328,7 @@ class EventsDetailViewController: UIViewController {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 244),
-        
+            
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -25),
             saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 36),
@@ -226,7 +338,7 @@ class EventsDetailViewController: UIViewController {
             shareButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
             shareButton.heightAnchor.constraint(equalToConstant: 36),
             shareButton.widthAnchor.constraint(equalToConstant: 36),
-                       
+            
             scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             scrollView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),

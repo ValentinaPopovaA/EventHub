@@ -1,5 +1,5 @@
 //
-//  AllEventsRequest.swift
+//  SearchEventsRequest.swift
 //  EventHub
 //
 //  Created by Валентина Попова on 20.11.2024.
@@ -7,20 +7,23 @@
 
 import Foundation
 
-struct AllEventsRequest: DataRequest {
+struct SearchEventsRequest: DataRequest {
     typealias Response = [Event]
-    
+
     var headers: [String : String]
+    var query: String
     var citySlug: String
+
     var queryItems: [String: String] {
         [
+            "q": query,
             "location": citySlug,
-            "page_size": "25"
+            "page_size": "10"
         ]
     }
 
     var url: String {
-        "https://kudago.com/public-api/v1.4/events"
+        "https://kudago.com/public-api/v1.4/search"
     }
 
     var method: HTTPMethod { .get }

@@ -7,22 +7,7 @@
 
 import Foundation
 
-struct EventDate: Decodable {
-    let start: Int
+struct EventDate: Codable {
+    let start: Int?
     let end: Int?
-    
-    var startDate: Date {
-        Date(timeIntervalSince1970: TimeInterval(start))
-    }
-    
-    var endDate: Date? {
-        guard let end = end else { return nil }
-        return Date(timeIntervalSince1970: TimeInterval(end))
-    }
-    
-    var dayOfWeek: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE"
-        return formatter.string(from: startDate)
-    }
 }

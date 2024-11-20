@@ -36,6 +36,12 @@
 		A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */; };
 		A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */; };
 		A7D5D25B2CEE0B5E009DAED6 /* AllEventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */; };
+		A7D5D25D2CEE13BC009DAED6 /* SearchEventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */; };
+		A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2622CEE1618009DAED6 /* UIImageView.swift */; };
+		A7D5D2672CEE2F40009DAED6 /* DateFormatter+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2662CEE2F40009DAED6 /* DateFormatter+Ext.swift */; };
+		A7D5D2692CEE33A8009DAED6 /* EventDetailRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2682CEE33A8009DAED6 /* EventDetailRequest.swift */; };
+		A7D5D26B2CEE3E7E009DAED6 /* HTMLToString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */; };
+		A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
 		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
@@ -75,6 +81,12 @@
 		A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNext7DaysRequest.swift; sourceTree = "<group>"; };
 		A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLast7DaysRequest.swift; sourceTree = "<group>"; };
 		A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsRequest.swift; sourceTree = "<group>"; };
+		A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEventsRequest.swift; sourceTree = "<group>"; };
+		A7D5D2622CEE1618009DAED6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		A7D5D2662CEE2F40009DAED6 /* DateFormatter+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Ext.swift"; sourceTree = "<group>"; };
+		A7D5D2682CEE33A8009DAED6 /* EventDetailRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailRequest.swift; sourceTree = "<group>"; };
+		A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLToString+Ext.swift"; sourceTree = "<group>"; };
+		A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsRequest.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -165,6 +177,8 @@
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
 				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
+				A7D5D2662CEE2F40009DAED6 /* DateFormatter+Ext.swift */,
+				A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -198,6 +212,7 @@
 				A7D5D24D2CEDEBE1009DAED6 /* DataRequest.swift */,
 				A7D5D24F2CEDEE06009DAED6 /* HTTPMethod.swift */,
 				A7CAF9932CEA0CEE00719F7D /* NetworkError.swift */,
+				A7D5D2622CEE1618009DAED6 /* UIImageView.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -266,6 +281,9 @@
 				A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */,
 				A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */,
 				A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */,
+				A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */,
+				A7D5D2682CEE33A8009DAED6 /* EventDetailRequest.swift */,
+				A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -361,6 +379,7 @@
 				A7D5D2442CEDE297009DAED6 /* City.swift in Sources */,
 				A7D5D24C2CEDEB83009DAED6 /* NetworkService.swift in Sources */,
 				A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */,
+				A7D5D26B2CEE3E7E009DAED6 /* HTMLToString+Ext.swift in Sources */,
 				A7CAF9A22CEA0E4400719F7D /* EventsViewController.swift in Sources */,
 				A7CAF99E2CEA0E2A00719F7D /* EventsDetailViewController.swift in Sources */,
 				A7CAF99A2CEA0D9A00719F7D /* LoginViewController.swift in Sources */,
@@ -371,7 +390,10 @@
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7D5D2522CEDEE40009DAED6 /* EventsByCityRequest.swift in Sources */,
 				A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */,
+				A7D5D2692CEE33A8009DAED6 /* EventDetailRequest.swift in Sources */,
+				A7D5D2672CEE2F40009DAED6 /* DateFormatter+Ext.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* NetworkError.swift in Sources */,
+				A7D5D25D2CEE13BC009DAED6 /* SearchEventsRequest.swift in Sources */,
 				A7D5D2482CEDE753009DAED6 /* Place.swift in Sources */,
 				A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */,
 				A7D5D24E2CEDEBE2009DAED6 /* DataRequest.swift in Sources */,
@@ -381,11 +403,13 @@
 				A7CAF9922CEA0CC100719F7D /* Event.swift in Sources */,
 				A7D5D25B2CEE0B5E009DAED6 /* AllEventsRequest.swift in Sources */,
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
+				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
 				A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
 				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
+				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
