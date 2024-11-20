@@ -11,7 +11,7 @@ extension UILabel {
     
     static func makeCustomLabel(
         text: String,
-        fontSize: CGFloat,
+        font: UIFont,
         textColor: UIColor,
         numberOfLines: Int?,
         textAligment: NSTextAlignment?,
@@ -19,9 +19,9 @@ extension UILabel {
     {
         let label = UILabel()
         label.text = text
-        label.font = .systemFont(ofSize: fontSize)
-        label.numberOfLines = numberOfLines ?? 0
+        label.font = font
         label.textColor = textColor
+        label.numberOfLines = numberOfLines ?? 0
         label.textAlignment = textAligment ?? .left
         label.adjustsFontSizeToFitWidth = false
         label.minimumScaleFactor = 0.8
