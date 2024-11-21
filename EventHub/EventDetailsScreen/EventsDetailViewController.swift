@@ -55,7 +55,7 @@ class EventsDetailViewController: UIViewController {
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 35)
         label.text = "International Band Music Concert"
         label.numberOfLines = 0
         label.textAlignment = .left
@@ -86,7 +86,7 @@ class EventsDetailViewController: UIViewController {
     }()
     var timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "Tuesday, 4:00PM - 9:00PM"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -117,7 +117,7 @@ class EventsDetailViewController: UIViewController {
     }()
     var adressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "36 Guild Street London, UK"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -135,14 +135,14 @@ class EventsDetailViewController: UIViewController {
     
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 15)
         label.text = "Ashfak Sayem"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     var organizerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "Organizer"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -167,7 +167,7 @@ class EventsDetailViewController: UIViewController {
     
     var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
