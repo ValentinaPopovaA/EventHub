@@ -111,10 +111,10 @@ class ShareView: UIView {
                             
     let cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Cancel", for: .normal)
+        button.setTitle("CANCEL", for: .normal)
         button.setTitleColor(.darkGray, for: .normal)
-        button.backgroundColor = .grayForDetail
-        button.layer.cornerRadius = 10
+        button.backgroundColor = .greyLight
+        button.layer.cornerRadius = 12
         button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -139,15 +139,16 @@ class ShareView: UIView {
            addSubview(title)
            addSubview(buttonsStack)
            buttonsStack.addArrangedSubview(linkButton)
+           buttonsStack.addArrangedSubview(wtsAppButton)
            buttonsStack.addArrangedSubview(facebookButton)
-           buttonsStack.addArrangedSubview(instaButton)
-           buttonsStack.addArrangedSubview(messageButton)
+           buttonsStack.addArrangedSubview(messengerButton)
            addSubview(buttonsStackView)
           
-           buttonsStackView.addArrangedSubview(messengerButton)
-           buttonsStackView.addArrangedSubview(skypeButton)
            buttonsStackView.addArrangedSubview(twitterButton)
-           buttonsStackView.addArrangedSubview(wtsAppButton)
+           buttonsStackView.addArrangedSubview(instaButton)
+           buttonsStackView.addArrangedSubview(skypeButton)
+           buttonsStackView.addArrangedSubview(messageButton)
+           
            addSubview(cancelButton)
            
            NSLayoutConstraint.activate([
@@ -155,6 +156,7 @@ class ShareView: UIView {
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
 
+        
             buttonsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             buttonsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             buttonsStack.heightAnchor.constraint(equalToConstant: 100),
@@ -162,13 +164,13 @@ class ShareView: UIView {
             
             buttonsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             buttonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            buttonsStackView.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: 20),
+            buttonsStackView.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -15),
             buttonsStackView.heightAnchor.constraint(equalToConstant: 100),
             
             cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
             cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
             cancelButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
-            cancelButton.heightAnchor.constraint(equalToConstant: 60)
+            cancelButton.heightAnchor.constraint(equalToConstant: 58)
            ])
        }
     
