@@ -29,7 +29,6 @@ class EventsDetailViewController: UIViewController {
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
-
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -170,6 +169,7 @@ class EventsDetailViewController: UIViewController {
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
         label.numberOfLines = 0
+        label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -179,12 +179,19 @@ class EventsDetailViewController: UIViewController {
         super.viewDidLoad()
        setupUI()
        makeConstraits()
-       
+       makeAttributedText()
        shareView.isHidden = true
     }
     
-    @objc private func saveToFavorites() {
-        
+    private func makeAttributedText() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        let attributedString = NSMutableAttributedString(string: descriptionLabel.text ?? "")
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+        descriptionLabel.attributedText = attributedString
+    }
+    @objc private func saveToFavorites(_ sender: UIButton) {
+        saveButton.setImage(UIImage(named: "Bookmark_red"), for: .normal)
     }
     
     @objc private func sharePressedButton(_ sender: UIButton) {
@@ -246,7 +253,7 @@ class EventsDetailViewController: UIViewController {
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            eventLabel.topAnchor.constraint(equalTo: scrollContentGuide.topAnchor, constant: 50),
+            eventLabel.topAnchor.constraint(equalTo: scrollContentGuide.topAnchor, constant: 15),
             eventLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
             eventLabel.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
             
