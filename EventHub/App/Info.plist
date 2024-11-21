@@ -5,7 +5,11 @@
 	<key>AirbnbCerealWBd.otf</key>
 	<string></string>
 	<key>UIAppFonts</key>
-	<array/>
+	<array>
+		<string>AirbnbCerealWBdbold.otf</string>
+		<string>Airbnbcerealappmedium.ttf</string>
+		<string>Airbnbcerealappbook.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

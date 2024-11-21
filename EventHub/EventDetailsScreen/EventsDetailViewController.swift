@@ -8,6 +8,14 @@
 import UIKit
 
 class EventsDetailViewController: UIViewController {
+
+    private let shareView: ShareView = {
+        let view = ShareView()
+        view.contentMode = .bottom
+        view.isUserInteractionEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let imageView: UIImageView = {
         let image = UIImageView()
@@ -165,25 +173,29 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+   
     
    override func viewDidLoad() {
         super.viewDidLoad()
        setupUI()
        makeConstraits()
+       
+       shareView.isHidden = true
     }
     
     @objc private func saveToFavorites() {
         
     }
     
-    @objc private func sharePressedButton() {
-        
+    @objc private func sharePressedButton(_ sender: UIButton) {
+        view.backgroundColor = .darkGray.withAlphaComponent(0.5)
+        shareView.isHidden.toggle()
     }
+       
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
-       
         imageView.addSubview(saveButton)
         imageView.addSubview(shareButton)
         view.addSubview(scrollView)
@@ -205,6 +217,7 @@ class EventsDetailViewController: UIViewController {
         scrollView.addSubview(descriptionStackView)
         descriptionStackView.addArrangedSubview(aboutEventsLabel)
         descriptionStackView.addArrangedSubview(descriptionLabel)
+        view.addSubview(shareView)
         
     }
     
@@ -286,6 +299,11 @@ class EventsDetailViewController: UIViewController {
             descriptionStackView.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
             descriptionStackView.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
             descriptionStackView.bottomAnchor.constraint(equalTo: scrollContentGuide.bottomAnchor),
+            
+            shareView.bottomAnchor.constraint(equalTo:view.bottomAnchor),
+            shareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            shareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            shareView.heightAnchor.constraint(equalToConstant: 359)
         ])
     }
 }
