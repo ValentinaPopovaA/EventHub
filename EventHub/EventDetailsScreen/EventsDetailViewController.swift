@@ -20,6 +20,7 @@ class EventsDetailViewController: UIViewController {
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eventsDetail")
+        image.isUserInteractionEnabled = true
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -27,8 +28,8 @@ class EventsDetailViewController: UIViewController {
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-        button.tintColor = .white
+        button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
+
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -71,7 +72,7 @@ class EventsDetailViewController: UIViewController {
     }()
     var dateIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Calendar")
+        image.image = UIImage(named: "Calendar_blue")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -230,7 +231,7 @@ class EventsDetailViewController: UIViewController {
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 244),
         
-            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -25),
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -10),
             saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 36),
             saveButton.widthAnchor.constraint(equalToConstant: 36),
