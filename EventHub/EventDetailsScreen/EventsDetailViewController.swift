@@ -169,7 +169,7 @@ class EventsDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         makeConstraits()
-        loadEventDetails(eventID: 60844)
+        loadEventDetails(eventID: 125725)
     }
     
     func configure(with event: Event) {
@@ -214,6 +214,13 @@ class EventsDetailViewController: UIViewController {
         } else {
             imageView.image = UIImage(named: "placeholder")
         }
+        
+        // Организатор
+        if let participant = event.participants?.first?.agent.title {
+            nameLabel.text = participant
+        } else {
+            nameLabel.text = "Unknown"
+        }
     }
     
     private func loadEventDetails(eventID: Int) {
@@ -251,8 +258,7 @@ class EventsDetailViewController: UIViewController {
     
     private func configurePlaceUI(with place: Place) {
         locationLabel.text = place.title ?? "Unknown location"
-
-        adressLabel.text = place.address ?? "Address not available"
+        adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))" 
     }
     
     private func debugResponse<Request: DataRequest>(for request: Request) {

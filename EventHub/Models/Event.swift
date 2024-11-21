@@ -17,26 +17,23 @@ struct Event: Codable {
     let title: String                // Название события
     let slug: String                 // Уникальный идентификатор события
     let place: Place?                // Место проведения
+    let categories: [String]
     let description: String?         // Краткое описание (в формате HTML)
     let bodyText: String?            // Полный текст (в формате HTML)
+    let tags: [String]?
     let images: [EventImage]?        // Изображения события
     let siteURL: String?             // Ссылка на страницу события
     let commentsCount: Int?          // Количество комментариев
     let dates: [EventDate]?
+    let participants: [Participant]?
 }
 
-//struct EventResponse: Decodable {
-//    let results: [Event]
-//}
-//
-//struct Event: Codable, Equatable {
-//    let id: Int
-//    let title: String
-//    let description: String?
-//    let place: Place?
-//    let categories: [String]
-//    let dates: [EventDate]
-//    let organizer: String?
-//    let tags: [String]?
-//    let images: [EventImage]
-//}
+struct Participant: Codable {
+    let agent: Agent
+}
+
+struct Agent: Codable {
+    let id: Int
+    let title: String
+    let slug: String
+}

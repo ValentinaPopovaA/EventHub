@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 struct EventDetailsRequest: DataRequest {
     typealias Response = Event
 

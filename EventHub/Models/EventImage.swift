@@ -13,7 +13,7 @@ struct EventImage: Codable {
 }
 
 struct ImageSource: Codable {
-    let name: String                 // Название источника
-    let link: String?                // Ссылка на источник
+    let link: String?  
+    let name: String
 }
 
