@@ -11,6 +11,7 @@
 		46EE7E8A2CEF652E00473F9B /* AirbnbCereal_W_Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */; };
 		46EE7E8C2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */; };
 		46EE7E8E2CEF668E00473F9B /* AirbnbCereal_W_Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */; };
+		A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA28052CF0F6600027ACDF /* SearchBar.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
 		A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04982CE888D0009A9EF3 /* OnboardingViewController.swift */; };
@@ -59,6 +60,7 @@
 		46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bd.otf; sourceTree = "<group>"; };
 		46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bk.otf; sourceTree = "<group>"; };
 		46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Md.otf; sourceTree = "<group>"; };
+		A7AA28052CF0F6600027ACDF /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 		A7CAF98A2CEA0C0600719F7D /* ExploreScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A7AA28052CF0F6600027ACDF /* SearchBar.swift */,
 				A7CAF99B2CEA0E0D00719F7D /* ExploreViewController.swift */,
 			);
 			path = ExploreScreen;
@@ -437,6 +440,7 @@
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
 				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
+				A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 			);
