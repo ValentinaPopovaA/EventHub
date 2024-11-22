@@ -7,8 +7,7 @@
 
 import UIKit
 
-final class ExploreViewController: UIViewController {
-    
+final class ExploreViewController: UIViewController, SearchBarDelegate {
     private let blueBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .blueBackground
@@ -40,6 +39,13 @@ final class ExploreViewController: UIViewController {
         button.layer.masksToBounds = true
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+    
+    private lazy var searchBar: SearchBarView = {
+        let searchBar = SearchBarView()
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
     }()
     
     private let filtersButton: UIButton = {
@@ -77,6 +83,7 @@ final class ExploreViewController: UIViewController {
         view.addSubview(currentLocationButton)
         view.addSubview(cityLabel)
         view.addSubview(notificationButton)
+        view.addSubview(searchBar)
         view.addSubview(filtersButton)
     }
     
@@ -98,10 +105,23 @@ final class ExploreViewController: UIViewController {
             notificationButton.heightAnchor.constraint(equalToConstant: 36),
             notificationButton.widthAnchor.constraint(equalToConstant: 36),
             
+            searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 22),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 50),
+            
             filtersButton.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 20),
             filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             filtersButton.heightAnchor.constraint(equalToConstant: 32),
             filtersButton.widthAnchor.constraint(equalToConstant: 80)
         ])
+    }
+    
+    func searchBarTextDidChange(_ searchText: String) {
+        print("Search text changed: \(searchText)")
+    }
+    
+    func searchBarDidCancel() {
+        print("Search cancelled")
     }
 }
