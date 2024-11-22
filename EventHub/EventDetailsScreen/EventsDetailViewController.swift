@@ -11,10 +11,19 @@ class EventsDetailViewController: UIViewController {
     
     private let eventService = EventService()
     private let eventID: Int = 125725
+
+    private let shareView: ShareView = {
+        let view = ShareView()
+        view.contentMode = .bottom
+        view.isUserInteractionEnabled = true
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eventsDetail")
+        image.isUserInteractionEnabled = true
         image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -22,8 +31,7 @@ class EventsDetailViewController: UIViewController {
     
     private let saveButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
-        button.tintColor = .white
+        button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -49,7 +57,7 @@ class EventsDetailViewController: UIViewController {
     
     var eventLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 35)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 35)
         label.text = "International Band Music Concert"
         label.numberOfLines = 0
         label.textAlignment = .left
@@ -64,9 +72,10 @@ class EventsDetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     var dateIcon: UIImageView = {
         let image = UIImageView()
-        image.image = UIImage(named: "Calendar")
+        image.image = UIImage(named: "Calendar_blue")
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -78,9 +87,10 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     var timeLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "Tuesday, 4:00PM - 9:00PM"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -111,7 +121,7 @@ class EventsDetailViewController: UIViewController {
     }()
     var adressLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "36 Guild Street London, UK"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -129,14 +139,15 @@ class EventsDetailViewController: UIViewController {
     
     var nameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 15)
         label.text = "Ashfak Sayem"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     var organizerLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
         label.text = "Organizer"
         label.textColor = .subColor
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -161,24 +172,27 @@ class EventsDetailViewController: UIViewController {
     
     var descriptionLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
-        label.textAlignment = .justified
         label.numberOfLines = 0
+        label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         makeConstraits()
+        makeAttributedText()
+        shareView.isHidden = true
         loadEventDetails(eventID: eventID)
     }
     
     func configure(with event: Event) {
         // Название события
-        eventLabel.text = event.title
+        eventLabel.text = event.title.capitalized
         
         // Краткое описание
         descriptionLabel.text = event.bodyText?.htmlToString() ?? "Description not available"
@@ -258,13 +272,22 @@ class EventsDetailViewController: UIViewController {
         }
     }
     
-    @objc private func saveToFavorites() {
-        
+    private func makeAttributedText() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 8
+        let attributedString = NSMutableAttributedString(string: descriptionLabel.text ?? "")
+        attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
+        descriptionLabel.attributedText = attributedString
+    }
+    @objc private func saveToFavorites(_ sender: UIButton) {
+        saveButton.setImage(UIImage(named: "Bookmark_red"), for: .normal)
     }
     
-    @objc private func sharePressedButton() {
-        
+    @objc private func sharePressedButton(_ sender: UIButton) {
+        view.backgroundColor = .darkGray.withAlphaComponent(0.5)
+        shareView.isHidden.toggle()
     }
+       
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
@@ -291,6 +314,7 @@ class EventsDetailViewController: UIViewController {
         scrollView.addSubview(descriptionStackView)
         descriptionStackView.addArrangedSubview(aboutEventsLabel)
         descriptionStackView.addArrangedSubview(descriptionLabel)
+        view.addSubview(shareView)
         
     }
     
@@ -304,7 +328,7 @@ class EventsDetailViewController: UIViewController {
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 244),
             
-            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -25),
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -10),
             saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 36),
             saveButton.widthAnchor.constraint(equalToConstant: 36),
@@ -319,7 +343,7 @@ class EventsDetailViewController: UIViewController {
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            eventLabel.topAnchor.constraint(equalTo: scrollContentGuide.topAnchor, constant: 50),
+            eventLabel.topAnchor.constraint(equalTo: scrollContentGuide.topAnchor, constant: 15),
             eventLabel.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
             eventLabel.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
             
@@ -372,6 +396,11 @@ class EventsDetailViewController: UIViewController {
             descriptionStackView.leadingAnchor.constraint(equalTo: scrollFrameGuide.leadingAnchor, constant: 20),
             descriptionStackView.trailingAnchor.constraint(equalTo: scrollFrameGuide.trailingAnchor, constant: -20),
             descriptionStackView.bottomAnchor.constraint(equalTo: scrollContentGuide.bottomAnchor),
+            
+            shareView.bottomAnchor.constraint(equalTo:view.bottomAnchor),
+            shareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            shareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            shareView.heightAnchor.constraint(equalToConstant: 359)
         ])
     }
 }

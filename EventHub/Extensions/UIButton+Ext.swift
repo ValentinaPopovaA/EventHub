@@ -53,4 +53,20 @@ extension UIButton {
             }
         }
     }
+    
+    static func makeCustomButtonForShareScreen(image:String, subtitle: String, action: Selector, top: CGFloat = 5) -> UIButton {
+        let button = UIButton()
+        button.contentVerticalAlignment = .fill
+        button.contentHorizontalAlignment = .fill
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(named: image)
+        configuration.imagePlacement = .top
+        configuration.subtitle = subtitle
+        configuration.baseForegroundColor = .titleColor
+        configuration.contentInsets = .init(top: top, leading: 0, bottom: 0, trailing: 0)
+        button.configuration = configuration
+        button.addTarget(nil, action: action, for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
 }
