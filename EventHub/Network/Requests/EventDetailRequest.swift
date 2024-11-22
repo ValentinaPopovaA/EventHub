@@ -33,5 +33,4 @@ struct EventDetailsRequest: DataRequest {
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try decoder.decode(Event.self, from: data)
     }
-
 }

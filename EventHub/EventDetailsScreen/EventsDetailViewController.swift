@@ -9,6 +9,9 @@ import UIKit
 
 class EventsDetailViewController: UIViewController {
     
+    private let eventService = EventService()
+    private let eventID: Int = 125725
+    
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eventsDetail")
@@ -160,6 +163,7 @@ class EventsDetailViewController: UIViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
+        label.textAlignment = .justified
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -169,7 +173,7 @@ class EventsDetailViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         makeConstraits()
-        loadEventDetails(eventID: 125725)
+        loadEventDetails(eventID: eventID)
     }
     
     func configure(with event: Event) {
@@ -223,28 +227,26 @@ class EventsDetailViewController: UIViewController {
         }
     }
     
+    private func configurePlaceUI(with place: Place) {
+        locationLabel.text = place.title ?? "Unknown location"
+        adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))"
+    }
+    
     private func loadEventDetails(eventID: Int) {
-        let request = EventDetailsRequest(eventID: eventID)
-        
-        let networkService = NetworkService()
-        networkService.request(request) { [weak self] result in
+        eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let news):
-                    self?.configure(with: news)
+                case .success(let event):
+                    self?.configure(with: event)
                 case .failure(let error):
-                    print("Error loading news details: \(error.localizedDescription)")
-                    self?.debugResponse(for: request)
+                    print("Error loading event details: \(error.localizedDescription)")
                 }
             }
         }
     }
-    
+
     private func loadPlaceDetails(placeID: Int) {
-        let request = PlaceDetailsRequest(placeID: placeID)
-        let networkService = NetworkService()
-        
-        networkService.request(request) { [weak self] result in
+        eventService.fetchPlaceDetails(placeID: placeID) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let place):
@@ -254,39 +256,6 @@ class EventsDetailViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    private func configurePlaceUI(with place: Place) {
-        locationLabel.text = place.title ?? "Unknown location"
-        adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))" 
-    }
-    
-    private func debugResponse<Request: DataRequest>(for request: Request) {
-        var urlComponents = URLComponents(string: request.url)
-        urlComponents?.queryItems = request.queryItems.map { URLQueryItem(name: $0.key, value: $0.value) }
-        
-        guard let url = urlComponents?.url else {
-            print("Invalid URL: \(request.url)")
-            return
-        }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = request.method.rawValue
-        urlRequest.allHTTPHeaderFields = request.headers
-        
-        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                print("Network error: \(error.localizedDescription)")
-                return
-            }
-            guard let data = data else {
-                print("No data received")
-                return
-            }
-            
-            print("Raw JSON response:")
-            print(String(data: data, encoding: .utf8) ?? "Unreadable JSON")
-        }.resume()
     }
     
     @objc private func saveToFavorites() {

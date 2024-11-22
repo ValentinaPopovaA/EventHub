@@ -36,4 +36,5 @@ struct Agent: Codable {
     let id: Int
     let title: String
     let slug: String
+    let images: [String]
 }
