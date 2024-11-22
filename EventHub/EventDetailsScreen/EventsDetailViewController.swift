@@ -8,7 +8,10 @@
 import UIKit
 
 class EventsDetailViewController: UIViewController {
-
+    
+    private let eventService = EventService()
+    private let eventID: Int = 125725
+    
     private let shareView: ShareView = {
         let view = ShareView()
         view.contentMode = .bottom
@@ -45,7 +48,7 @@ class EventsDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-
+    
     private(set) lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = false
@@ -70,6 +73,7 @@ class EventsDetailViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
     var dateIcon: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "Calendar_blue")
@@ -84,6 +88,7 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     var timeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
@@ -92,7 +97,7 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-        
+    
     let locationView: UIView = {
         let view = UIView()
         view.backgroundColor = .grayForDetail
@@ -140,6 +145,7 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     var organizerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
@@ -170,18 +176,99 @@ class EventsDetailViewController: UIViewController {
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
         label.numberOfLines = 0
-        label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-   
     
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
-       setupUI()
-       makeConstraits()
-       makeAttributedText()
-       shareView.isHidden = true
+        setupUI()
+        makeConstraits()
+        makeAttributedText()
+        shareView.isHidden = true
+        loadEventDetails(eventID: eventID)
+    }
+    
+    func configure(with event: Event) {
+        // Название события
+        eventLabel.text = event.title.capitalized
+        
+        // Краткое описание
+        descriptionLabel.text = event.bodyText?.htmlToString() ?? "Description not available"
+        
+        // Загрузка информации о месте
+        if let placeID = event.place?.id {
+            loadPlaceDetails(placeID: placeID)
+        } else {
+            locationLabel.text = "Location not available"
+            adressLabel.text = "Address not available"
+        }
+        
+        // Даты и время проведения
+        if let firstDate = event.dates?.first {
+            // Отображение даты
+            dateLabel.text = firstDate.start?.formattedDate() ?? "Date not available"
+            
+            // Форматирование времени
+            let startTimeWithWeekday = firstDate.start?.formattedTimeWithWeekday() ?? "Start time not available"
+            let startTime = firstDate.start?.formattedTime() ?? "Start time not available"
+            let endTime = firstDate.end?.formattedTime() ?? "End time not available"
+            
+            // Если время начала и окончания одинаковое
+            if startTime == endTime {
+                timeLabel.text = startTimeWithWeekday
+            } else {
+                timeLabel.text = "\(startTimeWithWeekday) - \(endTime)"
+            }
+        } else {
+            dateLabel.text = "Date not available"
+            timeLabel.text = ""
+        }
+        
+        // Картинка события
+        if let imageUrl = event.images?.first?.image {
+            imageView.loadImage(from: imageUrl)
+        } else {
+            imageView.image = UIImage(named: "placeholder")
+        }
+        
+        // Организатор
+        if let participant = event.participants?.first?.agent.title {
+            nameLabel.text = participant
+        } else {
+            nameLabel.text = "Unknown"
+        }
+    }
+    
+    private func configurePlaceUI(with place: Place) {
+        locationLabel.text = place.title ?? "Unknown location"
+        adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))"
+    }
+    
+    private func loadEventDetails(eventID: Int) {
+        eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let event):
+                    self?.configure(with: event)
+                case .failure(let error):
+                    print("Error loading event details: \(error.localizedDescription)")
+                }
+            }
+        }
+    }
+    
+    private func loadPlaceDetails(placeID: Int) {
+        eventService.fetchPlaceDetails(placeID: placeID) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let place):
+                    self?.configurePlaceUI(with: place)
+                case .failure(let error):
+                    print("Error loading place details: \(error.localizedDescription)")
+                }
+            }
+        }
     }
     
     private func makeAttributedText() {
@@ -190,7 +277,9 @@ class EventsDetailViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: descriptionLabel.text ?? "")
         attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
         descriptionLabel.attributedText = attributedString
+        descriptionLabel.textAlignment = .justified
     }
+    
     @objc private func saveToFavorites(_ sender: UIButton) {
         sender.isSelected.toggle()
     }
@@ -200,11 +289,11 @@ class EventsDetailViewController: UIViewController {
         shareButton.isHidden.toggle()
         shareView.isHidden.toggle()
     }
-       
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
+        
         imageView.addSubview(saveButton)
         imageView.addSubview(shareButton)
         view.addSubview(scrollView)
@@ -239,7 +328,7 @@ class EventsDetailViewController: UIViewController {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 244),
-        
+            
             saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -10),
             saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 36),
@@ -249,7 +338,7 @@ class EventsDetailViewController: UIViewController {
             shareButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
             shareButton.heightAnchor.constraint(equalToConstant: 36),
             shareButton.widthAnchor.constraint(equalToConstant: 36),
-                       
+            
             scrollView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20),
             scrollView.bottomAnchor.constraint(equalTo:view.safeAreaLayoutGuide.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
