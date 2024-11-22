@@ -175,7 +175,6 @@ class EventsDetailViewController: UIViewController {
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 16)
         label.text = "Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More...Enjoy your favorite dishe and a lovely your friends and family and have a great time. Food from local food trucks will be available for purchase. Read More..."
         label.numberOfLines = 0
-        label.textAlignment = .justified
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -277,6 +276,7 @@ class EventsDetailViewController: UIViewController {
         let attributedString = NSMutableAttributedString(string: descriptionLabel.text ?? "")
         attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
         descriptionLabel.attributedText = attributedString
+        descriptionLabel.textAlignment = .justified
     }
     
     @objc private func saveToFavorites(_ sender: UIButton) {
