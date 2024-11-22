@@ -11,6 +11,12 @@
 		46EE7E8A2CEF652E00473F9B /* AirbnbCereal_W_Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */; };
 		46EE7E8C2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */; };
 		46EE7E8E2CEF668E00473F9B /* AirbnbCereal_W_Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */; };
+		793FEC792CEFC01A002B5F05 /* TextFieldExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FEC782CEFC01A002B5F05 /* TextFieldExtension.swift */; };
+		793FEC7B2CEFC094002B5F05 /* SingInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FEC7A2CEFC094002B5F05 /* SingInViewController.swift */; };
+		793FEC7D2CEFC5AD002B5F05 /* ShadowExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FEC7C2CEFC5AD002B5F05 /* ShadowExtension.swift */; };
+		7944DAC62CF105BC00345908 /* RessetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC52CF105BC00345908 /* RessetViewController.swift */; };
+		7944DAC82CF105F700345908 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC72CF105F700345908 /* HomeViewController.swift */; };
+		7944DACA2CF107F900345908 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC92CF107F900345908 /* AuthHeaderView.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
 		A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04982CE888D0009A9EF3 /* OnboardingViewController.swift */; };
@@ -39,6 +45,12 @@
 		46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bd.otf; sourceTree = "<group>"; };
 		46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bk.otf; sourceTree = "<group>"; };
 		46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Md.otf; sourceTree = "<group>"; };
+		793FEC782CEFC01A002B5F05 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
+		793FEC7A2CEFC094002B5F05 /* SingInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingInViewController.swift; sourceTree = "<group>"; };
+		793FEC7C2CEFC5AD002B5F05 /* ShadowExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowExtension.swift; sourceTree = "<group>"; };
+		7944DAC52CF105BC00345908 /* RessetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RessetViewController.swift; sourceTree = "<group>"; };
+		7944DAC72CF105F700345908 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		7944DAC92CF107F900345908 /* AuthHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHeaderView.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +149,11 @@
 		A7CAF9852CEA06F300719F7D /* AuthorizationScreens */ = {
 			isa = PBXGroup;
 			children = (
+				7944DAC72CF105F700345908 /* HomeViewController.swift */,
 				A7CAF9992CEA0D9A00719F7D /* LoginViewController.swift */,
+				793FEC7A2CEFC094002B5F05 /* SingInViewController.swift */,
+				7944DAC52CF105BC00345908 /* RessetViewController.swift */,
+				7944DAC92CF107F900345908 /* AuthHeaderView.swift */,
 			);
 			path = AuthorizationScreens;
 			sourceTree = "<group>";
@@ -149,6 +165,8 @@
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
 				A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */,
+				793FEC782CEFC01A002B5F05 /* TextFieldExtension.swift */,
+				793FEC7C2CEFC5AD002B5F05 /* ShadowExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -324,6 +342,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793FEC7B2CEFC094002B5F05 /* SingInViewController.swift in Sources */,
 				A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */,
 				A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */,
 				A7CAF9A22CEA0E4400719F7D /* EventsViewController.swift in Sources */,
@@ -333,16 +352,21 @@
 				A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */,
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */,
+				7944DAC62CF105BC00345908 /* RessetViewController.swift in Sources */,
+				7944DAC82CF105F700345908 /* HomeViewController.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* EventsError.swift in Sources */,
+				7944DACA2CF107F900345908 /* AuthHeaderView.swift in Sources */,
 				A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */,
 				A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */,
 				A7CAF99C2CEA0E0D00719F7D /* ExploreViewController.swift in Sources */,
+				793FEC792CEFC01A002B5F05 /* TextFieldExtension.swift in Sources */,
 				A7CAF9922CEA0CC100719F7D /* EventsModel.swift in Sources */,
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
+				793FEC7D2CEFC5AD002B5F05 /* ShadowExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,7 +434,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -464,7 +488,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -488,7 +512,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -519,7 +543,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

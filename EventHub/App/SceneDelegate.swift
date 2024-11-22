@@ -16,8 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
 
-        let rootViewController = TabBarController()
+//        let rootViewController = TabBarController()
+        let rootViewController = LoginViewController()
+        let nav = UINavigationController(rootViewController: rootViewController)
 
+        nav.modalPresentationStyle = .fullScreen
 
         window.rootViewController = rootViewController
         self.window = window
