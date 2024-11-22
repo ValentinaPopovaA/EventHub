@@ -18,103 +18,60 @@ class ShareView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-//    let images: [UIImage] = [
-//        UIImage(named: "Copy Link")!,
-//        UIImage(named: "Facebook")!,
-//        UIImage(named: "Instagram")!,
-//        UIImage(named: "Message")!,
-//        UIImage(named: "Messenger")!,
-//        UIImage(named: "Scype")!,
-//        UIImage(named: "Twitter")!,
-//        UIImage(named: "WhatsApp")!,
-//    ] {
-//        
-//    }()
     
     let buttonsStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
+        stack.spacing = 6
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
-    let buttonsStackView: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
+
+    let firstView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    let linkButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Copy_link"), for: .normal)
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    let linkButton = UIButton.makeCustomButtonForShareScreen(image: "Copy_link", subtitle: "Copy link", action: #selector(buttonsPressed))
+    let wtsAppButton = UIButton.makeCustomButtonForShareScreen(image: "WhatsApp", subtitle: "WhatsApp", action: #selector(buttonsPressed))
+    let secondView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-           
-    let facebookButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Facebook"), for: .normal)
-       
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    let facebookButton = UIButton.makeCustomButtonForShareScreen(image: "Facebook", subtitle: "Facebook", action: #selector(buttonsPressed))
+    let messengerButton = UIButton.makeCustomButtonForShareScreen(image: "Messenger", subtitle: "Messenger", action: #selector(buttonsPressed))
+    let thirdView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    let instaButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Instagram"), for: .normal)
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+    let twitterButton = UIButton.makeCustomButtonForShareScreen(image: "Twitter", subtitle: "Twitter", action: #selector(buttonsPressed))
+    let instaButton = UIButton.makeCustomButtonForShareScreen(image: "Instagram", subtitle: "Instagram", action: #selector(buttonsPressed))
+    
+    let fourthView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.spacing = 0
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
-    let messageButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Message"), for: .normal)
-      
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    let messengerButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Messenger"), for: .normal)
- 
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    let skypeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Skype"), for: .normal)
-       
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    let twitterButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "Twitter"), for: .normal)
-      
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    let wtsAppButton: UIButton = {
-        let button = UIButton()
-        button.setImage(UIImage(named: "WhatsApp"), for: .normal)
-       
-        button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-                            
+    
+    let skypeButton = UIButton.makeCustomButtonForShareScreen(image: "Skype", subtitle: "Skype", action: #selector(buttonsPressed))
+    let messageButton = UIButton.makeCustomButtonForShareScreen(image: "Message", subtitle: "Message", action: #selector(buttonsPressed))
+                             
     let cancelButton: UIButton = {
         let button = UIButton()
         button.setTitle("CANCEL", for: .normal)
-        button.setTitleColor(.darkGray, for: .normal)
+        button.setTitleColor(.darkText, for: .normal)
         button.backgroundColor = .greyLight
-        button.layer.cornerRadius = 12
+        button.layer.cornerRadius = 15
         button.addTarget(self, action: #selector(cancelButtonPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -131,6 +88,9 @@ class ShareView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    @objc func buttonsPressed(_ sender: UIButton) {
+       print(sender)
+    }
     @objc func cancelButtonPressed(_ sender: UIButton) {
         self.isHidden = true
     }
@@ -138,16 +98,24 @@ class ShareView: UIView {
        func configUI() {
            addSubview(title)
            addSubview(buttonsStack)
-           buttonsStack.addArrangedSubview(linkButton)
-           buttonsStack.addArrangedSubview(wtsAppButton)
-           buttonsStack.addArrangedSubview(facebookButton)
-           buttonsStack.addArrangedSubview(messengerButton)
-           addSubview(buttonsStackView)
-          
-           buttonsStackView.addArrangedSubview(twitterButton)
-           buttonsStackView.addArrangedSubview(instaButton)
-           buttonsStackView.addArrangedSubview(skypeButton)
-           buttonsStackView.addArrangedSubview(messageButton)
+           
+           buttonsStack.addArrangedSubview(firstView)
+           
+           firstView.addArrangedSubview(linkButton)
+           firstView.addArrangedSubview(twitterButton)
+           
+           buttonsStack.addArrangedSubview(secondView)
+           secondView.addArrangedSubview(wtsAppButton)
+           secondView.addArrangedSubview(instaButton)
+               
+           buttonsStack.addArrangedSubview(thirdView)
+           
+           thirdView.addArrangedSubview(facebookButton)
+           thirdView.addArrangedSubview(skypeButton)
+           
+           buttonsStack.addArrangedSubview(fourthView)
+           fourthView.addArrangedSubview(messengerButton)
+           fourthView.addArrangedSubview(messageButton)
            
            addSubview(cancelButton)
            
@@ -156,23 +124,15 @@ class ShareView: UIView {
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
 
-        
-            buttonsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            buttonsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            buttonsStack.heightAnchor.constraint(equalToConstant: 100),
-            buttonsStack.bottomAnchor.constraint(equalTo: buttonsStackView.topAnchor, constant: 2),
-            
-            buttonsStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            buttonsStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            buttonsStackView.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -15),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 100),
-            
-            cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 40),
-            cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40),
+            buttonsStack.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 18),
+            buttonsStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            buttonsStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            buttonsStack.bottomAnchor.constraint(equalTo: cancelButton.topAnchor, constant: -24),
+
+            cancelButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 50),
+            cancelButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -50),
             cancelButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -30),
             cancelButton.heightAnchor.constraint(equalToConstant: 58)
            ])
        }
-    
-    
 }
