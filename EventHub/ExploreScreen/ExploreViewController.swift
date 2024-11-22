@@ -42,6 +42,22 @@ final class ExploreViewController: UIViewController {
         return button
     }()
     
+    private let filtersButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Filters", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
+        button.setImage(UIImage(named: "Filter"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .blueForButtonExplore
+        button.layer.cornerRadius = 16
+        button.semanticContentAttribute = .forceLeftToRight
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
+        return button
+    }()
+    
     private let cityLabel = UILabel.makeCustomLabel(text: "New York, USA",
                                                     font: UIFont(name: "Arial", size: 15) ?? .systemFont(ofSize: 15),
                                                     textColor: .white,
@@ -61,6 +77,7 @@ final class ExploreViewController: UIViewController {
         view.addSubview(currentLocationButton)
         view.addSubview(cityLabel)
         view.addSubview(notificationButton)
+        view.addSubview(filtersButton)
     }
     
     private func layoutViews() {
@@ -79,7 +96,12 @@ final class ExploreViewController: UIViewController {
             notificationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             notificationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             notificationButton.heightAnchor.constraint(equalToConstant: 36),
-            notificationButton.widthAnchor.constraint(equalToConstant: 36)
+            notificationButton.widthAnchor.constraint(equalToConstant: 36),
+            
+            filtersButton.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 20),
+            filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            filtersButton.heightAnchor.constraint(equalToConstant: 32),
+            filtersButton.widthAnchor.constraint(equalToConstant: 80)
         ])
     }
 }
