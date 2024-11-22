@@ -11,7 +11,7 @@ class EventsDetailViewController: UIViewController {
     
     private let eventService = EventService()
     private let eventID: Int = 125725
-
+    
     private let shareView: ShareView = {
         let view = ShareView()
         view.contentMode = .bottom
@@ -179,7 +179,6 @@ class EventsDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -258,7 +257,7 @@ class EventsDetailViewController: UIViewController {
             }
         }
     }
-
+    
     private func loadPlaceDetails(placeID: Int) {
         eventService.fetchPlaceDetails(placeID: placeID) { [weak self] result in
             DispatchQueue.main.async {
@@ -279,6 +278,7 @@ class EventsDetailViewController: UIViewController {
         attributedString.addAttribute(.paragraphStyle, value: paragraphStyle, range: NSRange(location: 0, length: attributedString.length))
         descriptionLabel.attributedText = attributedString
     }
+    
     @objc private func saveToFavorites(_ sender: UIButton) {
         saveButton.setImage(UIImage(named: "Bookmark_red"), for: .normal)
     }
@@ -287,7 +287,6 @@ class EventsDetailViewController: UIViewController {
         view.backgroundColor = .darkGray.withAlphaComponent(0.5)
         shareView.isHidden.toggle()
     }
-       
     
     private func setupUI() {
         view.backgroundColor = .systemBackground
