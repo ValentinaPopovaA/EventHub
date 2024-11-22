@@ -29,6 +29,7 @@ class EventsDetailViewController: UIViewController {
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
+        button.setImage(UIImage(named: "Bookmark_red"), for: .selected)
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
@@ -191,11 +192,12 @@ class EventsDetailViewController: UIViewController {
         descriptionLabel.attributedText = attributedString
     }
     @objc private func saveToFavorites(_ sender: UIButton) {
-        saveButton.setImage(UIImage(named: "Bookmark_red"), for: .normal)
+        sender.isSelected.toggle()
     }
     
     @objc private func sharePressedButton(_ sender: UIButton) {
         view.backgroundColor = .darkGray.withAlphaComponent(0.5)
+        shareButton.isHidden.toggle()
         shareView.isHidden.toggle()
     }
        
