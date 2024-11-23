@@ -47,53 +47,56 @@ extension UIButton {
     
     
     static func makeWhiteButton(label: String,
-                                 target: Any?,
-                                 action: Selector) -> UIButton {
-       
+                                target: Any?,
+                                action: Selector) -> UIButton {
+        
         let button = UIButton()
-            button.backgroundColor = .white
-            button.layer.cornerRadius = 15
-            button.translatesAutoresizingMaskIntoConstraints = false
-
-            let containerStackView = UIStackView()
-            containerStackView.axis = .horizontal
-            containerStackView.alignment = .center
-            containerStackView.spacing = 10
-            containerStackView.translatesAutoresizingMaskIntoConstraints = false
-
-            let imageView = UIImageView(image: UIImage(named: "super_g"))
-            imageView.contentMode = .scaleAspectFit
-            imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-            imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
-
-            let titleLabel = UILabel()
-            titleLabel.text = label
-            titleLabel.font = UIFont.systemFont(ofSize: 16)
-            titleLabel.textColor = .black
-            titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
-            containerStackView.addArrangedSubview(imageView)
-            containerStackView.addArrangedSubview(titleLabel)
-
-            button.addSubview(containerStackView)
-
-            NSLayoutConstraint.activate([
-                containerStackView.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-                containerStackView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-
-                button.widthAnchor.constraint(equalToConstant: 273),
-                button.heightAnchor.constraint(equalToConstant: 56)
-            ])
-
-            button.addTarget(target, action: action, for: .touchUpInside)
-            button.addTarget(button, action: #selector(buttonTouchedDown), for: .touchDown)
-
-            button.dropShadow()
-
-            return button
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 15
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        let containerStackView = UIStackView()
+        containerStackView.axis = .horizontal
+        containerStackView.alignment = .center
+        containerStackView.spacing = 10
+        containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let imageView = UIImageView(image: UIImage(named: "super_g"))
+        imageView.contentMode = .scaleAspectFit
+        imageView.isUserInteractionEnabled = false
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+       
+        imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
+        let titleLabel = UILabel()
+        titleLabel.text = label
+        titleLabel.font = UIFont.systemFont(ofSize: 16)
+        titleLabel.textColor = .black
+        titleLabel.isUserInteractionEnabled = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        containerStackView.addArrangedSubview(imageView)
+        containerStackView.addArrangedSubview(titleLabel)
+        
+        button.addSubview(containerStackView)
+        
+        NSLayoutConstraint.activate([
+            containerStackView.centerXAnchor.constraint(equalTo: button.centerXAnchor),
+            containerStackView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
+            
+            button.widthAnchor.constraint(equalToConstant: 273),
+            button.heightAnchor.constraint(equalToConstant: 56)
+        ])
+        
+        button.addTarget(target, action: action, for: .touchUpInside)
+        button.addTarget(button, action: #selector(buttonTouchedDown), for: .touchDown)
+        
+        button.dropShadow()
+        
+        return button
     }
-
+    
     
     @objc private func buttonTouchedDown(_ sender: UIButton) {
         UIView.animate(withDuration: 0.1) {

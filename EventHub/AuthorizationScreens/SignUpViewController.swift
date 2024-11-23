@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SingInViewController: UIViewController {
+class SignUpViewController: UIViewController {
     
     let usernameField = UITextField()
     let emailField = UITextField()
@@ -28,8 +28,17 @@ class SingInViewController: UIViewController {
     
     private let loginGoogleButton = UIButton.makeWhiteButton(label: "Login with Google", target: self, action: #selector(googleButtonTapped))
     
-      
+    private let signInButton = CustomButton(title: "Sing in", isBlue: true, fontSize: .small)
     
+    
+    private let alreadyLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Already have an account?"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     
     
@@ -43,7 +52,7 @@ class SingInViewController: UIViewController {
         view.backgroundColor = .white
         
         setupUI()
-        
+        self.signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
         
         
     }
@@ -76,9 +85,10 @@ class SingInViewController: UIViewController {
         
 //MARK: - Buttons
         
-        let stackButton = UIStackView(arrangedSubviews: [signUpButton, loginGoogleButton])
+        let stackButton = UIStackView(arrangedSubviews: [signUpButton,orLabel,  loginGoogleButton])
         stackButton.axis = .vertical
-        stackButton.spacing = 100
+        stackButton.alignment = .center
+        stackButton.spacing = 50
         stackButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(stackButton)
@@ -86,9 +96,23 @@ class SingInViewController: UIViewController {
         NSLayoutConstraint.activate([
             stackButton.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 50),
             stackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-       
         ])
+
+        
+        let downStack = UIStackView(arrangedSubviews: [alreadyLabel, signInButton])
+        downStack.axis = .horizontal
+        downStack.alignment = .center
+        downStack.spacing = 7
+        downStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(downStack)
+        
+        NSLayoutConstraint.activate([
+            downStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            downStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+        ])
+        
+        
     }
     
     
@@ -97,6 +121,7 @@ class SingInViewController: UIViewController {
     
     @objc func signUpButtonTapped() {
         print("Sign Up button tapped!")
+        
     }
     
     
@@ -105,10 +130,20 @@ class SingInViewController: UIViewController {
         
     }
     
+    
+    @objc func signInButtonTapped() {
+        
+        print("Sign Up Button tapped!")
+        let vc = LoginViewController()
+        
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     // MARK: - UITextFieldDelegate
     
     
 }
 
 
-#Preview{SingInViewController()}
+#Preview{SignUpViewController()}
