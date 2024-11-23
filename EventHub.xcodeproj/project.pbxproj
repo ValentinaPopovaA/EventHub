@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18F334542CF1B72A0067A9BC /* EventTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334532CF1B70D0067A9BC /* EventTableView.swift */; };
+		18F334562CF1B74C0067A9BC /* AllEventsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334552CF1B74A0067A9BC /* AllEventsScreenViewController.swift */; };
+		18F3345A2CF1B7A60067A9BC /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334592CF1B7880067A9BC /* EventsTableViewCell.swift */; };
+		18F3345C2CF1B7DE0067A9BC /* NoUpcomingEventsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F3345B2CF1B7CC0067A9BC /* NoUpcomingEventsView.swift */; };
+		18F3345E2CF1B7FB0067A9BC /* SearchScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F3345D2CF1B7F70067A9BC /* SearchScreen.swift */; };
+		18F334602CF1B8600067A9BC /* UIStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F3345F2CF1B83A0067A9BC /* UIStackView.swift */; };
+		18F334622CF1B8A90067A9BC /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334612CF1B8A40067A9BC /* CustomSegmentedControl.swift */; };
 		46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 46C94BC22CEE575D000E5E4F /* ShareView.swift */; };
 		46EE7E8A2CEF652E00473F9B /* AirbnbCereal_W_Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */; };
 		46EE7E8C2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */; };
@@ -56,6 +63,13 @@
 
 /* Begin PBXFileReference section */
 		188F51452CEBD89500963E42 /* UIFont + Extencion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extencion.swift"; sourceTree = "<group>"; };
+		18F334532CF1B70D0067A9BC /* EventTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableView.swift; sourceTree = "<group>"; };
+		18F334552CF1B74A0067A9BC /* AllEventsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsScreenViewController.swift; sourceTree = "<group>"; };
+		18F334592CF1B7880067A9BC /* EventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
+		18F3345B2CF1B7CC0067A9BC /* NoUpcomingEventsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoUpcomingEventsView.swift; sourceTree = "<group>"; };
+		18F3345D2CF1B7F70067A9BC /* SearchScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreen.swift; sourceTree = "<group>"; };
+		18F3345F2CF1B83A0067A9BC /* UIStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIStackView.swift; sourceTree = "<group>"; };
+		18F334612CF1B8A40067A9BC /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		46C94BC22CEE575D000E5E4F /* ShareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareView.swift; sourceTree = "<group>"; };
 		46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bd.otf; sourceTree = "<group>"; };
 		46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bk.otf; sourceTree = "<group>"; };
@@ -188,6 +202,7 @@
 		A7CAF9862CEA088F00719F7D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				18F3345F2CF1B83A0067A9BC /* UIStackView.swift */,
 				188F51452CEBD89500963E42 /* UIFont + Extencion.swift */,
 				A7CAF9952CEA0D2A00719F7D /* UILabel+Ext.swift */,
 				A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */,
@@ -262,6 +277,12 @@
 		A7CAF98D2CEA0C4C00719F7D /* EventsScreen */ = {
 			isa = PBXGroup;
 			children = (
+				18F334612CF1B8A40067A9BC /* CustomSegmentedControl.swift */,
+				18F3345D2CF1B7F70067A9BC /* SearchScreen.swift */,
+				18F3345B2CF1B7CC0067A9BC /* NoUpcomingEventsView.swift */,
+				18F334592CF1B7880067A9BC /* EventsTableViewCell.swift */,
+				18F334552CF1B74A0067A9BC /* AllEventsScreenViewController.swift */,
+				18F334532CF1B70D0067A9BC /* EventTableView.swift */,
 				A7CAF9A12CEA0E4400719F7D /* EventsViewController.swift */,
 			);
 			path = EventsScreen;
@@ -404,6 +425,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */,
+				18F334562CF1B74C0067A9BC /* AllEventsScreenViewController.swift in Sources */,
 				A7D5D2442CEDE297009DAED6 /* City.swift in Sources */,
 				A7D5D24C2CEDEB83009DAED6 /* NetworkService.swift in Sources */,
 				A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */,
@@ -418,8 +440,10 @@
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7D5D2522CEDEE40009DAED6 /* EventsByCityRequest.swift in Sources */,
 				A7BA04992CE888D0009A9EF3 /* OnboardingViewController.swift in Sources */,
+				18F3345C2CF1B7DE0067A9BC /* NoUpcomingEventsView.swift in Sources */,
 				A7D5D2692CEE33A8009DAED6 /* EventDetailRequest.swift in Sources */,
 				A7D5D2672CEE2F40009DAED6 /* DateFormatter+Ext.swift in Sources */,
+				18F334602CF1B8600067A9BC /* UIStackView.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* NetworkError.swift in Sources */,
 				A7D5D25D2CEE13BC009DAED6 /* SearchEventsRequest.swift in Sources */,
 				A7D5D27B2CF08986009DAED6 /* ServicesController.swift in Sources */,
@@ -430,7 +454,9 @@
 				A7CAF99C2CEA0E0D00719F7D /* ExploreViewController.swift in Sources */,
 				A7D5D24A2CEDE75D009DAED6 /* EventDate.swift in Sources */,
 				A7CAF9922CEA0CC100719F7D /* Event.swift in Sources */,
+				18F334542CF1B72A0067A9BC /* EventTableView.swift in Sources */,
 				A7D5D25B2CEE0B5E009DAED6 /* AllEventsRequest.swift in Sources */,
+				18F334622CF1B8A90067A9BC /* CustomSegmentedControl.swift in Sources */,
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
 				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
@@ -441,8 +467,10 @@
 				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */,
+				18F3345E2CF1B7FB0067A9BC /* SearchScreen.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
+				18F3345A2CF1B7A60067A9BC /* EventsTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -579,9 +607,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7YHTMAQADT;
+				DEVELOPMENT_TEAM = 7J6C95TMNY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EventHub/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -596,6 +625,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.valentina-popova.EventHub";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -610,9 +640,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 7YHTMAQADT;
+				DEVELOPMENT_TEAM = 7J6C95TMNY;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = EventHub/App/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -627,6 +658,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "ru.valentina-popova.EventHub";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
