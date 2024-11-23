@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "More_vertical.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
