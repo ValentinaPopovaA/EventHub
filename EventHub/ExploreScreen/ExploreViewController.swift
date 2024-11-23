@@ -7,9 +7,121 @@
 
 import UIKit
 
-class ExploreViewController: UIViewController {
+final class ExploreViewController: UIViewController, SearchBarDelegate {
+    private let blueBackgroundView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .blueBackground
+        view.layer.cornerRadius = 33
+        view.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    private let currentLocationButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Current Location", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "Arial", size: 14)
+        button.alpha = 0.8
+        button.setImage(UIImage(named: "Down"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.semanticContentAttribute = .forceRightToLeft
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+        return button
+    }()
+    
+    private let notificationButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "Bell"), for: .normal)
+        button.backgroundColor = .blueForButtonExplore
+        button.layer.cornerRadius = 18
+        button.layer.masksToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var searchBar: SearchBarView = {
+        let searchBar = SearchBarView()
+        searchBar.delegate = self
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
+    private let filtersButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Filters", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.titleLabel?.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
+        button.setImage(UIImage(named: "Filter"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .blueForButtonExplore
+        button.layer.cornerRadius = 16
+        button.semanticContentAttribute = .forceLeftToRight
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
+        return button
+    }()
+    
+    private let cityLabel = UILabel.makeCustomLabel(text: "New York, USA",
+                                                    font: UIFont(name: "Arial", size: 15) ?? .systemFont(ofSize: 15),
+                                                    textColor: .white,
+                                                    numberOfLines: 1,
+                                                    textAligment: .center)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white    }
+        view.backgroundColor = .white
+        setViews()
+        layoutViews()
+    }
+    
+    // MARK: - Private Methods
+    private func setViews() {
+        view.addSubview(blueBackgroundView)
+        view.addSubview(currentLocationButton)
+        view.addSubview(cityLabel)
+        view.addSubview(notificationButton)
+        view.addSubview(searchBar)
+        view.addSubview(filtersButton)
+    }
+    
+    private func layoutViews() {
+        NSLayoutConstraint.activate([
+            blueBackgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            blueBackgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            blueBackgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            blueBackgroundView.heightAnchor.constraint(equalToConstant: 200),
+            
+            currentLocationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            currentLocationButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
+            
+            cityLabel.topAnchor.constraint(equalTo: currentLocationButton.bottomAnchor, constant: 6),
+            cityLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
+            
+            notificationButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            notificationButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            notificationButton.heightAnchor.constraint(equalToConstant: 36),
+            notificationButton.widthAnchor.constraint(equalToConstant: 36),
+            
+            searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 22),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 50),
+            
+            filtersButton.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 20),
+            filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
+            filtersButton.heightAnchor.constraint(equalToConstant: 32),
+            filtersButton.widthAnchor.constraint(equalToConstant: 80)
+        ])
+    }
+    
+    func searchBarTextDidChange(_ searchText: String) {
+        print("Search text changed: \(searchText)")
+    }
+    
+    func searchBarDidCancel() {
+        print("Search cancelled")
+    }
 }

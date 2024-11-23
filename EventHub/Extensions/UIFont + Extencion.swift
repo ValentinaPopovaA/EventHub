@@ -10,7 +10,7 @@ import UIKit
 extension UIFont {
     
     static func airbnbCerealWBd() -> UIFont? {
-        return UIFont.init(name: "AirbnbCerealWBd", size: 12)
+        return UIFont.init(name: "AirbnbCereal_W_Bd", size: 12)
     }
     
     static func airbnbCerealWBd14() -> UIFont? {
