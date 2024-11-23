@@ -9,6 +9,8 @@ import UIKit
 
 class AuthHeaderView: UIView {
     
+    let usernameField = UITextField()
+    let emailField = UITextField()
    
     
     // MARK: - UI Components
@@ -26,7 +28,7 @@ class AuthHeaderView: UIView {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 35, weight: .semibold)
+        label.font = .systemFont(ofSize: 35, weight: .medium)
         label.text = "Error"
         return label
     }()
@@ -35,10 +37,13 @@ class AuthHeaderView: UIView {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 24, weight: .bold)
+        label.font = .systemFont(ofSize: 24, weight: .medium)
         label.text = "Error"
         return label
     }()
+    
+    
+    
     
     
     // MARK: - LifeCycle
@@ -63,6 +68,9 @@ class AuthHeaderView: UIView {
         self.addSubview(titleLabel)
         self.addSubview(subTitleLabel)
 
+        usernameField.configureTextField(placeholder: "Full name", icon: UIImage(named:"Profile"))
+        emailField.configureTextField(placeholder: "abc@email.com", icon: UIImage(named: "Mail"))
+        
 
         self.logoImageView.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -84,9 +92,10 @@ class AuthHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             self.subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
-            self.subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+            self.subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30)
         ])
         
     }
 }
+
 
