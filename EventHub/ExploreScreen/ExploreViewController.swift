@@ -105,8 +105,8 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             notificationButton.heightAnchor.constraint(equalToConstant: 36),
             notificationButton.widthAnchor.constraint(equalToConstant: 36),
             
-            searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 22),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 25),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
             
