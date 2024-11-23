@@ -13,48 +13,19 @@ class EventsViewController: UIViewController {
     private let eventsLabel: UILabel = {
         let label = UILabel()
         label.text = "Events"
-        label.font = .systemFont(ofSize: 24) //.airbnbCerealWBd24()
+        label.font = .systemFont(ofSize: 24)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private let segmentedControl = CustomSegmentedControl(items: ["UPCOMING", "PAST EVENTS"])
-    
     private let noEventsView = NoUpcomingEventView()
     private let tableView = EventsTableView()
     
-    private let exploreEventsButton: UIButton = {
-        let button = UIButton()
-        button.backgroundColor = .blue
-        button.setTitle("EXPLORE EVENTS", for: .normal)
-        button.titleLabel?.textColor = .white
-        button.layer.cornerRadius = 15
-        button.titleLabel?.font = .systemFont(ofSize: 16)
-        button.tintColor = .white
-        button.translatesAutoresizingMaskIntoConstraints = false
-        
-        let arrowImageView = UIImageView(image: UIImage(systemName: "arrow.right.circle.fill"))
-        arrowImageView.tintColor = .white // Цвет стрелки
-        
-        arrowImageView.backgroundColor = .blue
-        arrowImageView.layer.cornerRadius = 20
-        arrowImageView.clipsToBounds = true
-        
-        arrowImageView.translatesAutoresizingMaskIntoConstraints = false
-        arrowImageView.contentMode = .scaleAspectFit
-        
-        button.addSubview(arrowImageView)
-        
-        NSLayoutConstraint.activate([
-            arrowImageView.centerYAnchor.constraint(equalTo: button.centerYAnchor),
-            arrowImageView.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -10),
-            arrowImageView.widthAnchor.constraint(equalToConstant: 40),
-            arrowImageView.heightAnchor.constraint(equalToConstant: 40)
-        ])
-        
-        return button
-    }()
+    private lazy var buttonBlue = UIButton.makePurpleButton(label: "EXPLORE EVENTS",
+                                                            target: self,
+                                                            action: #selector(buttonTapped))
     
     //private var eventsArray = [EventsModel]()
     
@@ -63,7 +34,6 @@ class EventsViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
-        
     }
     
     private func setupViews() {
@@ -72,19 +42,24 @@ class EventsViewController: UIViewController {
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(noEventsView)
         noEventsView.translatesAutoresizingMaskIntoConstraints = false
-        view.addSubview(exploreEventsButton)
         view.addSubview(tableView)
-        
+        view.addSubview(buttonBlue)
     }
     
     @objc private func segmentedChange() {
         
     }
     
-//    private func checkEventsToday() {
-//        noEventsView.isHidden = !eventsArray.isEmpty
-//        tableView.isHidden = eventsArray.isEmpty
-//    }
+    @objc private func buttonTapped() {
+        let allEventsViewController = AllEventsScreenViewController()
+        allEventsViewController.modalPresentationStyle = .fullScreen
+        present(allEventsViewController, animated: true)
+    }
+    
+    //    private func checkEventsToday() {
+    //        noEventsView.isHidden = !eventsArray.isEmpty
+    //        tableView.isHidden = eventsArray.isEmpty
+    //    }
 }
 
 extension EventsViewController {
@@ -101,15 +76,15 @@ extension EventsViewController {
             noEventsView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 130),
             noEventsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            exploreEventsButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -128),
-            exploreEventsButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            exploreEventsButton.heightAnchor.constraint(equalToConstant: 58),
-            exploreEventsButton.widthAnchor.constraint(equalToConstant: 271),
+            buttonBlue.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -128),
+            buttonBlue.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            buttonBlue.heightAnchor.constraint(equalToConstant: 58),
+            buttonBlue.widthAnchor.constraint(equalToConstant: 271),
             
             tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 20),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: buttonBlue.bottomAnchor, constant: 10)
             
         ])
     }
