@@ -43,10 +43,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     public func checkAuthentication() {
         if Auth.auth().currentUser == nil {
             // на экран авторизации
-            self.goToController(with: LoginViewController())
+            self.goToController(with: OnboardingViewController())
         } else {
             // на главный экран
-            self.goToController(with: ExploreViewController())
+            self.goToController(with: TabBarController())
         }
     }
     

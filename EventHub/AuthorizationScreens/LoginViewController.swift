@@ -75,10 +75,7 @@ class LoginViewController: UIViewController {
         
         self.forgotButton.addTarget(self, action: #selector(forgotButtonTapped), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-        
-//        self.signUpButtonTapped()
-        
-        
+
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -90,9 +87,7 @@ class LoginViewController: UIViewController {
     
     // MARK: - UI Setup
     private func setupUI() {
-        
-        
-        
+  
         emailField.configureTextField(placeholder: "abc@email.com", icon: UIImage(named: "Mail"))
         passwordField.configurePasswordField(placeholder: "Your password")
         
@@ -210,7 +205,9 @@ class LoginViewController: UIViewController {
     @objc func forgotButtonTapped() {
         print("forgotButton tapped!")
         let vc = RessetViewController()
-        self.navigationController?.pushViewController(vc, animated: true)
+//        self.navigationController?.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
         
     }
     @objc func signUpButtonTapped() {
@@ -238,4 +235,4 @@ class LoginViewController: UIViewController {
 
 }
 
-#Preview{ LoginViewController()}
+//#Preview{ LoginViewController()}
