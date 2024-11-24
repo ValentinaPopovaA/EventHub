@@ -25,6 +25,9 @@ class SearchViewController: UIViewController,SearchBarDelegate {
         let searchBar = SearchBarView()
         searchBar.delegate = self
         searchBar.updateSearchButtonIcon(with: "Search_blue")
+        searchBar.updateSeporatoryView(with: .blueBackground)
+        searchBar.updatePlaceholderTextColor(.gray)
+        searchBar.updateTextFieldTextColor(with: .black )
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
@@ -132,6 +135,7 @@ extension SearchViewController {
             searchBar.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 40),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 50),
             
             filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             filtersButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),

@@ -48,7 +48,6 @@ final class SearchBarView: UIView, UISearchBarDelegate {
         return search
     }()
 
-    
     private lazy var searchButton: UIButton = {
         let image = UIImage(named: "Search_white")?.withRenderingMode(.alwaysOriginal)
         let action = UIAction(image: image, handler: searchAction)
@@ -57,11 +56,6 @@ final class SearchBarView: UIView, UISearchBarDelegate {
         return button
     }()
     
-    func updateSearchButtonIcon(with imageName: String) {
-        let newImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
-        searchButton.setImage(newImage, for: .normal)
-    }
-    
     let separatorView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1, height: 20)
@@ -69,7 +63,33 @@ final class SearchBarView: UIView, UISearchBarDelegate {
         view.alpha = 0.3
         return view
     }()
+    
+    func updateSearchButtonIcon(with imageName: String) {
+        let newImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
+        searchButton.setImage(newImage, for: .normal)
+    }
+    
+    func updateTextFieldTextColor(with color: UIColor) {
+        searchBar.searchTextField.textColor = color
+    }
+    
+    func updatePlaceholderTextColor(_ color: UIColor) {
+        let placeholder = "Search..."
+        let attributes: [NSAttributedString.Key: Any] = [
+            .foregroundColor: color
+        ]
+        
+        searchBar.searchTextField.attributedPlaceholder = NSAttributedString(
+            string: placeholder,
+            attributes: attributes
+        )
+    }
+    
+    func updateSeporatoryView(with color: UIColor) {
+        separatorView.backgroundColor = color
+    }
 
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
