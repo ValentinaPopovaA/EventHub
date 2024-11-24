@@ -294,7 +294,7 @@ class EventsDetailViewController: UIViewController {
 //            overlay.backgroundColor = UIColor.black.withAlphaComponent(0.5)
 //            overlay.tag = 999 // Чтобы потом можно было легко удалить
 //            view.addSubview(overlay)
-//        shareButton.isHidden.toggle()
+        shareButton.isHidden.toggle()
         shareView.isHidden.toggle()
     }
     
