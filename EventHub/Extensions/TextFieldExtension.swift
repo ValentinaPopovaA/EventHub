@@ -18,7 +18,7 @@ extension UITextField {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor.grayForDetail.cgColor
         
-        self.textColor = UIColor.grayForDetail
+        self.textColor = UIColor.black
         
         if let icon = icon {
             let iconView = UIImageView(image: icon)
