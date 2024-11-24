@@ -9,6 +9,11 @@ import Foundation
 
 final class EventService {
     private let networkService = NetworkService()
+    
+//    func fetchCategories(completion: @escaping (Result<[Category], Error>) -> Void) {
+//        let request = CategoryRequest()
+//        networkService.request(request, completion: completion)
+//    }
 
     func fetchEventDetails(eventID: Int, completion: @escaping (Result<Event, Error>) -> Void) {
         let request = EventDetailsRequest(eventID: eventID)

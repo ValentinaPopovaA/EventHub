@@ -8,6 +8,9 @@
 import UIKit
 
 final class ExploreViewController: UIViewController, SearchBarDelegate {
+    private var categories: [Category] = []
+    private var selectedCategory: Int?
+    
     private let blueBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .blueBackground
@@ -70,11 +73,30 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
                                                     numberOfLines: 1,
                                                     textAligment: .center)
     
+    private lazy var categoriesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 106, height: 40)
+        layout.minimumLineSpacing = 11
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setViews()
         layoutViews()
+        loadCategories()
+        categoriesCollectionView.delegate = self
     }
     
     // MARK: - Private Methods
@@ -85,6 +107,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         view.addSubview(notificationButton)
         view.addSubview(searchBar)
         view.addSubview(filtersButton)
+        view.addSubview(categoriesCollectionView)
     }
     
     private func layoutViews() {
@@ -106,14 +129,19 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             notificationButton.widthAnchor.constraint(equalToConstant: 36),
             
             searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 25),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
             searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
             
             filtersButton.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 20),
             filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             filtersButton.heightAnchor.constraint(equalToConstant: 32),
-            filtersButton.widthAnchor.constraint(equalToConstant: 80)
+            filtersButton.widthAnchor.constraint(equalToConstant: 80),
+        
+            categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -123,5 +151,69 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     
     func searchBarDidCancel() {
         print("Search cancelled")
+    }
+    
+    private func loadCategories() {
+        CategoryProvider.shared.fetchCategoriesFromAPI { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let fetchedCategories):
+                    self?.categories = fetchedCategories
+                    self?.categoriesCollectionView.reloadData()
+                case .failure(let error):
+                    print("Failed to load categories: \(error)")
+                }
+            }
+        }
+    }
+}
+
+extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else {
+            return UICollectionViewCell()
+        }
+        let category = categories[indexPath.item]
+        let isSelected = (indexPath.item == selectedCategory)
+        cell.configure(with: category, isSelected: isSelected)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let previouslySelectedIndex = selectedCategory
+        selectedCategory = indexPath.item
+
+        var indexesToReload: [IndexPath] = [indexPath]
+        if let previousIndex = previouslySelectedIndex, previousIndex != indexPath.item {
+            indexesToReload.append(IndexPath(item: previousIndex, section: 0))
+        }
+        collectionView.reloadItems(at: indexesToReload)
+
+        print("Selected category: \(categories[indexPath.item].name)")
+    }
+}
+
+extension ExploreViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let category = categories[indexPath.item]
+        
+        // Расчёт ширины текста
+        let textWidth = category.name.size(withAttributes: [
+            .font: UIFont(name: "AirbnbCereal_W_Bk", size: 15)!
+        ]).width
+        
+        // Учитываем размер значка и отступы
+        let iconWidth: CGFloat = 20
+        let spacing: CGFloat = 6
+        let padding: CGFloat = 16
+
+        // Итоговая ширина ячейки
+        let totalWidth = iconWidth + spacing + padding + textWidth
+        
+        return CGSize(width: max(106, totalWidth), height: 40)
     }
 }
