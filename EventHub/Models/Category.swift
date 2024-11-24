@@ -12,20 +12,8 @@ struct Category {
     let color: UIColor
 }
 
-final class CategoryProvider {
-    static func fetchCategories() -> [Category] {
-        return [
-            Category(name: "Business", color: .redAccent),
-            Category(name: "Cinema", color: .orangeAccent),
-            Category(name: "Food", color: .greenAccent),
-            Category(name: "Art", color: .redAccent),
-            Category(name: "Libraries", color: .orangeAccent),
-            Category(name: "Libraries", color: .greenAccent),
-        ]
-    }
+struct EventCategory: Decodable {
+    let id: Int
+    let slug: String
+    let name: String
 }
-//private let categories: [Category] = [
-//    Category(name: "Sports", color: .redAccent),
-//    Category(name: "Music", color: .orangeAccent),
-//    Category(name: "Food", color: .greenAccent)
-//]

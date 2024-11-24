@@ -15,10 +15,11 @@ extension UIColor {
     static let darkCyanAccent = UIColor(named: "darkCyanAccent") ?? UIColor.cyan
     static let yellowAccent = UIColor(named: "yellowAccent") ?? UIColor.yellow
     static let purpleAccent = UIColor(named: "purpleAccent") ?? UIColor.purple
+    static let pinkAccent = UIColor(named: "pinkAccent") ?? UIColor.systemPink
     static let grayForDetail = UIColor(named: "grayForDetail") ?? UIColor.gray
     static let blueBackground = UIColor(named: "blueBackground") ?? UIColor.blue
     static let blueForButtonExplore = UIColor(named: "blueForButtonExplore") ?? UIColor.blue
-    
+
     // Text Color
     static let titleColor = UIColor(named: "titleColor") ?? UIColor.black
     static let subColor = UIColor(named: "subColor") ?? UIColor.gray

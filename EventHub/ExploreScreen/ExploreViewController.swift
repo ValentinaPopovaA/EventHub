@@ -80,7 +80,8 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
-        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
+//        collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,9 +94,10 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         super.viewDidLoad()
         view.backgroundColor = .white
         setViews()
+        setViews()
         layoutViews()
-        categories = CategoryProvider.fetchCategories()
-        categoriesCollectionView.reloadData()
+        loadCategories()
+        categoriesCollectionView.delegate = self
     }
     
     // MARK: - Private Methods
@@ -138,8 +140,8 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             filtersButton.widthAnchor.constraint(equalToConstant: 80),
         
             categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
-            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
@@ -150,6 +152,20 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     
     func searchBarDidCancel() {
         print("Search cancelled")
+    }
+    
+    private func loadCategories() {
+        CategoryProvider.shared.fetchCategoriesFromAPI { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let fetchedCategories):
+                    self?.categories = fetchedCategories
+                    self?.categoriesCollectionView.reloadData()
+                case .failure(let error):
+                    print("Failed to load categories: \(error)")
+                }
+            }
+        }
     }
 }
 
@@ -170,5 +186,13 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedCategory = categories[indexPath.item]
         print("Selected category: \(selectedCategory.name)")
+    }
+}
+
+extension ExploreViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let category = categories[indexPath.item]
+        let textWidth = category.name.size(withAttributes: [.font: UIFont(name: "AirbnbCereal_W_Bk", size: 15)!]).width
+        return CGSize(width: max(106, textWidth + 20), height: 40) // Минимальная ширина 106
     }
 }

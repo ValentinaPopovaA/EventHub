@@ -13,6 +13,8 @@ final class CategoryCell: UICollectionViewCell {
         label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 15)
         label.textColor = .white
         label.textAlignment = .center
+//        label.adjustsFontSizeToFitWidth = true
+//        label.minimumScaleFactor = 0.5
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
