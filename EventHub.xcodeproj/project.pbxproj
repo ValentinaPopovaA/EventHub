@@ -22,6 +22,10 @@
 		A720E92A2CF2FD0400AA61FE /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9292CF2FD0400AA61FE /* CategoryCell.swift */; };
 		A720E92C2CF30A6300AA61FE /* EventCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E92B2CF30A6300AA61FE /* EventCategoryRequest.swift */; };
 		A720E9302CF3323700AA61FE /* CategoryProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E92F2CF3323700AA61FE /* CategoryProvider.swift */; };
+		A720E9322CF3576D00AA61FE /* CitySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9312CF3576D00AA61FE /* CitySelectionViewController.swift */; };
+		A720E9342CF357AF00AA61FE /* CityService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9332CF357AF00AA61FE /* CityService.swift */; };
+		A720E9362CF3629400AA61FE /* SelectedCityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9352CF3629400AA61FE /* SelectedCityManager.swift */; };
+		A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9382CF362C900AA61FE /* CitiesRequest.swift */; };
 		A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA28052CF0F6600027ACDF /* SearchBar.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
@@ -83,6 +87,10 @@
 		A720E9292CF2FD0400AA61FE /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		A720E92B2CF30A6300AA61FE /* EventCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventCategoryRequest.swift; sourceTree = "<group>"; };
 		A720E92F2CF3323700AA61FE /* CategoryProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryProvider.swift; sourceTree = "<group>"; };
+		A720E9312CF3576D00AA61FE /* CitySelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySelectionViewController.swift; sourceTree = "<group>"; };
+		A720E9332CF357AF00AA61FE /* CityService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityService.swift; sourceTree = "<group>"; };
+		A720E9352CF3629400AA61FE /* SelectedCityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityManager.swift; sourceTree = "<group>"; };
+		A720E9382CF362C900AA61FE /* CitiesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesRequest.swift; sourceTree = "<group>"; };
 		A7AA28052CF0F6600027ACDF /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,6 +148,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A720E9372CF3629D00AA61FE /* CitySelected */ = {
+			isa = PBXGroup;
+			children = (
+				A720E9352CF3629400AA61FE /* SelectedCityManager.swift */,
+				A720E9312CF3576D00AA61FE /* CitySelectionViewController.swift */,
+			);
+			path = CitySelected;
+			sourceTree = "<group>";
+		};
 		A7BA04882CE888D0009A9EF3 = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +267,7 @@
 			children = (
 				A7D5D24B2CEDEB83009DAED6 /* NetworkService.swift */,
 				A7D5D2762CF08065009DAED6 /* EventService.swift */,
+				A720E9332CF357AF00AA61FE /* CityService.swift */,
 				A7D5D2532CEE091F009DAED6 /* Requests */,
 				A7D5D24D2CEDEBE1009DAED6 /* DataRequest.swift */,
 				A7D5D24F2CEDEE06009DAED6 /* HTTPMethod.swift */,
@@ -262,8 +280,9 @@
 		A7CAF98A2CEA0C0600719F7D /* ExploreScreen */ = {
 			isa = PBXGroup;
 			children = (
-				A720E9292CF2FD0400AA61FE /* CategoryCell.swift */,
+				A720E9372CF3629D00AA61FE /* CitySelected */,
 				A7AA28052CF0F6600027ACDF /* SearchBar.swift */,
+				A720E9292CF2FD0400AA61FE /* CategoryCell.swift */,
 				A7CAF99B2CEA0E0D00719F7D /* ExploreViewController.swift */,
 			);
 			path = ExploreScreen;
@@ -328,6 +347,7 @@
 		A7D5D2532CEE091F009DAED6 /* Requests */ = {
 			isa = PBXGroup;
 			children = (
+				A720E9382CF362C900AA61FE /* CitiesRequest.swift */,
 				A7D5D2512CEDEE40009DAED6 /* EventsByCityRequest.swift */,
 				A7D5D2542CEE0960009DAED6 /* EventsByCategoryRequest.swift */,
 				A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */,
@@ -447,6 +467,7 @@
 				A7D5D26B2CEE3E7E009DAED6 /* HTMLToString+Ext.swift in Sources */,
 				A720E9282CF2FC4500AA61FE /* Category.swift in Sources */,
 				A7CAF9A22CEA0E4400719F7D /* EventsViewController.swift in Sources */,
+				A720E9322CF3576D00AA61FE /* CitySelectionViewController.swift in Sources */,
 				A7CAF99E2CEA0E2A00719F7D /* EventsDetailViewController.swift in Sources */,
 				A7CAF99A2CEA0D9A00719F7D /* LoginViewController.swift in Sources */,
 				A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */,
@@ -478,6 +499,7 @@
 				18F334622CF1B8A90067A9BC /* CustomSegmentedControl.swift in Sources */,
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
 				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
+				A720E9342CF357AF00AA61FE /* CityService.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
 				A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
@@ -485,9 +507,11 @@
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
 				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
+				A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */,
 				A720E9302CF3323700AA61FE /* CategoryProvider.swift in Sources */,
 				A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */,
 				18F3345E2CF1B7FB0067A9BC /* SearchScreen.swift in Sources */,
+				A720E9362CF3629400AA61FE /* SelectedCityManager.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 				18F3345A2CF1B7A60067A9BC /* EventsTableViewCell.swift in Sources */,
