@@ -7,6 +7,7 @@
 import UIKit
 
 class CustomTabBar: UITabBar {
+    //MARK: - UI Elements
     private lazy var centerView: UIView  = {
         let element = UIView()
         element.backgroundColor = .white
@@ -129,7 +130,6 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     
     @objc private func centerButtonTapped(_ sender: UIButton) {
         selectedIndex = 2
-        
         let redColor = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
         centerButton.setImage(redColor, for: .normal)
         centerButton.backgroundColor = .systemRed
@@ -137,11 +137,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
     }
     
     override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
-        if selectedIndex != 2 {
-            centerButton.backgroundColor = .primaryBlue
-            let blueImage = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
-            centerButton.setImage(blueImage, for: .normal)
-            centerButton.tintColor = .white
+        centerButton.backgroundColor = .primaryBlue
+        let blueImage = UIImage(systemName: "bookmark")?.withRenderingMode(.alwaysTemplate)
+        centerButton.setImage(blueImage, for: .normal)
+        centerButton.tintColor = .white
         }
-    }
+    
 }

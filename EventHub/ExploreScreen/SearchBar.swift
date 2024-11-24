@@ -19,19 +19,35 @@ final class SearchBarView: UIView, UISearchBarDelegate {
     private lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.delegate = self
-        
         search.backgroundColor = .clear
         search.backgroundImage = UIImage()
         search.searchTextField.backgroundColor = .clear
         search.searchTextField.layer.cornerRadius = 16
         search.searchTextField.layer.masksToBounds = true
-        search.searchTextField.placeholder = "Search..."
+        
+        search.searchTextField.attributedPlaceholder = NSAttributedString(
+            string: "Search...",
+            attributes: [
+                .foregroundColor: UIColor.white.withAlphaComponent(0.5)
+            ]
+        )
+        
         search.searchTextField.textColor = .white
+        search.searchTextField.tintColor = .white
         search.searchTextField.clearButtonMode = .whileEditing
         search.searchTextField.font = UIFont(name: "AirbnbCereal_W_Bk", size: 20)
         
+        search.searchTextField.leftView = nil
+        
+        if let clearButton = search.searchTextField.value(forKey: "clearButton") as? UIButton {
+            clearButton.tintColor = .white.withAlphaComponent(0.6)
+            let tintedImage = clearButton.image(for: .normal)?.withRenderingMode(.alwaysTemplate)
+            clearButton.setImage(tintedImage, for: .normal)
+        }
+        
         return search
     }()
+
     
     private lazy var searchButton: UIButton = {
         let image = UIImage(named: "Search_white")?.withRenderingMode(.alwaysOriginal)
@@ -62,21 +78,30 @@ final class SearchBarView: UIView, UISearchBarDelegate {
     // MARK: - Setup Methods
     private func setupView() {
         addSubview(searchBar)
-        searchBar.addSubview(searchButton)
+        addSubview(searchButton)
+        addSubview(separatorView)
     }
     
     private func setupConstraints() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchButton.translatesAutoresizingMaskIntoConstraints = false
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
             searchBar.topAnchor.constraint(equalTo: topAnchor),
-            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: 8),
             searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
             searchBar.bottomAnchor.constraint(equalTo: bottomAnchor),
 
-            searchButton.topAnchor.constraint(equalTo: searchBar.searchTextField.topAnchor, constant: 5),
-            searchButton.leadingAnchor.constraint(equalTo: searchBar.searchTextField.leadingAnchor, constant: 5)
+            searchButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            searchButton.leadingAnchor.constraint(equalTo: leadingAnchor),
+            searchButton.widthAnchor.constraint(equalToConstant: 24),
+            searchButton.heightAnchor.constraint(equalToConstant: 24),
+            
+            separatorView.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            separatorView.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: 12),
+            separatorView.widthAnchor.constraint(equalToConstant: 1),
+            separatorView.heightAnchor.constraint(equalToConstant: 20)
         ])
     }
     
