@@ -32,7 +32,8 @@ class EventsDetailViewController: UIViewController {
     private let saveButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
-        button.backgroundColor = .lightGray
+        button.setImage(UIImage(named: "Bookmark_red"), for: .selected)
+        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(saveToFavorites), for: .touchUpInside)
@@ -280,11 +281,20 @@ class EventsDetailViewController: UIViewController {
     }
     
     @objc private func saveToFavorites(_ sender: UIButton) {
-        saveButton.setImage(UIImage(named: "Bookmark_red"), for: .normal)
+        sender.isSelected.toggle()
     }
     
     @objc private func sharePressedButton(_ sender: UIButton) {
-        view.backgroundColor = .darkGray.withAlphaComponent(0.5)
+        view.backgroundColor = .gray.withAlphaComponent(0.8)
+        imageView.backgroundColor = .gray.withAlphaComponent(0.5)
+        saveButton.backgroundColor = .gray.withAlphaComponent(0.1)
+        dateView.backgroundColor = .gray.withAlphaComponent(0.1)
+        locationView.backgroundColor = .gray.withAlphaComponent(0.1)
+//        let overlay = UIView(frame: view.bounds)
+//            overlay.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+//            overlay.tag = 999 // Чтобы потом можно было легко удалить
+//            view.addSubview(overlay)
+        shareButton.isHidden.toggle()
         shareView.isHidden.toggle()
     }
     
@@ -399,7 +409,7 @@ class EventsDetailViewController: UIViewController {
             shareView.bottomAnchor.constraint(equalTo:view.bottomAnchor),
             shareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             shareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            shareView.heightAnchor.constraint(equalToConstant: 359)
+            shareView.heightAnchor.constraint(equalToConstant: 370)
         ])
     }
 }
