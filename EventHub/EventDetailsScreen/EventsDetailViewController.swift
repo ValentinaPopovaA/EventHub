@@ -187,6 +187,7 @@ class EventsDetailViewController: UIViewController {
         makeConstraits()
         makeAttributedText()
         shareView.isHidden = true
+        shareView.delegate = self
         loadEventDetails(eventID: eventID)
     }
     
@@ -434,3 +435,23 @@ class EventsDetailViewController: UIViewController {
         ])
     }
 }
+
+extension EventsDetailViewController: ShareViewDelegate {
+    // Скрытие ShareView и overlay
+    @objc func dismissOverlay() {
+        shareButton.isHidden = false
+        if let overlayView = overlayView {
+            dismissShareView(overlayView: overlayView)
+        }
+    }
+    private func dismissShareView(overlayView: UIView) {
+        UIView.animate(withDuration: 0.3, animations: {
+            overlayView.alpha = 0
+            self.shareView.transform = CGAffineTransform(translationX: 0, y: 350)
+        }) { _ in
+            overlayView.removeFromSuperview()
+            self.overlayView = nil
+        }
+    }
+}
+
