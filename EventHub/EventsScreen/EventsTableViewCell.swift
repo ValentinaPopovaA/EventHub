@@ -44,8 +44,8 @@ class EventsUITableViewCell: UITableViewCell {
     private let eventDateAndTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "Wed,Apr 28 • 5:30 PM"
-        label.textColor = .blue
-        label.font = .systemFont(ofSize: 13)
+        label.textColor = .blueBackground
+        label.font = .systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,7 +55,8 @@ class EventsUITableViewCell: UITableViewCell {
         label.text = "Jo Malone London's Mother's Day Presents"
         label.numberOfLines = 2
         label.textColor = .black
-        label.font = UIFont(name: "AirbnbCereal_W_Bd", size: 15) //.systemFont(ofSize: 15)
+        label.textAlignment = .left
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 14) //.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -71,7 +72,7 @@ class EventsUITableViewCell: UITableViewCell {
     private let eventLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "Radius Gallery • Santa Cruz, CA"
-        label.textColor = .gray
+        label.textColor = .subColor
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -132,11 +133,12 @@ extension EventsUITableViewCell {
             eventDateAndTimeLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 10),
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
             
-            eventNameLabel.topAnchor.constraint(equalTo: eventDateAndTimeLabel.bottomAnchor, constant: 4),
+            eventNameLabel.topAnchor.constraint(equalTo: eventDateAndTimeLabel.bottomAnchor, constant: 3),
             eventNameLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor,constant: 10),
+            eventNameLabel.widthAnchor.constraint(equalToConstant: 100),
             eventNameLabel.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
             
-            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor,constant: 8),
+            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor,constant: 10),
             eventLocationStaskView.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 10),
             eventLocationStaskView.heightAnchor.constraint(equalToConstant: 18),
             

@@ -41,6 +41,11 @@ final class SearchBarView: UIView, UISearchBarDelegate {
         return button
     }()
     
+    func updateSearchButtonIcon(with imageName: String) {
+        let newImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
+        searchButton.setImage(newImage, for: .normal)
+    }
+    
     let separatorView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1, height: 20)
