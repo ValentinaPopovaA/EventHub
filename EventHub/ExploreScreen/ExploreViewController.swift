@@ -31,6 +31,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.semanticContentAttribute = .forceRightToLeft
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: -5)
+        
         return button
     }()
     
@@ -96,7 +97,9 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         setViews()
         layoutViews()
         loadCategories()
+        setupSavedCity()
         categoriesCollectionView.delegate = self
+        currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
     }
     
     // MARK: - Private Methods
@@ -164,6 +167,42 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
                     print("Failed to load categories: \(error)")
                 }
             }
+        }
+    }
+    
+    private func loadEvents(for citySlug: String) {
+        let request = EventsByCityRequest(headers: [:], citySlug: citySlug)
+        let networkService = NetworkService()
+        networkService.request(request) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    print("Events for city \(citySlug): \(events)")
+                case .failure(let error):
+                    print("Failed to load events for city \(citySlug): \(error)")
+                }
+            }
+        }
+    }
+    
+    @objc private func didTapChangeCity() {
+        let citySelectionVC = CitySelectionViewController()
+        citySelectionVC.modalPresentationStyle = .overCurrentContext
+        citySelectionVC.modalTransitionStyle = .crossDissolve
+        citySelectionVC.onCitySelected = { [weak self] city in
+            self?.cityLabel.text = city.name
+            SelectedCityManager.saveSelectedCity(city)
+            self?.loadEvents(for: city.slug)
+        }
+        present(citySelectionVC, animated: true)
+    }
+    
+    private func setupSavedCity() {
+        if let savedCity = SelectedCityManager.getSelectedCity() {
+            cityLabel.text = savedCity.name
+            loadEvents(for: savedCity.slug)
+        } else {
+            cityLabel.text = "Select a City"
         }
     }
 }
