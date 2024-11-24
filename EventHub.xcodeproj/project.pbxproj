@@ -57,6 +57,7 @@
 		A7D5D27B2CF08986009DAED6 /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D27A2CF08986009DAED6 /* ServicesController.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
+		E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798461F2CF0604000CF249D /* EditProfileViewController.swift */; };
 		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
 		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
 /* End PBXBuildFile section */
@@ -115,6 +116,7 @@
 		A7D5D27A2CF08986009DAED6 /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		E798461F2CF0604000CF249D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -292,6 +294,7 @@
 			isa = PBXGroup;
 			children = (
 				A7CAF9A32CEA0E5300719F7D /* ProfileViewController.swift */,
+				E798461F2CF0604000CF249D /* EditProfileViewController.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */,
 				A7D5D2502CEDEE06009DAED6 /* HTTPMethod.swift in Sources */,
 				A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */,
+				E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */,
 				A7D5D2462CEDE745009DAED6 /* EventImage.swift in Sources */,
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7D5D2522CEDEE40009DAED6 /* EventsByCityRequest.swift in Sources */,
