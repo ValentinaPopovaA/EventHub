@@ -8,6 +8,8 @@
 import UIKit
 
 final class ExploreViewController: UIViewController, SearchBarDelegate {
+    private var categories: [Category] = []
+    
     private let blueBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .blueBackground
@@ -70,11 +72,30 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
                                                     numberOfLines: 1,
                                                     textAligment: .center)
     
+    private lazy var categoriesCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 106, height: 40)
+        layout.minimumLineSpacing = 10
+        
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: "CategoryCell")
+        
+        return collectionView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         setViews()
         layoutViews()
+        categories = CategoryProvider.fetchCategories()
+        categoriesCollectionView.reloadData()
     }
     
     // MARK: - Private Methods
@@ -85,6 +106,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         view.addSubview(notificationButton)
         view.addSubview(searchBar)
         view.addSubview(filtersButton)
+        view.addSubview(categoriesCollectionView)
     }
     
     private func layoutViews() {
@@ -113,7 +135,12 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             filtersButton.topAnchor.constraint(equalTo: notificationButton.bottomAnchor, constant: 20),
             filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -22),
             filtersButton.heightAnchor.constraint(equalToConstant: 32),
-            filtersButton.widthAnchor.constraint(equalToConstant: 80)
+            filtersButton.widthAnchor.constraint(equalToConstant: 80),
+        
+            categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -24),
+            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
     
@@ -123,5 +150,25 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     
     func searchBarDidCancel() {
         print("Search cancelled")
+    }
+}
+
+extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return categories.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CategoryCell", for: indexPath) as? CategoryCell else {
+            return UICollectionViewCell()
+        }
+        let category = categories[indexPath.item]
+        cell.configure(with: category)
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCategory = categories[indexPath.item]
+        print("Selected category: \(selectedCategory.name)")
     }
 }

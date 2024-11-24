@@ -18,6 +18,10 @@
 		46EE7E8A2CEF652E00473F9B /* AirbnbCereal_W_Bd.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */; };
 		46EE7E8C2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */; };
 		46EE7E8E2CEF668E00473F9B /* AirbnbCereal_W_Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */; };
+		A720E9282CF2FC4500AA61FE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9272CF2FC4500AA61FE /* Category.swift */; };
+		A720E92A2CF2FD0400AA61FE /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9292CF2FD0400AA61FE /* CategoryCell.swift */; };
+		A720E92C2CF30A6300AA61FE /* CategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E92B2CF30A6300AA61FE /* CategoryRequest.swift */; };
+		A720E92E2CF30E9F00AA61FE /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E92D2CF30E9F00AA61FE /* CategoriesViewController.swift */; };
 		A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA28052CF0F6600027ACDF /* SearchBar.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
@@ -75,6 +79,10 @@
 		46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bd.otf; sourceTree = "<group>"; };
 		46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bk.otf; sourceTree = "<group>"; };
 		46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Md.otf; sourceTree = "<group>"; };
+		A720E9272CF2FC4500AA61FE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		A720E9292CF2FD0400AA61FE /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		A720E92B2CF30A6300AA61FE /* CategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRequest.swift; sourceTree = "<group>"; };
+		A720E92D2CF30E9F00AA61FE /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		A7AA28052CF0F6600027ACDF /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +240,7 @@
 				A7D5D2452CEDE745009DAED6 /* EventImage.swift */,
 				A7D5D2472CEDE753009DAED6 /* Place.swift */,
 				A7D5D2492CEDE75D009DAED6 /* EventDate.swift */,
+				A720E9272CF2FC4500AA61FE /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -253,6 +262,8 @@
 		A7CAF98A2CEA0C0600719F7D /* ExploreScreen */ = {
 			isa = PBXGroup;
 			children = (
+				A720E9292CF2FD0400AA61FE /* CategoryCell.swift */,
+				A720E92D2CF30E9F00AA61FE /* CategoriesViewController.swift */,
 				A7AA28052CF0F6600027ACDF /* SearchBar.swift */,
 				A7CAF99B2CEA0E0D00719F7D /* ExploreViewController.swift */,
 			);
@@ -326,6 +337,7 @@
 				A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */,
 				A7D5D2682CEE33A8009DAED6 /* EventDetailRequest.swift */,
 				A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */,
+				A720E92B2CF30A6300AA61FE /* CategoryRequest.swift */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -433,6 +445,7 @@
 				A7D5D24C2CEDEB83009DAED6 /* NetworkService.swift in Sources */,
 				A7CAF9A72CEA0E6C00719F7D /* FavoritesViewController.swift in Sources */,
 				A7D5D26B2CEE3E7E009DAED6 /* HTMLToString+Ext.swift in Sources */,
+				A720E9282CF2FC4500AA61FE /* Category.swift in Sources */,
 				A7CAF9A22CEA0E4400719F7D /* EventsViewController.swift in Sources */,
 				A7CAF99E2CEA0E2A00719F7D /* EventsDetailViewController.swift in Sources */,
 				A7CAF99A2CEA0D9A00719F7D /* LoginViewController.swift in Sources */,
@@ -440,6 +453,7 @@
 				A7D5D2502CEDEE06009DAED6 /* HTTPMethod.swift in Sources */,
 				A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */,
 				E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */,
+				A720E92C2CF30A6300AA61FE /* CategoryRequest.swift in Sources */,
 				A7D5D2462CEDE745009DAED6 /* EventImage.swift in Sources */,
 				A7CAF9A02CEA0E3700719F7D /* ShareViewController.swift in Sources */,
 				A7D5D2522CEDEE40009DAED6 /* EventsByCityRequest.swift in Sources */,
@@ -455,6 +469,7 @@
 				A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */,
 				A7D5D24E2CEDEBE2009DAED6 /* DataRequest.swift in Sources */,
 				A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */,
+				A720E92A2CF2FD0400AA61FE /* CategoryCell.swift in Sources */,
 				A7CAF99C2CEA0E0D00719F7D /* ExploreViewController.swift in Sources */,
 				A7D5D24A2CEDE75D009DAED6 /* EventDate.swift in Sources */,
 				A7CAF9922CEA0CC100719F7D /* Event.swift in Sources */,
@@ -462,6 +477,7 @@
 				A7D5D25B2CEE0B5E009DAED6 /* AllEventsRequest.swift in Sources */,
 				18F334622CF1B8A90067A9BC /* CustomSegmentedControl.swift in Sources */,
 				E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */,
+				A720E92E2CF30E9F00AA61FE /* CategoriesViewController.swift in Sources */,
 				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
 				A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */,
