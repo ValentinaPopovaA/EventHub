@@ -28,22 +28,27 @@ final class CategoryCell: UICollectionViewCell {
         return label
     }()
 
+    private lazy var stackView: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [iconImageView, titleLabel])
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.spacing = 6
+        stack.distribution = .fill
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.addSubview(iconImageView)
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(stackView)
         contentView.layer.cornerRadius = 20
         contentView.layer.masksToBounds = true
 
         NSLayoutConstraint.activate([
-            iconImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            iconImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            iconImageView.widthAnchor.constraint(equalToConstant: 20),
-            iconImageView.heightAnchor.constraint(equalToConstant: 20),
-
-            titleLabel.leadingAnchor.constraint(equalTo: iconImageView.trailingAnchor, constant: 5),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            stackView.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 8),
+            stackView.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8)
         ])
     }
     
@@ -51,9 +56,22 @@ final class CategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with category: Category) {
+    func configure(with category: Category, isSelected: Bool) {
         titleLabel.text = category.name
         contentView.backgroundColor = category.color
         iconImageView.image = UIImage(systemName: category.sfSymbol)
+        setSelected(isSelected)
+    }
+    
+    func setSelected(_ selected: Bool) {
+        if selected {
+            titleLabel.textColor = .black
+            iconImageView.tintColor = .black
+            contentView.backgroundColor = contentView.backgroundColor?.withAlphaComponent(0.9)
+        } else {
+            titleLabel.textColor = .white
+            iconImageView.tintColor = .white
+            contentView.backgroundColor = contentView.backgroundColor?.withAlphaComponent(1.0)
+        }
     }
 }

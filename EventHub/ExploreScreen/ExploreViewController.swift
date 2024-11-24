@@ -9,6 +9,7 @@ import UIKit
 
 final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
+    private var selectedCategory: Int?
     
     private let blueBackgroundView: UIView = {
         let view = UIView()
@@ -177,13 +178,22 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             return UICollectionViewCell()
         }
         let category = categories[indexPath.item]
-        cell.configure(with: category)
+        let isSelected = (indexPath.item == selectedCategory)
+        cell.configure(with: category, isSelected: isSelected)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCategory = categories[indexPath.item]
-        print("Selected category: \(selectedCategory.name)")
+        let previouslySelectedIndex = selectedCategory
+        selectedCategory = indexPath.item
+
+        var indexesToReload: [IndexPath] = [indexPath]
+        if let previousIndex = previouslySelectedIndex, previousIndex != indexPath.item {
+            indexesToReload.append(IndexPath(item: previousIndex, section: 0))
+        }
+        collectionView.reloadItems(at: indexesToReload)
+
+        print("Selected category: \(categories[indexPath.item].name)")
     }
 }
 
@@ -198,10 +208,11 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         
         // Учитываем размер значка и отступы
         let iconWidth: CGFloat = 20
+        let spacing: CGFloat = 6
         let padding: CGFloat = 16
 
         // Итоговая ширина ячейки
-        let totalWidth = iconWidth + padding + textWidth
+        let totalWidth = iconWidth + spacing + padding + textWidth
         
         return CGSize(width: max(106, totalWidth), height: 40)
     }
