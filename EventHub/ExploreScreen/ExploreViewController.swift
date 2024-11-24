@@ -90,6 +90,11 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         return collectionView
     }()
     
+    let button = CustomButton(title: "out", isBlue: true, fontSize: .med)
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -216,4 +221,18 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: max(106, totalWidth), height: 40)
     }
+    
+
+    @objc private func didTapLogout() {
+            AuthService.shared.signOut { [weak self] error in
+                guard let self = self else {return }
+                if let error = error {
+                    
+                    return
+                }
+                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            }
+        }
 }

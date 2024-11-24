@@ -39,10 +39,7 @@ class SignUpViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    
-    
-    
+
     
     
     // MARK: - Lifecycle
@@ -121,6 +118,47 @@ class SignUpViewController: UIViewController {
     
     @objc func signUpButtonTapped() {
         print("Sign Up button tapped!")
+        
+        let registerUserRequest = RegisterUserRequest(
+            username: self.usernameField.text ?? "",
+            email: self.emailField.text ?? "",
+            password: self.passwordField.text ?? ""
+        )
+        
+        if !Validator.isValidUserName(for: registerUserRequest.username) {
+            AlertManager.showInvalidUserNameAlert(on: self)
+            return
+        }
+        
+        if !Validator.isValidEmail(for: registerUserRequest.email) {
+            AlertManager.showInvalidEmailAlert(on: self)
+            return
+        }
+        
+        if !Validator.isValidPassword(for: registerUserRequest.password) {
+            AlertManager.showInvalidPasswordAlert(on: self)
+            return
+        }
+        
+        print(registerUserRequest)
+        
+        AuthService.shared.registerUser(with: registerUserRequest) { [weak self] wasRegistered, error in
+            
+            guard let self = self else {return}
+            
+            if let error = error {
+                AlertManager.showRegistrationErrorAlert(on: self, with: error)
+                return
+            }
+            
+            if wasRegistered {
+                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                    sceneDelegate.checkAuthentication()
+                }
+            } else {
+                AlertManager.showRegistrationErrorAlert(on: self)
+            }
+        }
         
     }
     

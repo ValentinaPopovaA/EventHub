@@ -2,7 +2,7 @@
 //  WebViewerController.swift
 //  EventHub
 //
-//  Created by Максим Загрядский on 23.11.2024.
+//  Created by Максим on 23.11.2024.
 //
 
 import UIKit

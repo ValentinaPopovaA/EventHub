@@ -76,7 +76,17 @@ class LoginViewController: UIViewController {
         self.forgotButton.addTarget(self, action: #selector(forgotButtonTapped), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
         
+//        self.signUpButtonTapped()
+        
+        
+        
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+
+    }
+    
     
     // MARK: - UI Setup
     private func setupUI() {
@@ -155,15 +165,40 @@ class LoginViewController: UIViewController {
     
     
     
-    
+    //MARK: - Selectors
     
     @objc func signInButtonTapped() {
         print("Sign In button tapped!")
-        let vc = ExploreViewController()
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        
+        let loginRequest = LoginUserRequest(
+            email: self.emailField.text ?? "",
+            password: self.passwordField.text ?? ""
+        )
+        
+        
+        if !Validator.isValidEmail(for: loginRequest.email) {
+            AlertManager.showInvalidEmailAlert(on: self)
+            return
+        }
+        
+        if !Validator.isValidPassword(for: loginRequest.password) {
+            AlertManager.showInvalidPasswordAlert(on: self)
+            return
+        }
+        
+        AuthService.shared.singIn(with: loginRequest) { error in
+            if let error = error {
+                AlertManager.showSignInErrorAlert(on: self, with: error)
+                return
+            }
+            
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
+                
+            }
+            
+        }
     }
-    
     
     @objc func googleButtonTapped() {
         print("Google button tapped!")
@@ -186,6 +221,19 @@ class LoginViewController: UIViewController {
         self.present(vc, animated: true, completion: nil)
 //        self.navigationController?.pushViewController(vc, animated: true)
         
+    }
+    
+    @objc private func didTapLogout() {
+        AuthService.shared.signOut { [weak self] error in
+            guard let self = self else {return }
+            if let error = error {
+                AlertManager.showLogoutError(on: self, with: error)
+                return
+            }
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
+            }
+        }
     }
 
 }
