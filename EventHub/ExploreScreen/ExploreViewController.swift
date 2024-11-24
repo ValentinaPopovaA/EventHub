@@ -76,12 +76,11 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.itemSize = CGSize(width: 106, height: 40)
-        layout.minimumLineSpacing = 10
+        layout.minimumLineSpacing = 11
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
         collectionView.showsHorizontalScrollIndicator = false
-//        collectionView.showsVerticalScrollIndicator = false
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -93,7 +92,6 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setViews()
         setViews()
         layoutViews()
         loadCategories()
@@ -130,7 +128,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             notificationButton.widthAnchor.constraint(equalToConstant: 36),
             
             searchBar.topAnchor.constraint(equalTo: cityLabel.topAnchor, constant: 25),
-            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
             searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
             
@@ -140,7 +138,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             filtersButton.widthAnchor.constraint(equalToConstant: 80),
         
             categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
-            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 32),
+            categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
             categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -192,7 +190,19 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
 extension ExploreViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let category = categories[indexPath.item]
-        let textWidth = category.name.size(withAttributes: [.font: UIFont(name: "AirbnbCereal_W_Bk", size: 15)!]).width
-        return CGSize(width: max(106, textWidth + 20), height: 40) // Минимальная ширина 106
+        
+        // Расчёт ширины текста
+        let textWidth = category.name.size(withAttributes: [
+            .font: UIFont(name: "AirbnbCereal_W_Bk", size: 15)!
+        ]).width
+        
+        // Учитываем размер значка и отступы
+        let iconWidth: CGFloat = 20
+        let padding: CGFloat = 16
+
+        // Итоговая ширина ячейки
+        let totalWidth = iconWidth + padding + textWidth
+        
+        return CGSize(width: max(106, totalWidth), height: 40)
     }
 }

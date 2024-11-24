@@ -10,6 +10,7 @@ import UIKit
 struct Category {
     let name: String
     let color: UIColor
+    let sfSymbol: String
 }
 
 struct EventCategory: Decodable {
