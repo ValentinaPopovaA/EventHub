@@ -7,7 +7,14 @@
 
 import UIKit
 
+protocol EventsTableViewDelegate: AnyObject {
+    func didSelectEvent(_ event: Event)
+}
+
 class EventsTableView: UITableView {
+    
+    private var events: [Event] = []
+    weak var eventsDelegate: EventsTableViewDelegate?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -33,18 +40,25 @@ class EventsTableView: UITableView {
         dataSource = self
         delegate = self
     }
+    
+    func reloadData(with events: [Event]) {
+        self.events = events
+        self.reloadData()
+    }
 }
 
 extension EventsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        return events.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventsUITableViewCell.idTableViewCell,
-                                                       for: indexPath) as? EventsUITableViewCell  else {
+                                                       for: indexPath) as? EventsUITableViewCell else {
             return UITableViewCell()
         }
+        let event = events[indexPath.row]
+        cell.configure(with: event)
         return cell
     }
 }
@@ -54,14 +68,15 @@ extension EventsTableView: UITableViewDelegate {
         115
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "") { _, _, _ in
-            print("delete cell")
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedEvent = events[indexPath.row]
+        let detailVC = EventsDetailViewController(eventID: selectedEvent.id)
+        navigationController?.pushViewController(detailVC, animated: true)
+
+        // Задержка для снятия выделения
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            tableView.deselectRow(at: indexPath, animated: true)
         }
-        
-        action.backgroundColor = .white
-        action.image = UIImage(named: "delete")
-        
-        return UISwipeActionsConfiguration(actions: [action])
     }
 }
+

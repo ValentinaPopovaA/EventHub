@@ -10,7 +10,7 @@ import UIKit
 class EventsDetailViewController: UIViewController {
     
     private let eventService = EventService()
-    private let eventID: Int = 125725
+    private let eventID: Int
     
     private var overlayView: UIView?
     private let shareView: ShareView = {
@@ -181,6 +181,15 @@ class EventsDetailViewController: UIViewController {
         return label
     }()
     
+    init(eventID: Int) {
+        self.eventID = eventID
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -188,7 +197,7 @@ class EventsDetailViewController: UIViewController {
         makeAttributedText()
         shareView.isHidden = true
         shareView.delegate = self
-        loadEventDetails(eventID: eventID)
+        loadEventDetails()
     }
     
     func configure(with event: Event) {
@@ -247,7 +256,7 @@ class EventsDetailViewController: UIViewController {
         adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))"
     }
     
-    private func loadEventDetails(eventID: Int) {
+    private func loadEventDetails() {
         eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {

@@ -10,6 +10,9 @@ import Foundation
 
 class EventsViewController: UIViewController {
     
+    private var upcomingEvents: [Event] = []
+    private var pastEvents: [Event] = []
+    
     private let eventsLabel: UILabel = {
         let label = UILabel()
         label.text = "Events"
@@ -34,6 +37,7 @@ class EventsViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
+        loadEvents()
     }
     
     private func setupViews() {
@@ -46,8 +50,57 @@ class EventsViewController: UIViewController {
         view.addSubview(buttonBlue)
     }
     
-    @objc private func segmentedChange() {
+    private func loadEvents() {
+        let currentTime = Int(Date().timeIntervalSince1970)
+        let sevenDaysAgo = currentTime - (7 * 24 * 60 * 60)
+        let sevenDaysLater = currentTime + (7 * 24 * 60 * 60)
         
+        let eventService = EventService()
+        
+        // Запрос предстоящих событий
+        eventService.fetchEvents(actualSince: currentTime, actualUntil: sevenDaysLater) { (result: Result<[Event], Error>) in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    self.upcomingEvents = events
+                    self.updateUI(for: .upcoming)
+                case .failure(let error):
+                    print("Ошибка при загрузке предстоящих событий: \(error)")
+                }
+            }
+        }
+        
+        // Запрос прошедших событий
+        eventService.fetchEvents(actualSince: sevenDaysAgo, actualUntil: currentTime) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    self?.pastEvents = events
+                    self?.updateUI(for: .past)
+                case .failure(let error):
+                    print("Ошибка при загрузке прошедших событий: \(error)")
+                }
+            }
+        }
+    }
+    
+    @objc private func segmentedChange() {
+        if segmentedControl.selectedSegmentIndex == 0 {
+            updateUI(for: .upcoming)
+        } else {
+            updateUI(for: .past)
+        }
+    }
+    
+    private func updateUI(for segment: Segment) {
+        switch segment {
+        case .upcoming:
+            tableView.reloadData(with: upcomingEvents)
+            noEventsView.isHidden = !upcomingEvents.isEmpty
+        case .past:
+            tableView.reloadData(with: pastEvents)
+            noEventsView.isHidden = !pastEvents.isEmpty
+        }
     }
     
     @objc private func buttonTapped() {
@@ -88,4 +141,9 @@ extension EventsViewController {
             
         ])
     }
+}
+
+private enum Segment {
+    case upcoming
+    case past
 }
