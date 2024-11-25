@@ -5,7 +5,7 @@
 //
 
 import UIKit
-
+//MARK: - Custom Tab Bar
 class CustomTabBar: UITabBar {
     //MARK: - UI Elements
     private lazy var centerView: UIView  = {
@@ -46,9 +46,9 @@ class CustomTabBar: UITabBar {
         }
     }
 }
+//MARK: - Tab Bar Controller
 class TabBarController: UITabBarController, UITabBarControllerDelegate {
     let customTabBar = CustomTabBar()
-    
     let centerButton = UIButton()
     
     override func viewDidLoad() {
@@ -59,10 +59,10 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         delegate = self
     }
     
-    //MARK: - Setup TabBar
-    
+    //MARK: - Setup Tab Bar
     private func setupTabBar() {
         tabBar.tintColor = .primaryBlue
+        tabBar.unselectedItemTintColor = .lightGray.withAlphaComponent(0.5)
         
         let exploreVC = ExploreViewController()
         exploreVC.tabBarItem = UITabBarItem(
@@ -93,12 +93,11 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             title: "Profile",
             image: UIImage(named: "Profile_blue"),
             selectedImage: UIImage(named: "Profile_blue"))
+        let profileNav = UINavigationController(rootViewController: profileVC)
         
-        viewControllers = [exploreVC, eventsVC, favoritesVC, mapVC, profileVC]
+        viewControllers = [exploreVC, eventsVC, favoritesVC, mapVC, profileNav]
     }
-    
     //MARK: - Setup Center Button
-    
     private func setupCenterButton() {
         let buttonSize: CGFloat = 50
         
@@ -142,5 +141,4 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
         centerButton.setImage(blueImage, for: .normal)
         centerButton.tintColor = .white
         }
-    
 }
