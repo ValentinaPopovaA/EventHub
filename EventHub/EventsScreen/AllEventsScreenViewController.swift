@@ -76,7 +76,7 @@ class AllEventsScreenViewController: UIViewController {
             eventsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             eventsLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: 5),
             
-            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 13),
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 14),
             searchButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
             tableView.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: 20),

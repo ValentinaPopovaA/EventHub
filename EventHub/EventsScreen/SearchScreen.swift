@@ -131,7 +131,7 @@ extension SearchViewController {
             backButton.widthAnchor.constraint(equalToConstant: 30),
             backButton.heightAnchor.constraint(equalToConstant: 22),
             
-            searchLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 6),
             searchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             searchBar.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 40),

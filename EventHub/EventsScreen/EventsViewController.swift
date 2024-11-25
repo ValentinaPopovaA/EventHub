@@ -48,20 +48,21 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
     }
     
     private func setupViews() {
-        view.addSubview(eventsLabel)
         view.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(noEventsView)
         noEventsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         view.addSubview(buttonBlue)
+        self.navigationItem.titleView = eventsLabel
         
         tableView.parentViewController = self
         segmentedControl.valueChanged = { [weak self] selectedIndex in
             self?.segmentedChange()
         }
     }
-    
+ 
+
     private func loadEvents() {
         guard let selectedCity = SelectedCityManager.getSelectedCity() else {
             noEventsView.isHidden = false
@@ -132,14 +133,12 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         }
     }
     
+ 
+    
     func didSelectEvent(_ event: Event, segment: Segment) {
-        let detailVC = EventsDetailViewController(event: event, segment: segment)
-        detailVC.modalPresentationStyle = .fullScreen
-        if let navController = self.navigationController {
-            navController.pushViewController(detailVC, animated: true)
-        } else {
-            present(detailVC, animated: true)
-        }
+        let eventsDetailVC = EventsDetailViewController(event: event, segment: segment)
+        eventsDetailVC.modalPresentationStyle = .fullScreen
+        present(eventsDetailVC, animated: true)
     }
     
     private func updateUI(for segment: Segment) {
@@ -179,10 +178,8 @@ extension EventsViewController {
     
     private func setConstrainst() {
         NSLayoutConstraint.activate([
-            eventsLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            eventsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
-            segmentedControl.topAnchor.constraint(equalTo: eventsLabel.bottomAnchor, constant: 22),
+
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 22),
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             
