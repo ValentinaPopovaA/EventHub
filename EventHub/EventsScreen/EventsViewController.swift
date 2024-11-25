@@ -19,7 +19,7 @@ class EventsViewController: UIViewController {
         return label
     }()
     
-    private let segmentedControl = CustomSegmentedControl(items: ["UPCOMING", "PAST EVENTS"])
+    private let segmentedControl = CustomSegmentedControl(items: ["UPCOMING", "PAST EVENTS"], font: UIFont(name: "AirbnbCereal_W_Bk", size: 15) ?? .boldSystemFont(ofSize: 20))
     private let noEventsView = NoUpcomingEventView()
     private let tableView = EventsTableView()
     
@@ -70,8 +70,8 @@ extension EventsViewController {
             eventsLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             segmentedControl.topAnchor.constraint(equalTo: eventsLabel.bottomAnchor, constant: 22),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 60),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -60),
             
             noEventsView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 130),
             noEventsView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
