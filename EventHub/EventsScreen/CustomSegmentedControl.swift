@@ -15,8 +15,8 @@ class CustomSegmentedControl: UIView {
     
     var valueChanged: ((Int) -> Void)?
     
-    init(items: [String]) {
-        super.init(frame: .zero)
+    init(items: [String], font: UIFont) {
+            super.init(frame: .zero)
         
         for (index, item) in items.enumerated() {
             let button = UIButton(type: .custom)
@@ -29,14 +29,16 @@ class CustomSegmentedControl: UIView {
             button.tag = index
             button.addTarget(self, action: #selector(segmentTapped(_:)), for: .touchUpInside)
             
+            button.titleLabel?.font = font
+            
             buttons.append(button)
         }
-        
+
         let stackView = UIStackView(arrangedSubviews: buttons)
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-        stackView.backgroundColor = .greyLight
+        stackView.backgroundColor = .grayForDetail
         stackView.layer.cornerRadius = 20
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         stackView.isLayoutMarginsRelativeArrangement = true
@@ -72,11 +74,11 @@ class CustomSegmentedControl: UIView {
             if index == selectedSegmentIndex {
                 // Активный сегмент
                 button.backgroundColor = .white
-                button.setTitleColor(.blue, for: .normal)
+                button.setTitleColor(.blueBackground, for: .normal)
             } else {
                 // Неактивный сегмент
                 button.backgroundColor = .clear
-                button.setTitleColor(.gray, for: .normal)
+                button.setTitleColor(.subColor, for: .normal)
             }
         }
     }

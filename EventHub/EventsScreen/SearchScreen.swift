@@ -7,7 +7,8 @@
 
 import UIKit
 
-class SearchViewController: UIViewController {
+class SearchViewController: UIViewController,SearchBarDelegate {
+    
     
     // MARK: - UI Elements
     
@@ -20,6 +21,17 @@ class SearchViewController: UIViewController {
         return button
     }()
     
+    private lazy var searchBar: SearchBarView = {
+        let searchBar = SearchBarView()
+        searchBar.delegate = self
+        searchBar.updateSearchButtonIcon(with: "Search_blue")
+        searchBar.updateSeporatoryView(with: .blueBackground)
+        searchBar.updatePlaceholderTextColor(.gray)
+        searchBar.updateTextFieldTextColor(with: .black )
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        return searchBar
+    }()
+    
     private let searchLabel: UILabel = {
         let label = UILabel()
         label.text = "  Search"
@@ -29,46 +41,21 @@ class SearchViewController: UIViewController {
         return label
     }()
     
-    private let searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "Search"
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        
-        let searchIcon = UIImage(systemName: "magnifyingglass")?.withRenderingMode(.alwaysTemplate)
-        
-        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField {
-            searchTextField.leftView = UIImageView(image: searchIcon)
-            searchTextField.leftViewMode = .always
-        }
-        
-        searchBar.setSearchFieldBackgroundImage(UIImage(), for: .normal)
-        
-        if let searchTextField = searchBar.value(forKey: "searchField") as? UITextField,
-           let iconImageView = searchTextField.leftView as? UIImageView {
-            iconImageView.tintColor = .blue  // Цвет кастомной лупы
-        }
-        
-        return searchBar
-    }()
-    
-    private let filterButton: UIButton = {
-        let button = UIButton(type: .system)
+    private let filtersButton: UIButton = {
+        let button = UIButton()
         button.setTitle("Filters", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .systemBlue
-        button.layer.cornerRadius = 18
-        let filterImage = UIImage(named: "filter-circle")
-        
-        button.setImage(filterImage, for: .normal)
-        button.tintColor = .white
-        
-        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // сдвиг изображения влево
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) // сдвиг текста вправо
-        
+        button.titleLabel?.font = UIFont(name: "AirbnbCereal_W_Bk", size: 12)
+        button.setImage(UIImage(named: "Filter_circle"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .blueForButtonExplore
+        button.layer.cornerRadius = 16
+        button.semanticContentAttribute = .forceLeftToRight
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
         return button
     }()
-    
     
     private let noResultLabel: UILabel = {
         let label = UILabel()
@@ -78,7 +65,6 @@ class SearchViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -95,7 +81,7 @@ class SearchViewController: UIViewController {
         view.addSubview(backButton)
         view.addSubview(searchLabel)
         view.addSubview(searchBar)
-        view.addSubview(filterButton)
+        view.addSubview(filtersButton)
         view.addSubview(noResultLabel)
     }
     
@@ -110,13 +96,13 @@ class SearchViewController: UIViewController {
     
     private func setupActions() {
         // Действие для кнопки фильтра
-        filterButton.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
+        filtersButton.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
         searchBar.delegate = self
     }
     
     @objc private func didTapFilterButton() {
         print("Filters button tapped")
-        // Добавьте логику для отображения экрана фильтров
+        // логика для отображения экрана фильтров
     }
 }
 
@@ -148,15 +134,24 @@ extension SearchViewController {
             
             searchBar.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 40),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searchBar.trailingAnchor.constraint(equalTo: filterButton.leadingAnchor, constant: -10),
+            searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
+            searchBar.heightAnchor.constraint(equalToConstant: 50),
             
-            filterButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            filterButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
-            filterButton.widthAnchor.constraint(equalToConstant: 80),
-            filterButton.heightAnchor.constraint(equalToConstant: 36),
+            filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            filtersButton.centerYAnchor.constraint(equalTo: searchBar.centerYAnchor),
+            filtersButton.heightAnchor.constraint(equalToConstant: 32),
+            filtersButton.widthAnchor.constraint(equalToConstant: 80),
             
             noResultLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 200),
             noResultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
+    }
+    
+    func searchBarTextDidChange(_ searchText: String) {
+        print("Search text changed: \(searchText)")
+    }
+    
+    func searchBarDidCancel() {
+        print("Search cancelled")
     }
 }

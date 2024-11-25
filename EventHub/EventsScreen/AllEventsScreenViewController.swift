@@ -43,6 +43,7 @@ class AllEventsScreenViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
+        
     }
     
     private func setupViews() {
@@ -65,6 +66,7 @@ class AllEventsScreenViewController: UIViewController {
         allEventsViewController.modalPresentationStyle = .fullScreen
         present(allEventsViewController, animated: true)
     }
+        
 }
 
 extension AllEventsScreenViewController {

@@ -1,13 +1,13 @@
 //
-//  EventsTableViewCell.swift
+//  FavoritesTableViewCell.swift
 //  EventHub
 //
-//  Created by apple on 11/22/24.
+//  Created by apple on 11/24/24.
 //
 
 import UIKit
 
-class EventsUITableViewCell: UITableViewCell {
+class FavoritesTableViewCell: UITableViewCell {
     
     private let backgroungCell: UIView = {
         let view = UIView()
@@ -41,11 +41,20 @@ class EventsUITableViewCell: UITableViewCell {
         return imageView
     }()
     
+    private let favoritImageView: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "bookmark"), for: .normal)
+        button.contentMode = .scaleAspectFill
+        button.clipsToBounds = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     private let eventDateAndTimeLabel: UILabel = {
         let label = UILabel()
         label.text = "Wed,Apr 28 • 5:30 PM"
-        label.textColor = .blueBackground
-        label.font = .systemFont(ofSize: 12)
+        label.textColor = .blue
+        label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -55,8 +64,7 @@ class EventsUITableViewCell: UITableViewCell {
         label.text = "Jo Malone London's Mother's Day Presents"
         label.numberOfLines = 2
         label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 14) //.systemFont(ofSize: 15)
+        label.font = UIFont(name: "AirbnbCereal_W_Bd", size: 15) //.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,7 +80,7 @@ class EventsUITableViewCell: UITableViewCell {
     private let eventLocationLabel: UILabel = {
         let label = UILabel()
         label.text = "Radius Gallery • Santa Cruz, CA"
-        label.textColor = .subColor
+        label.textColor = .gray
         label.font = .systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -95,6 +103,7 @@ class EventsUITableViewCell: UITableViewCell {
         addSubview(backgroungCell)
         addSubview(eventBackgroungView)
         addSubview(eventImageView)
+        addSubview(favoritImageView)
         addSubview(eventDateAndTimeLabel)
         addSubview(eventNameLabel)
         eventLocationStaskView = UIStackView(arrangedSubviews: [mapPinImageView,
@@ -109,7 +118,7 @@ class EventsUITableViewCell: UITableViewCell {
     }
 }
 
-extension EventsUITableViewCell {
+extension FavoritesTableViewCell {
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
@@ -133,12 +142,16 @@ extension EventsUITableViewCell {
             eventDateAndTimeLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 10),
             eventDateAndTimeLabel.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
             
-            eventNameLabel.topAnchor.constraint(equalTo: eventDateAndTimeLabel.bottomAnchor, constant: 3),
+            favoritImageView.topAnchor.constraint(equalTo: backgroungCell.topAnchor, constant: 5),
+            favoritImageView.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -5),
+            favoritImageView.heightAnchor.constraint(equalToConstant: 16),
+            favoritImageView.widthAnchor.constraint(equalToConstant: 16),
+            
+            eventNameLabel.topAnchor.constraint(equalTo: eventDateAndTimeLabel.bottomAnchor, constant: 4),
             eventNameLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor,constant: 10),
-            eventNameLabel.widthAnchor.constraint(equalToConstant: 100),
             eventNameLabel.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
             
-            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor,constant: 10),
+            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor,constant: 8),
             eventLocationStaskView.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 10),
             eventLocationStaskView.heightAnchor.constraint(equalToConstant: 18),
             
