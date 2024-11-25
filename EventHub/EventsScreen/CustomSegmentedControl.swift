@@ -38,7 +38,7 @@ class CustomSegmentedControl: UIView {
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
-        stackView.backgroundColor = .grayForDetail
+        stackView.backgroundColor = .greyLight
         stackView.layer.cornerRadius = 20
         stackView.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         stackView.isLayoutMarginsRelativeArrangement = true
