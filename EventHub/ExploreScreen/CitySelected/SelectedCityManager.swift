@@ -25,3 +25,7 @@ struct SelectedCityManager {
         return nil
     }
 }
+
+extension Notification.Name {
+    static let cityDidChange = Notification.Name("cityDidChange")
+}

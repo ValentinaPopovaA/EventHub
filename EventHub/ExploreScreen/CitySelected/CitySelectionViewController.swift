@@ -109,6 +109,10 @@ extension CitySelectionViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let city = cities[indexPath.row]
+        SelectedCityManager.saveSelectedCity(city)
+        
+        NotificationCenter.default.post(name: .cityDidChange, object: nil)
+        
         onCitySelected?(city)
         dismiss(animated: true)
     }

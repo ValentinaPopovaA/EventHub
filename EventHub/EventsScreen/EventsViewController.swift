@@ -41,6 +41,8 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         setConstrainst()
         tableView.eventsDelegate = self
         loadEvents()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cityDidChange), name: .cityDidChange, object: nil)
     }
     
     private func setupViews() {
@@ -151,6 +153,14 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         let allEventsViewController = AllEventsScreenViewController()
         allEventsViewController.modalPresentationStyle = .fullScreen
         present(allEventsViewController, animated: true)
+    }
+    
+    @objc private func cityDidChange() {
+        loadEvents()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .cityDidChange, object: nil)
     }
     
     //    private func checkEventsToday() {
