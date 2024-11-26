@@ -217,7 +217,6 @@ class EventsDetailViewController: UIViewController {
             adressLabel.text = "Address not available"
         }
         
-        // Используем nextDate или previousDate в зависимости от сегмента
         switch segment {
         case .upcoming:
             if let nextDate = event.nextDate {

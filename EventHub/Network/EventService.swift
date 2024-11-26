@@ -14,7 +14,6 @@ final class EventService {
         let request = EventsRequest(actualSince: actualSince, actualUntil: actualUntil, page: page, pageSize: pageSize)
         networkService.request(request) { (result: Result<EventsResponse, Error>) in
             completion(result.map { response in
-                // Фильтруем и сортируем события на основе переданных параметров
                 response.results
                     .filter { event in
                         guard let validDates = event.dates?.compactMap({ $0.start }).filter({ $0 >= actualSince && $0 <= actualUntil }) else {
@@ -22,10 +21,14 @@ final class EventService {
                         }
                         return !validDates.isEmpty
                     }
+                    .map { event in
+                        var mutableEvent = event
+                        mutableEvent.dates = event.dates?.filter { $0.start ?? 0 >= actualSince && $0.start ?? 0 <= actualUntil }
+                        return mutableEvent
+                    }
                     .sorted { event1, event2 in
-                        // Сортируем по ближайшей дате в пределах диапазона
-                        let date1 = event1.dates?.compactMap({ $0.start }).filter({ $0 >= actualSince && $0 <= actualUntil }).min() ?? 0
-                        let date2 = event2.dates?.compactMap({ $0.start }).filter({ $0 >= actualSince && $0 <= actualUntil }).min() ?? 0
+                        let date1 = event1.dates?.compactMap({ $0.start }).min() ?? 0
+                        let date2 = event2.dates?.compactMap({ $0.start }).min() ?? 0
                         return date1 < date2
                     }
             })
