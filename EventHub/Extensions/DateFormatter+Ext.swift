@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 extension Int {
     func formattedDate() -> String {
         let date = Date(timeIntervalSince1970: TimeInterval(self))

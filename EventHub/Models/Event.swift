@@ -7,34 +7,53 @@
 
 import Foundation
 
-struct EventsResponse: Codable {
+struct EventsResponse: Decodable {
     let results: [Event]
 }
 
-struct Event: Codable {
+struct Event: Decodable {
     let id: Int                      // ID события
     let publicationDate: Int?        // Дата публикации (в Unix)
     let title: String                // Название события
-    let slug: String                 // Уникальный идентификатор события
+    let slug: String?                 // Уникальный идентификатор события
     let place: Place?                // Место проведения
-    let categories: [String]
+    let categories: [String]?
     let description: String?         // Краткое описание (в формате HTML)
     let bodyText: String?            // Полный текст (в формате HTML)
     let tags: [String]?
     let images: [EventImage]?        // Изображения события
     let siteURL: String?             // Ссылка на страницу события
     let commentsCount: Int?          // Количество комментариев
-    let dates: [EventDate]?
+    var dates: [EventDate]?
     let participants: [Participant]?
+    
+    var formattedTitle: String {
+        return title.prefix(1).uppercased() + title.dropFirst().lowercased()
+    }
 }
 
-struct Participant: Codable {
+struct Participant: Decodable {
     let agent: Agent
 }
 
-struct Agent: Codable {
+struct Agent: Decodable {
     let id: Int
     let title: String
     let slug: String
     let images: [String]
+}
+
+extension Event {
+    var nextDate: EventDate? {
+        return dates?.min(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+    }
+    
+    var previousDate: EventDate? {
+        return dates?.max(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+    }
+}
+
+enum Segment {
+    case upcoming
+    case past
 }
