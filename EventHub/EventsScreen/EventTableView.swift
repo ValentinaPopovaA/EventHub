@@ -8,11 +8,13 @@
 import UIKit
 
 protocol EventsTableViewDelegate: AnyObject {
-    func didSelectEvent(_ event: Event)
+    func didSelectEvent(_ event: Event, segment: Segment)
 }
 
 class EventsTableView: UITableView {
     
+    weak var parentViewController: UIViewController?
+    var currentSegment: Segment = .upcoming
     private var events: [Event] = []
     weak var eventsDelegate: EventsTableViewDelegate?
     
@@ -58,7 +60,7 @@ extension EventsTableView: UITableViewDataSource {
             return UITableViewCell()
         }
         let event = events[indexPath.row]
-        cell.configure(with: event)
+        cell.configure(with: event, segment: currentSegment)
         return cell
     }
 }
@@ -70,13 +72,7 @@ extension EventsTableView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedEvent = events[indexPath.row]
-        let detailVC = EventsDetailViewController(eventID: selectedEvent.id)
-        navigationController?.pushViewController(detailVC, animated: true)
-
-        // Задержка для снятия выделения
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            tableView.deselectRow(at: indexPath, animated: true)
-        }
+        eventsDelegate?.didSelectEvent(selectedEvent, segment: currentSegment)
     }
 }
 

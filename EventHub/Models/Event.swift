@@ -42,3 +42,22 @@ struct Agent: Decodable {
     let slug: String
     let images: [String]
 }
+
+extension Event {
+    var nextDate: EventDate? {
+        return dates?
+            .filter { ($0.start ?? 0) > Int(Date().timeIntervalSince1970) }
+            .min(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+    }
+    
+    var previousDate: EventDate? {
+        return dates?
+            .filter { ($0.start ?? 0) <= Int(Date().timeIntervalSince1970) }
+            .max(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+    }
+}
+
+enum Segment {
+    case upcoming
+    case past
+}

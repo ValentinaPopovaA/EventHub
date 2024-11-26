@@ -8,8 +8,10 @@
 import UIKit
 import Foundation
 
-class EventsViewController: UIViewController {
+class EventsViewController: UIViewController, EventsTableViewDelegate {
     
+    private let eventsTableView = EventsTableView()
+
     private var upcomingEvents: [Event] = []
     private var pastEvents: [Event] = []
     
@@ -37,6 +39,7 @@ class EventsViewController: UIViewController {
         view.backgroundColor = .white
         setupViews()
         setConstrainst()
+        tableView.eventsDelegate = self
         loadEvents()
     }
     
@@ -48,6 +51,11 @@ class EventsViewController: UIViewController {
         noEventsView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(tableView)
         view.addSubview(buttonBlue)
+        
+        tableView.parentViewController = self
+        segmentedControl.valueChanged = { [weak self] selectedIndex in
+            self?.segmentedChange()
+        }
     }
     
     private func loadEvents() {
@@ -89,6 +97,16 @@ class EventsViewController: UIViewController {
             updateUI(for: .upcoming)
         } else {
             updateUI(for: .past)
+        }
+    }
+    
+    func didSelectEvent(_ event: Event, segment: Segment) {
+        let detailVC = EventsDetailViewController(eventID: event.id, segment: segment)
+        detailVC.modalPresentationStyle = .fullScreen
+        if let navController = self.navigationController {
+            navController.pushViewController(detailVC, animated: true)
+        } else {
+            present(detailVC, animated: true)
         }
     }
     
@@ -141,9 +159,4 @@ extension EventsViewController {
             
         ])
     }
-}
-
-private enum Segment {
-    case upcoming
-    case past
 }

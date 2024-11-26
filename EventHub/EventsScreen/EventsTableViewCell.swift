@@ -110,23 +110,31 @@ class EventsUITableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with event: Event) {
+    func configure(with event: Event, segment: Segment) {
         eventNameLabel.text = event.formattedTitle
-
-        if let closestDate = event.dates?
-            .compactMap({ $0.start })
-            .filter({ $0 > Int(Date().timeIntervalSince1970) })
-            .min() {
-            let formattedDate = closestDate.formattedDate()
-            let formattedTimeWithWeekday = closestDate.formattedTimeWithWeekday()
-            eventDateAndTimeLabel.text = "\(formattedDate), \(formattedTimeWithWeekday)"
-        } else {
-            eventDateAndTimeLabel.text = "Дата неизвестна"
+        
+        switch segment {
+        case .upcoming:
+            if let closestDate = event.nextDate {
+                let formattedDate = closestDate.start?.formattedDate() ?? "Дата неизвестна"
+                let formattedTimeWithWeekday = closestDate.start?.formattedTimeWithWeekday() ?? ""
+                eventDateAndTimeLabel.text = "\(formattedDate), \(formattedTimeWithWeekday)"
+            } else {
+                eventDateAndTimeLabel.text = "Дата неизвестна"
+            }
+        case .past:
+            if let previousDate = event.previousDate {
+                let formattedDate = previousDate.start?.formattedDate() ?? "Дата неизвестна"
+                let formattedTimeWithWeekday = previousDate.start?.formattedTimeWithWeekday() ?? ""
+                eventDateAndTimeLabel.text = "\(formattedDate), \(formattedTimeWithWeekday)"
+            } else {
+                eventDateAndTimeLabel.text = "Дата неизвестна"
+            }
         }
-
+        
         // Временное значение для лейбла места
         eventLocationLabel.text = "Загрузка места..."
-
+        
         if let place = event.place, let placeId = place.id {
             EventService().fetchPlaceDetails(placeID: placeId) { [weak self] result in
                 DispatchQueue.main.async {
@@ -144,7 +152,7 @@ class EventsUITableViewCell: UITableViewCell {
         } else {
             eventLocationLabel.text = "Место неизвестно"
         }
-
+        
         if let imageURL = event.images?.first?.image {
             eventImageView.loadImage(from: imageURL)
         }

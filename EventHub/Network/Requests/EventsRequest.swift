@@ -12,6 +12,8 @@ struct EventsRequest: DataRequest {
 
     let actualSince: Int
     let actualUntil: Int
+    let page: Int
+    let pageSize: Int
 
     var url: String {
         "https://kudago.com/public-api/v1.4/events/"
@@ -26,7 +28,9 @@ struct EventsRequest: DataRequest {
             "lang": "ru",
             "actual_since": "\(actualSince)",
             "actual_until": "\(actualUntil)",
-            "fields": "id,dates,title,place,images,slug"
+            "fields": "id,dates,title,place,images,slug",
+            "page": "\(page)",
+            "page_size": "\(pageSize)"
         ]
     }
 
@@ -35,15 +39,15 @@ struct EventsRequest: DataRequest {
     }
 
     func decode(_ data: Data) throws -> EventsResponse {
-        // Проверяем структуру данных перед декодированием
+        // Отладочный вывод
         do {
             let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-            print(jsonObject) // Отладочный вывод для проверки структуры JSON
+            print("Ответ API: \(jsonObject)") // Для проверки структуры JSON
         } catch {
             print("Ошибка декодирования JSON: \(error)")
         }
-        
-        // Реальное декодирование в структуру
+
+        // Декодирование
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         return try decoder.decode(EventsResponse.self, from: data)
