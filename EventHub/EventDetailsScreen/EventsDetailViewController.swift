@@ -9,8 +9,9 @@ import UIKit
 
 class EventsDetailViewController: UIViewController {
     
+    private let event: Event
     private let eventService = EventService()
-    private let eventID: Int = 125725
+    private let segment: Segment
     
     private var overlayView: UIView?
     private let shareView: ShareView = {
@@ -181,6 +182,16 @@ class EventsDetailViewController: UIViewController {
         return label
     }()
     
+    init(event: Event, segment: Segment) {
+        self.event = event
+        self.segment = segment
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
@@ -188,7 +199,7 @@ class EventsDetailViewController: UIViewController {
         makeAttributedText()
         shareView.isHidden = true
         shareView.delegate = self
-        loadEventDetails(eventID: eventID)
+        configure(with: event)
     }
     
     func configure(with event: Event) {
@@ -206,25 +217,47 @@ class EventsDetailViewController: UIViewController {
             adressLabel.text = "Address not available"
         }
         
-        // Даты и время проведения
-        if let firstDate = event.dates?.first {
-            // Отображение даты
-            dateLabel.text = firstDate.start?.formattedDate() ?? "Date not available"
-            
-            // Форматирование времени
-            let startTimeWithWeekday = firstDate.start?.formattedTimeWithWeekday() ?? "Start time not available"
-            let startTime = firstDate.start?.formattedTime() ?? "Start time not available"
-            let endTime = firstDate.end?.formattedTime() ?? "End time not available"
-            
-            // Если время начала и окончания одинаковое
-            if startTime == endTime {
-                timeLabel.text = startTimeWithWeekday
+        switch segment {
+        case .upcoming:
+            if let nextDate = event.nextDate {
+                // Отображение даты
+                dateLabel.text = nextDate.start?.formattedDate() ?? "Date not available"
+                
+                // Форматирование времени
+                let startTimeWithWeekday = nextDate.start?.formattedTimeWithWeekday() ?? "Start time not available"
+                let startTime = nextDate.start?.formattedTime() ?? "Start time not available"
+                let endTime = nextDate.end?.formattedTime() ?? "End time not available"
+                
+                // Если время начала и окончания одинаковое
+                if startTime == endTime {
+                    timeLabel.text = startTimeWithWeekday
+                } else {
+                    timeLabel.text = "\(startTimeWithWeekday) - \(endTime)"
+                }
             } else {
-                timeLabel.text = "\(startTimeWithWeekday) - \(endTime)"
+                dateLabel.text = "Date not available"
+                timeLabel.text = ""
             }
-        } else {
-            dateLabel.text = "Date not available"
-            timeLabel.text = ""
+        case .past:
+            if let previousDate = event.previousDate {
+                // Отображение даты
+                dateLabel.text = previousDate.start?.formattedDate() ?? "Date not available"
+                
+                // Форматирование времени
+                let startTimeWithWeekday = previousDate.start?.formattedTimeWithWeekday() ?? "Start time not available"
+                let startTime = previousDate.start?.formattedTime() ?? "Start time not available"
+                let endTime = previousDate.end?.formattedTime() ?? "End time not available"
+                
+                // Если время начала и окончания одинаковое
+                if startTime == endTime {
+                    timeLabel.text = startTimeWithWeekday
+                } else {
+                    timeLabel.text = "\(startTimeWithWeekday) - \(endTime)"
+                }
+            } else {
+                dateLabel.text = "Date not available"
+                timeLabel.text = ""
+            }
         }
         
         // Картинка события
@@ -245,19 +278,6 @@ class EventsDetailViewController: UIViewController {
     private func configurePlaceUI(with place: Place) {
         locationLabel.text = place.title ?? "Unknown location"
         adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))"
-    }
-    
-    private func loadEventDetails(eventID: Int) {
-        eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let event):
-                    self?.configure(with: event)
-                case .failure(let error):
-                    print("Error loading event details: \(error.localizedDescription)")
-                }
-            }
-        }
     }
     
     private func loadPlaceDetails(placeID: Int) {

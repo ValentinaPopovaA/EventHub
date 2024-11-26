@@ -9,6 +9,8 @@ import UIKit
 
 class EventsUITableViewCell: UITableViewCell {
     
+    private let eventService = EventService()
+    
     private let backgroungCell: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -106,6 +108,54 @@ class EventsUITableViewCell: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with event: Event, segment: Segment) {
+        eventNameLabel.text = event.formattedTitle
+        
+        switch segment {
+        case .upcoming:
+            if let closestDate = event.nextDate {
+                let formattedDate = closestDate.start?.formattedDate() ?? "Дата неизвестна"
+                let formattedTimeWithWeekday = closestDate.start?.formattedTimeWithWeekday() ?? ""
+                eventDateAndTimeLabel.text = "\(formattedDate), \(formattedTimeWithWeekday)"
+            } else {
+                eventDateAndTimeLabel.text = "Дата неизвестна"
+            }
+        case .past:
+            if let previousDate = event.previousDate {
+                let formattedDate = previousDate.start?.formattedDate() ?? "Дата неизвестна"
+                let formattedTimeWithWeekday = previousDate.start?.formattedTimeWithWeekday() ?? ""
+                eventDateAndTimeLabel.text = "\(formattedDate), \(formattedTimeWithWeekday)"
+            } else {
+                eventDateAndTimeLabel.text = "Дата неизвестна"
+            }
+        }
+        
+        // Временное значение для лейбла места
+        eventLocationLabel.text = "Загрузка места..."
+        
+        if let place = event.place, let placeId = place.id {
+            EventService().fetchPlaceDetails(placeID: placeId) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let fetchedPlace):
+                        let placeTitle = fetchedPlace.title ?? "Место неизвестно"
+                        let cityName = fetchedPlace.location.flatMap { fetchedPlace.cityName(for: $0) } ?? ""
+                        
+                        self?.eventLocationLabel.text = cityName.isEmpty ? placeTitle : "\(placeTitle) • \(cityName)"
+                    case .failure:
+                        self?.eventLocationLabel.text = "Место неизвестно"
+                    }
+                }
+            }
+        } else {
+            eventLocationLabel.text = "Место неизвестно"
+        }
+        
+        if let imageURL = event.images?.first?.image {
+            eventImageView.loadImage(from: imageURL)
+        }
     }
 }
 

@@ -59,8 +59,7 @@
 		A7D5D2502CEDEE06009DAED6 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D24F2CEDEE06009DAED6 /* HTTPMethod.swift */; };
 		A7D5D2522CEDEE40009DAED6 /* EventsByCityRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2512CEDEE40009DAED6 /* EventsByCityRequest.swift */; };
 		A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2542CEE0960009DAED6 /* EventsByCategoryRequest.swift */; };
-		A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */; };
-		A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */; };
+		A7D5D2572CEE0ADE009DAED6 /* EventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2562CEE0ADE009DAED6 /* EventsRequest.swift */; };
 		A7D5D25B2CEE0B5E009DAED6 /* AllEventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */; };
 		A7D5D25D2CEE13BC009DAED6 /* SearchEventsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */; };
 		A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2622CEE1618009DAED6 /* UIImageView.swift */; };
@@ -69,7 +68,6 @@
 		A7D5D26B2CEE3E7E009DAED6 /* HTMLToString+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */; };
 		A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */; };
 		A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2762CF08065009DAED6 /* EventService.swift */; };
-		A7D5D27B2CF08986009DAED6 /* ServicesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D27A2CF08986009DAED6 /* ServicesController.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
 		E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798461F2CF0604000CF249D /* EditProfileViewController.swift */; };
@@ -133,8 +131,7 @@
 		A7D5D24F2CEDEE06009DAED6 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
 		A7D5D2512CEDEE40009DAED6 /* EventsByCityRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCityRequest.swift; sourceTree = "<group>"; };
 		A7D5D2542CEE0960009DAED6 /* EventsByCategoryRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsByCategoryRequest.swift; sourceTree = "<group>"; };
-		A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsNext7DaysRequest.swift; sourceTree = "<group>"; };
-		A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLast7DaysRequest.swift; sourceTree = "<group>"; };
+		A7D5D2562CEE0ADE009DAED6 /* EventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsRequest.swift; sourceTree = "<group>"; };
 		A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsRequest.swift; sourceTree = "<group>"; };
 		A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchEventsRequest.swift; sourceTree = "<group>"; };
 		A7D5D2622CEE1618009DAED6 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
@@ -143,7 +140,6 @@
 		A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTMLToString+Ext.swift"; sourceTree = "<group>"; };
 		A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceDetailsRequest.swift; sourceTree = "<group>"; };
 		A7D5D2762CF08065009DAED6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
-		A7D5D27A2CF08986009DAED6 /* ServicesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServicesController.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
 		E798461F2CF0604000CF249D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
@@ -379,10 +375,9 @@
 				A720E9382CF362C900AA61FE /* CitiesRequest.swift */,
 				A7D5D2512CEDEE40009DAED6 /* EventsByCityRequest.swift */,
 				A7D5D2542CEE0960009DAED6 /* EventsByCategoryRequest.swift */,
-				A7D5D2562CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift */,
-				A7D5D2582CEE0B24009DAED6 /* EventsLast7DaysRequest.swift */,
 				A7D5D25A2CEE0B5E009DAED6 /* AllEventsRequest.swift */,
 				A7D5D25C2CEE13BC009DAED6 /* SearchEventsRequest.swift */,
+				A7D5D2562CEE0ADE009DAED6 /* EventsRequest.swift */,
 				A7D5D2682CEE33A8009DAED6 /* EventDetailRequest.swift */,
 				A7D5D26C2CEE602C009DAED6 /* PlaceDetailsRequest.swift */,
 				A720E92B2CF30A6300AA61FE /* EventCategoryRequest.swift */,
@@ -393,7 +388,6 @@
 		A7D5D2732CEF3DAA009DAED6 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				A7D5D27A2CF08986009DAED6 /* ServicesController.swift */,
 				A720E92F2CF3323700AA61FE /* CategoryProvider.swift */,
 			);
 			path = Services;
@@ -518,7 +512,6 @@
 				18F334602CF1B8600067A9BC /* UIStackView.swift in Sources */,
 				A7CAF9942CEA0CEE00719F7D /* NetworkError.swift in Sources */,
 				A7D5D25D2CEE13BC009DAED6 /* SearchEventsRequest.swift in Sources */,
-				A7D5D27B2CF08986009DAED6 /* ServicesController.swift in Sources */,
 				A7D5D2482CEDE753009DAED6 /* Place.swift in Sources */,
 				A7CAF9A42CEA0E5300719F7D /* ProfileViewController.swift in Sources */,
 				A7D5D24E2CEDEBE2009DAED6 /* DataRequest.swift in Sources */,
@@ -536,12 +529,11 @@
 				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
 				A720E9342CF357AF00AA61FE /* CityService.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
-				A7D5D2572CEE0ADE009DAED6 /* EventsNext7DaysRequest.swift in Sources */,
+				A7D5D2572CEE0ADE009DAED6 /* EventsRequest.swift in Sources */,
 				18F334642CF3C01C0067A9BC /* NIFavoritesView.swift in Sources */,
 				A7CAF9962CEA0D2A00719F7D /* UILabel+Ext.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
-				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */,
 				A720E9302CF3323700AA61FE /* CategoryProvider.swift in Sources */,
