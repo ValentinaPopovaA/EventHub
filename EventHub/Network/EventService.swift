@@ -13,16 +13,18 @@ final class EventService {
     func fetchEvents(
         actualSince: Int,
         actualUntil: Int,
-        sortAscending: Bool = true, // Параметр сортировки
+        sortAscending: Bool = true,
         page: Int = 1,
         pageSize: Int = 150,
+        location: String? = nil,
         completion: @escaping (Result<[Event], Error>) -> Void
     ) {
         let request = EventsRequest(
             actualSince: actualSince,
             actualUntil: actualUntil,
             page: page,
-            pageSize: pageSize
+            pageSize: pageSize,
+            location: location
         )
         
         networkService.request(request) { (result: Result<EventsResponse, Error>) in

@@ -14,6 +14,7 @@ struct EventsRequest: DataRequest {
     let actualUntil: Int
     let page: Int
     let pageSize: Int
+    let location: String?
 
     var url: String {
         "https://kudago.com/public-api/v1.4/events/"
@@ -24,7 +25,7 @@ struct EventsRequest: DataRequest {
     }
 
     var queryItems: [String: String] {
-        [
+        var items: [String: String] = [
             "lang": "ru",
             "actual_since": "\(actualSince)",
             "actual_until": "\(actualUntil)",
@@ -32,6 +33,11 @@ struct EventsRequest: DataRequest {
             "page": "\(page)",
             "page_size": "\(pageSize)"
         ]
+        if let location = location {
+            items["location"] = location
+        }
+        
+        return items
     }
 
     var method: HTTPMethod {
