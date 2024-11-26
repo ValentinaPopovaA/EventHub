@@ -11,9 +11,11 @@ import Foundation
 class EventsViewController: UIViewController, EventsTableViewDelegate {
     
     private let eventsTableView = EventsTableView()
-    
     private var upcomingEvents: [Event] = []
     private var pastEvents: [Event] = []
+    
+    private var upcomingContentOffset: CGPoint = .zero
+    private var pastContentOffset: CGPoint = .zero
     
     private let eventsLabel: UILabel = {
         let label = UILabel()
@@ -120,9 +122,13 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
     
     @objc private func segmentedChange() {
         if segmentedControl.selectedSegmentIndex == 0 {
+            pastContentOffset = tableView.contentOffset
             updateUI(for: .upcoming)
+            tableView.setContentOffset(upcomingContentOffset, animated: false)
         } else {
+            upcomingContentOffset = tableView.contentOffset
             updateUI(for: .past)
+            tableView.setContentOffset(pastContentOffset, animated: false)
         }
     }
     
