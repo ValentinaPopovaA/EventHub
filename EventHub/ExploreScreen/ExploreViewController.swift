@@ -96,6 +96,28 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         return collectionView
     }()
     
+    private let  headerStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        return stack
+    }()
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Upcoming Events"
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.textColor = .titleColor
+        label.textAlignment = .left
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    lazy var button: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "see_all"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -105,6 +127,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         setupSavedCity()
         categoriesCollectionView.delegate = self
         currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
+        exploreView.collectionView.delegate = self
     }
     
     // MARK: - Private Methods
@@ -116,6 +139,11 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         view.addSubview(searchBar)
         view.addSubview(filtersButton)
         view.addSubview(categoriesCollectionView)
+        view.addSubview(headerStack)
+        headerStack.addArrangedSubview(titleLabel)
+        headerStack.addArrangedSubview(button)
+        view.addSubview(exploreView)
+        
     }
     
     private func layoutViews() {
@@ -149,7 +177,19 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
             categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
             categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40)
+            categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40),
+//            
+            headerStack.topAnchor.constraint(equalTo:categoriesCollectionView.bottomAnchor, constant: 25),
+            headerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            headerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor,constant: -5),
+            headerStack.heightAnchor.constraint(equalToConstant: 31),
+            
+            exploreView.topAnchor.constraint(equalTo: headerStack.bottomAnchor,constant: 5),
+            exploreView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            exploreView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            exploreView.heightAnchor.constraint(equalToConstant: 255)
+            exploreView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
         ])
     }
     

@@ -53,6 +53,7 @@ class ExploreView: UIView {
             NearbyEventsCell.self,
             forCellWithReuseIdentifier: NearbyEventsCell.identifire
         )
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: "HeaderView.headerLabel", withReuseIdentifier: "headerID")
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -157,6 +158,10 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! HeaderView
+        return headerView
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         images.count
