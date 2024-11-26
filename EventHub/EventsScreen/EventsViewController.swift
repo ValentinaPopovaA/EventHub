@@ -64,7 +64,6 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         let sevenDaysLater = currentTime + (7 * 24 * 60 * 60)
         
         let eventService = EventService()
-        
         let dispatchGroup = DispatchGroup()
         
         // Запрос предстоящих событий

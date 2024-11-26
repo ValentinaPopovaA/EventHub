@@ -13,7 +13,7 @@ final class EventService {
     func fetchEvents(
         actualSince: Int,
         actualUntil: Int,
-        sortAscending: Bool = true,
+        sortAscending: Bool = true, // Параметр сортировки
         page: Int = 1,
         pageSize: Int = 150,
         completion: @escaping (Result<[Event], Error>) -> Void
@@ -41,10 +41,12 @@ final class EventService {
                     }
                     .sorted { event1, event2 in
                         if sortAscending {
+                            // Сортировка по возрастанию для предстоящих событий
                             let date1 = event1.dates?.compactMap({ $0.start }).min() ?? 0
                             let date2 = event2.dates?.compactMap({ $0.start }).min() ?? 0
                             return date1 < date2
                         } else {
+                            // Сортировка по убыванию для прошедших событий
                             let date1 = event1.dates?.compactMap({ $0.start }).max() ?? 0
                             let date2 = event2.dates?.compactMap({ $0.start }).max() ?? 0
                             return date1 > date2

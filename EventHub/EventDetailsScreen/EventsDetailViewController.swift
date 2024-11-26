@@ -11,7 +11,6 @@ class EventsDetailViewController: UIViewController {
     
     private let event: Event
     private let eventService = EventService()
-//    private let eventID: Int
     private let segment: Segment
     
     private var overlayView: UIView?
