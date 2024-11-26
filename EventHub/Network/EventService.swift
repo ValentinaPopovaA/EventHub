@@ -10,8 +10,21 @@ import Foundation
 final class EventService {
     private let networkService = NetworkService()
     
-    func fetchEvents(actualSince: Int, actualUntil: Int, page: Int = 1, pageSize: Int = 150, completion: @escaping (Result<[Event], Error>) -> Void) {
-        let request = EventsRequest(actualSince: actualSince, actualUntil: actualUntil, page: page, pageSize: pageSize)
+    func fetchEvents(
+        actualSince: Int,
+        actualUntil: Int,
+        sortAscending: Bool = true,
+        page: Int = 1,
+        pageSize: Int = 150,
+        completion: @escaping (Result<[Event], Error>) -> Void
+    ) {
+        let request = EventsRequest(
+            actualSince: actualSince,
+            actualUntil: actualUntil,
+            page: page,
+            pageSize: pageSize
+        )
+        
         networkService.request(request) { (result: Result<EventsResponse, Error>) in
             completion(result.map { response in
                 response.results
@@ -27,9 +40,15 @@ final class EventService {
                         return mutableEvent
                     }
                     .sorted { event1, event2 in
-                        let date1 = event1.dates?.compactMap({ $0.start }).min() ?? 0
-                        let date2 = event2.dates?.compactMap({ $0.start }).min() ?? 0
-                        return date1 < date2
+                        if sortAscending {
+                            let date1 = event1.dates?.compactMap({ $0.start }).min() ?? 0
+                            let date2 = event2.dates?.compactMap({ $0.start }).min() ?? 0
+                            return date1 < date2
+                        } else {
+                            let date1 = event1.dates?.compactMap({ $0.start }).max() ?? 0
+                            let date2 = event2.dates?.compactMap({ $0.start }).max() ?? 0
+                            return date1 > date2
+                        }
                     }
             })
         }

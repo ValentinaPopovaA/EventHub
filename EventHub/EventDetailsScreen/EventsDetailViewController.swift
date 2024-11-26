@@ -9,8 +9,9 @@ import UIKit
 
 class EventsDetailViewController: UIViewController {
     
+    private let event: Event
     private let eventService = EventService()
-    private let eventID: Int
+//    private let eventID: Int
     private let segment: Segment
     
     private var overlayView: UIView?
@@ -182,8 +183,8 @@ class EventsDetailViewController: UIViewController {
         return label
     }()
     
-    init(eventID: Int, segment: Segment) {
-        self.eventID = eventID
+    init(event: Event, segment: Segment) {
+        self.event = event
         self.segment = segment
         super.init(nibName: nil, bundle: nil)
     }
@@ -199,7 +200,7 @@ class EventsDetailViewController: UIViewController {
         makeAttributedText()
         shareView.isHidden = true
         shareView.delegate = self
-        loadEventDetails()
+        configure(with: event)
     }
     
     func configure(with event: Event) {
@@ -278,19 +279,6 @@ class EventsDetailViewController: UIViewController {
     private func configurePlaceUI(with place: Place) {
         locationLabel.text = place.title ?? "Unknown location"
         adressLabel.text = "\(place.address!), \(place.cityName(for: place.location!))"
-    }
-    
-    private func loadEventDetails() {
-        eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let event):
-                    self?.configure(with: event)
-                case .failure(let error):
-                    print("Error loading event details: \(error.localizedDescription)")
-                }
-            }
-        }
     }
     
     private func loadPlaceDetails(placeID: Int) {

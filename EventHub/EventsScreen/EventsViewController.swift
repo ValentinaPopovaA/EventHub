@@ -65,30 +65,47 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         
         let eventService = EventService()
         
+        let dispatchGroup = DispatchGroup()
+        
         // Запрос предстоящих событий
-        eventService.fetchEvents(actualSince: currentTime, actualUntil: sevenDaysLater) { (result: Result<[Event], Error>) in
+        dispatchGroup.enter()
+        eventService.fetchEvents(
+            actualSince: currentTime,
+            actualUntil: sevenDaysLater,
+            sortAscending: true // Сортировка по возрастанию для предстоящих событий
+        ) { (result: Result<[Event], Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let events):
                     self.upcomingEvents = events
-                    self.updateUI(for: .upcoming)
                 case .failure(let error):
                     print("Ошибка при загрузке предстоящих событий: \(error)")
                 }
+                dispatchGroup.leave()
             }
         }
         
         // Запрос прошедших событий
-        eventService.fetchEvents(actualSince: sevenDaysAgo, actualUntil: currentTime) { [weak self] result in
+        dispatchGroup.enter()
+        eventService.fetchEvents(
+            actualSince: sevenDaysAgo,
+            actualUntil: currentTime,
+            sortAscending: false // Сортировка по убыванию для прошедших событий
+        ) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let events):
                     self?.pastEvents = events
-                    self?.updateUI(for: .past)
                 case .failure(let error):
                     print("Ошибка при загрузке прошедших событий: \(error)")
                 }
+                dispatchGroup.leave()
             }
+        }
+        
+        // Обновление UI после завершения обоих запросов
+        dispatchGroup.notify(queue: .main) {
+            self.updateUI(for: self.segmentedControl.selectedSegmentIndex == 0 ? .upcoming : .past)
         }
     }
     
@@ -101,7 +118,7 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
     }
     
     func didSelectEvent(_ event: Event, segment: Segment) {
-        let detailVC = EventsDetailViewController(eventID: event.id, segment: segment)
+        let detailVC = EventsDetailViewController(event: event, segment: segment)
         detailVC.modalPresentationStyle = .fullScreen
         if let navController = self.navigationController {
             navController.pushViewController(detailVC, animated: true)

@@ -28,7 +28,7 @@ struct EventsRequest: DataRequest {
             "lang": "ru",
             "actual_since": "\(actualSince)",
             "actual_until": "\(actualUntil)",
-            "fields": "id,dates,title,place,images,slug",
+            "fields": "id,dates,title,place,images,slug,description,body_text",
             "page": "\(page)",
             "page_size": "\(pageSize)"
         ]
