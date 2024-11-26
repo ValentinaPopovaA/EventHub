@@ -64,6 +64,14 @@ final class SearchBarView: UIView, UISearchBarDelegate {
         return view
     }()
     
+    func updateClearButtonColor(with color: UIColor) {
+            if let clearButton = searchBar.searchTextField.value(forKey: "clearButton") as? UIButton {
+                clearButton.tintColor = color
+                let tintedImage = clearButton.image(for: .normal)?.withRenderingMode(.alwaysTemplate)
+                clearButton.setImage(tintedImage, for: .normal)
+            }
+        }
+    
     func updateSearchButtonIcon(with imageName: String) {
         let newImage = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
         searchButton.setImage(newImage, for: .normal)
@@ -72,6 +80,10 @@ final class SearchBarView: UIView, UISearchBarDelegate {
     func updateTextFieldTextColor(with color: UIColor) {
         searchBar.searchTextField.textColor = color
     }
+    
+    func updateCursorColor(with color: UIColor) {
+            searchBar.searchTextField.tintColor = color
+        }
     
     func updatePlaceholderTextColor(_ color: UIColor) {
         let placeholder = "Search..."
