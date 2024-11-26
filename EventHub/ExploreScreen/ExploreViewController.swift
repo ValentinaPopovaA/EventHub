@@ -11,6 +11,11 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
     private var selectedCategory: Int?
     
+    let exploreView: ExploreView = {
+        let view = ExploreView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     private let blueBackgroundView: UIView = {
         let view = UIView()
         view.backgroundColor = .blueBackground
