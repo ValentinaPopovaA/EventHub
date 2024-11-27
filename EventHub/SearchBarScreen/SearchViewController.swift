@@ -7,8 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController, SearchBarDelegate {
-    
+class SearchViewController: UIViewController, SearchBarDelegate, SearchTableViewDelegate {
     // MARK: - UI Elements
     
     private let backButton: UIButton = {
@@ -76,6 +75,9 @@ class SearchViewController: UIViewController, SearchBarDelegate {
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.searchDelegate = self
+        tableView.delegate = self
+        tableView.dataSource = self
         setupUI()
         setConstraints()
     }
@@ -90,9 +92,7 @@ class SearchViewController: UIViewController, SearchBarDelegate {
         view.addSubview(filtersButton)
         view.addSubview(noResultLabel)
         view.addSubview(tableView)
-        
-        tableView.dataSource = self
-        tableView.delegate = self
+    
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.idTableViewCell)
     }
     
@@ -132,11 +132,12 @@ class SearchViewController: UIViewController, SearchBarDelegate {
             noResultLabel.isHidden = false
             searchResults.removeAll()
             tableView.reloadData()
+            tableView.isHidden = true
             return
         }
         
-        // Показываем индикатор загрузки
-        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        // Индикатор загрузки
+        let activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.center = view.center
         activityIndicator.startAnimating()
         view.addSubview(activityIndicator)
@@ -155,14 +156,75 @@ class SearchViewController: UIViewController, SearchBarDelegate {
                 
                 switch result {
                 case .success(let events):
-                    self?.searchResults = events
-                    self?.noResultLabel.text = events.isEmpty ? "NO RESULTS" : ""
-                    self?.noResultLabel.isHidden = !events.isEmpty
+                    let currentTimestamp = Int(Date().timeIntervalSince1970)
+                    
+                    // Фильтрация событий, начинающихся сегодня или позже
+                    let filteredEvents = events.filter { event in
+                        if let nextDateStart = event.nextDate?.start {
+                            return nextDateStart >= currentTimestamp
+                        }
+                        return false
+                    }
+                    
+                    // Сортировка событий по дате начала в порядке возрастания
+                    let sortedEvents = filteredEvents.sorted { (event1, event2) -> Bool in
+                        guard let date1 = event1.nextDate?.start else { return false }
+                        guard let date2 = event2.nextDate?.start else { return true }
+                        return date1 < date2
+                    }
+                    
+                    self?.searchResults = sortedEvents
+                    
+                    // Обновление UI
+                    if sortedEvents.isEmpty {
+                        self?.noResultLabel.text = "NO RESULTS"
+                        self?.noResultLabel.isHidden = false
+                        self?.tableView.isHidden = true
+                    } else {
+                        self?.noResultLabel.isHidden = true
+                        self?.tableView.isHidden = false
+                    }
+                    
                     self?.tableView.reloadData()
+                    
                 case .failure(let error):
                     print("Ошибка при поиске событий: \(error)")
-                    self?.noResultLabel.text = "Ошибка при поиске"
                     self?.noResultLabel.isHidden = false
+                    self?.tableView.isHidden = true
+                }
+            }
+        }
+    }
+    
+    func didSelectEvent(_ event: Event) {
+        let eventID = event.id
+        let eventService = EventService()
+        
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        
+        eventService.fetchEventDetails(eventID: eventID) { [weak self] result in
+            DispatchQueue.main.async {
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+                
+                switch result {
+                case .success(let detailedEvent):
+                    let currentTime = Date()
+                    var segment: Segment = .upcoming
+                    if let startTimestamp = detailedEvent.daterange?.start_date {
+                        let eventDate = Date(timeIntervalSince1970: TimeInterval(startTimestamp))
+                        segment = eventDate > currentTime ? .upcoming : .past
+                    }
+                    let detailVC = EventsDetailViewController(event: detailedEvent, segment: segment)
+                    self?.navigationController?.pushViewController(detailVC, animated: true)
+                case .failure(let error):
+                    print("Не удалось загрузить детали события: \(error.localizedDescription)")
+                    let alert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить детали события. Пожалуйста, попробуйте позже.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default))
+                    self?.present(alert, animated: true)
                 }
             }
         }
@@ -190,12 +252,10 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedEvent = searchResults[indexPath.row]
-        let detailVC = EventsDetailViewController(event: selectedEvent, segment: .upcoming)
-        detailVC.modalPresentationStyle = .fullScreen
-        if let navController = self.navigationController {
-            navController.pushViewController(detailVC, animated: true)
-        } else {
-            present(detailVC, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+
+        if let searchTableView = tableView as? SearchTableView {
+            searchTableView.searchDelegate?.didSelectEvent(selectedEvent)
         }
     }
     

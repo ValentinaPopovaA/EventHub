@@ -26,6 +26,9 @@ struct Event: Decodable {
     let commentsCount: Int?          // Количество комментариев
     var dates: [EventDate]?
     let participants: [Participant]?
+    let first_image: EventImage?
+    let thumbnails: [String: String]?
+    let daterange: EventDate?
     
     var formattedTitle: String {
         return title.prefix(1).uppercased() + title.dropFirst().lowercased()
@@ -45,11 +48,19 @@ struct Agent: Decodable {
 
 extension Event {
     var nextDate: EventDate? {
-        return dates?.min(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+        if let dates = dates, !dates.isEmpty {
+            return dates.min(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+        } else {
+            return daterange
+        }
     }
     
     var previousDate: EventDate? {
-        return dates?.max(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+        if let dates = dates, !dates.isEmpty {
+            return dates.max(by: { ($0.start ?? 0) < ($1.start ?? 0) })
+        } else {
+            return daterange
+        }
     }
 }
 

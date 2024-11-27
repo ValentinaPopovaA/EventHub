@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol SearchTableViewDelegate: AnyObject {
+    func didSelectEvent(_ event: Event)
+}
+
 class SearchTableView: UITableView {
+    
+    weak var searchDelegate: SearchTableViewDelegate?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)

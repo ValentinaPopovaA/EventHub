@@ -53,10 +53,10 @@ class SearchTableViewCell: UITableViewCell {
     private let eventNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Jo Malone London's Mother's Day Presents"
-        label.numberOfLines = 2
+        label.numberOfLines = 3
         label.textColor = .black
         label.textAlignment = .left
-        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 14) //.systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 18)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -84,16 +84,18 @@ class SearchTableViewCell: UITableViewCell {
     
     func configure(with event: Event) {
         eventNameLabel.text = event.formattedTitle
-        if let date = event.nextDate {
+        
+        if let nextDateStart = event.nextDate?.start {
+            let date = Date(timeIntervalSince1970: TimeInterval(nextDateStart))
             let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "EEE, MMM d • h:mm a"
-            let dateString = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(date.start ?? 0)))
-            eventDateAndTimeLabel.text = dateString
+            dateFormatter.dateFormat = "d MMM - EEE - h:mm a" // "15 Dec - Fri - 7:00 PM"
+            dateFormatter.locale = Locale(identifier: "en_US")
+            eventDateAndTimeLabel.text = dateFormatter.string(from: date)
         } else {
             eventDateAndTimeLabel.text = "Дата не указана"
         }
-        
-        if let imageURL = event.images?.first?.image {
+
+        if let imageURL = event.first_image?.image ?? event.thumbnails?["640x384"] {
             eventImageView.loadImage(from: imageURL)
         } else {
             eventImageView.image = UIImage(named: "image88")
