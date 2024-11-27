@@ -233,7 +233,7 @@ class LoginViewController: UIViewController {
     }
     
     private func openVC() {
-        let vc = ExploreViewController()
+        let vc = TabBarController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
