@@ -34,6 +34,7 @@
 		A720E9362CF3629400AA61FE /* SelectedCityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9352CF3629400AA61FE /* SelectedCityManager.swift */; };
 		A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A720E9382CF362C900AA61FE /* CitiesRequest.swift */; };
 		A761B76E2CF71F7900969F78 /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A761B76D2CF71F7900969F78 /* SearchTableViewCell.swift */; };
+		A761B7712CF7317C00969F78 /* SearchTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A761B7702CF7317B00969F78 /* SearchTableView.swift */; };
 		A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7AA28052CF0F6600027ACDF /* SearchBar.swift */; };
 		A7BA04952CE888D0009A9EF3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */; };
 		A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BA04962CE888D0009A9EF3 /* SceneDelegate.swift */; };
@@ -104,6 +105,7 @@
 		A720E9352CF3629400AA61FE /* SelectedCityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedCityManager.swift; sourceTree = "<group>"; };
 		A720E9382CF362C900AA61FE /* CitiesRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesRequest.swift; sourceTree = "<group>"; };
 		A761B76D2CF71F7900969F78 /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
+		A761B7702CF7317B00969F78 /* SearchTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableView.swift; sourceTree = "<group>"; };
 		A7AA28052CF0F6600027ACDF /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		A7BA04912CE888D0009A9EF3 /* EventHub.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventHub.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7BA04942CE888D0009A9EF3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -364,6 +366,7 @@
 			isa = PBXGroup;
 			children = (
 				18F3345D2CF1B7F70067A9BC /* SearchViewController.swift */,
+				A761B7702CF7317B00969F78 /* SearchTableView.swift */,
 				A761B76D2CF71F7900969F78 /* SearchTableViewCell.swift */,
 			);
 			path = SearchBarScreen;
@@ -527,6 +530,7 @@
 				46D5346C2CF63D92000723A0 /* NearbyEventsCell.swift in Sources */,
 				A7D5D26D2CEE602C009DAED6 /* PlaceDetailsRequest.swift in Sources */,
 				A720E9342CF357AF00AA61FE /* CityService.swift in Sources */,
+				A761B7712CF7317C00969F78 /* SearchTableView.swift in Sources */,
 				A7D5D2552CEE0960009DAED6 /* EventsByCategoryRequest.swift in Sources */,
 				A7D5D2572CEE0ADE009DAED6 /* EventsRequest.swift in Sources */,
 				18F334642CF3C01C0067A9BC /* NIFavoritesView.swift in Sources */,

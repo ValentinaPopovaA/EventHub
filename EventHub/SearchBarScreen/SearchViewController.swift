@@ -16,7 +16,7 @@ class SearchViewController: UIViewController, SearchBarDelegate {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "arrow-left"), for: .normal)
         button.tintColor = .black
-        button.addTarget(self, action: #selector (backButtonPressed), for: .touchUpInside)
+        button.addTarget(self, action: #selector(backButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -69,16 +69,9 @@ class SearchViewController: UIViewController, SearchBarDelegate {
         return label
     }()
     
-    private let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
-        return tableView
-    }()
+    private let tableView = SearchTableView()
     
-    // Данные для таблицы
-    private var events: [Event] = []
+    private var searchResults: [Event] = []
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
@@ -100,6 +93,7 @@ class SearchViewController: UIViewController, SearchBarDelegate {
         
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.idTableViewCell)
     }
     
     // MARK: - Actions
@@ -115,15 +109,65 @@ class SearchViewController: UIViewController, SearchBarDelegate {
     // MARK: - SearchBarDelegate
     func searchBarTextDidChange(_ searchText: String) {
         print("Search text changed: \(searchText)")
-        // Здесь будет логика поиска
-        // Пока что массив событий пуст
-        events = []
-        tableView.reloadData()
-        noResultLabel.isHidden = !events.isEmpty
+        if searchText.isEmpty {
+            searchResults.removeAll()
+            noResultLabel.isHidden = true
+            tableView.reloadData()
+        } else {
+            performSearch(query: searchText)
+        }
     }
     
     func searchBarDidCancel() {
         print("Search cancelled")
+        searchResults.removeAll()
+        noResultLabel.isHidden = true
+        tableView.reloadData()
+    }
+    
+    // MARK: - Search
+    private func performSearch(query: String) {
+        guard let selectedCity = SelectedCityManager.getSelectedCity() else {
+            print("Город не выбран")
+            noResultLabel.text = "Город не выбран"
+            noResultLabel.isHidden = false
+            searchResults.removeAll()
+            tableView.reloadData()
+            return
+        }
+        
+        // Показываем индикатор загрузки
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        activityIndicator.center = view.center
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        
+        let searchRequest = SearchEventsRequest(
+            headers: [:],
+            query: query,
+            citySlug: selectedCity.slug
+        )
+        
+        let networkService = NetworkService()
+        networkService.request(searchRequest) { [weak self] (result: Result<[Event], Error>) in
+            DispatchQueue.main.async {
+                // Скрываем индикатор загрузки
+                activityIndicator.stopAnimating()
+                activityIndicator.removeFromSuperview()
+                
+                switch result {
+                case .success(let events):
+                    self?.searchResults = events
+                    self?.noResultLabel.text = events.isEmpty ? "NO RESULTS" : ""
+                    self?.noResultLabel.isHidden = !events.isEmpty
+                    self?.tableView.reloadData()
+                case .failure(let error):
+                    print("Ошибка при поиске событий: \(error)")
+                    self?.noResultLabel.text = "Ошибка при поиске"
+                    self?.noResultLabel.isHidden = false
+                }
+            }
+        }
     }
 }
 
@@ -131,15 +175,15 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
+        return searchResults.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as? SearchTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.idTableViewCell, for: indexPath) as? SearchTableViewCell else {
             return UITableViewCell()
         }
-        let event = events[indexPath.row]
+        let event = searchResults[indexPath.row]
         cell.configure(with: event)
         return cell
     }
@@ -148,12 +192,12 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Обработка выбора ячейки
-        let selectedEvent = events[indexPath.row]
+        let selectedEvent = searchResults[indexPath.row]
         // Переход к деталям события, если необходимо
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 100 // Настройте высоту ячейки по необходимости
+        return 120 // Настройте высоту ячейки по необходимости
     }
 }
 
