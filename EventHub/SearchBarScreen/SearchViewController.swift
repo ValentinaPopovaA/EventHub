@@ -9,6 +9,7 @@ import UIKit
 
 class SearchViewController: UIViewController, SearchBarDelegate, SearchTableViewDelegate {
     // MARK: - UI Elements
+    var initialQuery: String?
     
     private let backButton: UIButton = {
         let button = UIButton()
@@ -19,7 +20,7 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
         return button
     }()
     
-    private lazy var searchBar: SearchBarView = {
+    lazy var searchBar: SearchBarView = {
         let searchBar = SearchBarView()
         searchBar.delegate = self
         searchBar.updateSearchButtonIcon(with: "Search_blue")
@@ -80,6 +81,10 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
         tableView.dataSource = self
         setupUI()
         setConstraints()
+        if let query = initialQuery {
+            searchBar.setSearchText(query)
+            performSearch(query: query)
+        }
     }
     
     // MARK: - Setup UI
@@ -125,7 +130,7 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
     }
     
     // MARK: - Search
-    private func performSearch(query: String) {
+    func performSearch(query: String) {
         guard let selectedCity = SelectedCityManager.getSelectedCity() else {
             print("Город не выбран")
             noResultLabel.text = "Город не выбран"
@@ -228,6 +233,10 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
                 }
             }
         }
+    }
+    
+    func searchBarDidSearch(_ searchText: String) {
+        performSearch(query: searchText)
     }
 }
 

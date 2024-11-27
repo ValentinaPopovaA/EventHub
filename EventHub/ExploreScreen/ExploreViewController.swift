@@ -250,6 +250,13 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             cityLabel.text = "Select a City"
         }
     }
+    
+    func searchBarDidSearch(_ searchText: String) {
+        let searchVC = SearchViewController()
+        searchVC.initialQuery = searchText
+        searchVC.modalPresentationStyle = .fullScreen
+        present(searchVC, animated: true, completion: nil)
+    }
 }
 
 extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
