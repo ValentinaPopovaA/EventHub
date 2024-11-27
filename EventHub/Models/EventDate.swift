@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EventDate: Codable {
+struct EventDate: Decodable {
     let start: Int?
     let end: Int?
 }

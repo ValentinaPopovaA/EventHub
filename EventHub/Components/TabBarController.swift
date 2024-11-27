@@ -70,7 +70,7 @@ class TabBarController: UITabBarController, UITabBarControllerDelegate {
             image: UIImage(named: "Compass"),
             selectedImage: UIImage(named: "Compass_blue"))
         
-        let eventsVC = EventsViewController()
+        let eventsVC = UINavigationController(rootViewController: EventsViewController())
         eventsVC.tabBarItem = UITabBarItem(
             title: "Events",
             image: UIImage(named: "Calendar_blue"),

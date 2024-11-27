@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct City: Decodable, Encodable {
+struct City: Codable {
     let slug: String
     let name: String
 }

@@ -28,6 +28,8 @@ class SearchViewController: UIViewController,SearchBarDelegate {
         searchBar.updateSeporatoryView(with: .blueBackground)
         searchBar.updatePlaceholderTextColor(.gray)
         searchBar.updateTextFieldTextColor(with: .black )
+        searchBar.updateCursorColor(with: .blueForButtonExplore)
+        searchBar.updateClearButtonColor(with: .blueForButtonExplore)
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()

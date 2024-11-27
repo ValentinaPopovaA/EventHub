@@ -7,7 +7,16 @@
 
 import UIKit
 
+protocol EventsTableViewDelegate: AnyObject {
+    func didSelectEvent(_ event: Event, segment: Segment)
+}
+
 class EventsTableView: UITableView {
+    
+    weak var parentViewController: UIViewController?
+    var currentSegment: Segment = .upcoming
+    private var events: [Event] = []
+    weak var eventsDelegate: EventsTableViewDelegate?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -33,18 +42,25 @@ class EventsTableView: UITableView {
         dataSource = self
         delegate = self
     }
+    
+    func reloadData(with events: [Event]) {
+        self.events = events
+        self.reloadData()
+    }
 }
 
 extension EventsTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        return events.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventsUITableViewCell.idTableViewCell,
-                                                       for: indexPath) as? EventsUITableViewCell  else {
+                                                       for: indexPath) as? EventsUITableViewCell else {
             return UITableViewCell()
         }
+        let event = events[indexPath.row]
+        cell.configure(with: event, segment: currentSegment)
         return cell
     }
 }
@@ -54,14 +70,9 @@ extension EventsTableView: UITableViewDelegate {
         115
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "") { _, _, _ in
-            print("delete cell")
-        }
-        
-        action.backgroundColor = .white
-        action.image = UIImage(named: "delete")
-        
-        return UISwipeActionsConfiguration(actions: [action])
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedEvent = events[indexPath.row]
+        eventsDelegate?.didSelectEvent(selectedEvent, segment: currentSegment)
     }
 }
+

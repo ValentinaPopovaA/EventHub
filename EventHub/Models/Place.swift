@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Place: Codable {
+struct Place: Decodable {
     let id: Int?
     let title: String?
     let address: String?
@@ -35,6 +35,6 @@ struct Place: Codable {
     }
 }
 
-struct location: Codable {
+struct location: Decodable {
     let slug: String?
 }

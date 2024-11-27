@@ -7,12 +7,12 @@
 
 import Foundation
 
-struct EventImage: Codable {
+struct EventImage: Decodable {
     let image: String                // URL изображения
     let source: ImageSource?         // Источник изображения
 }
 
-struct ImageSource: Codable {
+struct ImageSource: Decodable {
     let link: String?  
     let name: String
 }
