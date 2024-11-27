@@ -7,8 +7,6 @@
 
 import UIKit
 
-import UIKit
-
 class AllEventsScreenViewController: UIViewController {
     
     private let eventService = EventService()
@@ -101,8 +99,9 @@ class AllEventsScreenViewController: UIViewController {
     
     @objc private func searchButtonPressed() {
         let searchViewController = SearchViewController()
-        searchViewController.modalPresentationStyle = .fullScreen
-        present(searchViewController, animated: true)
+        let navController = UINavigationController(rootViewController: searchViewController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
     
     private func fetchUpcomingEvents() {

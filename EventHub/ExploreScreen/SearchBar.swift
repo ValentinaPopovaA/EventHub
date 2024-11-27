@@ -10,6 +10,7 @@ import UIKit
 protocol SearchBarDelegate: AnyObject {
     func searchBarTextDidChange(_ searchText: String)
     func searchBarDidCancel()
+    func searchBarDidSearch(_ searchText: String)
 }
 
 final class SearchBarView: UIView, UISearchBarDelegate {
@@ -155,6 +156,7 @@ final class SearchBarView: UIView, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        delegate?.searchBarDidSearch(searchBar.text ?? "")
     }
     
     private func searchAction(_ action: UIAction) {
@@ -164,5 +166,9 @@ final class SearchBarView: UIView, UISearchBarDelegate {
     // MARK: - Internal Methods
     func toggleSearchButton(with value: Bool) {
         searchButton.isEnabled = value
+    }
+    
+    func setSearchText(_ text: String) {
+        searchBar.text = text
     }
 }
