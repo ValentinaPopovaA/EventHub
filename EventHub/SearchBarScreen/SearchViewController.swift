@@ -103,7 +103,6 @@ class SearchViewController: UIViewController, SearchBarDelegate {
     
     @objc private func didTapFilterButton() {
         print("Filters button tapped")
-        // Логика для отображения экрана фильтров
     }
     
     // MARK: - SearchBarDelegate
@@ -151,7 +150,6 @@ class SearchViewController: UIViewController, SearchBarDelegate {
         let networkService = NetworkService()
         networkService.request(searchRequest) { [weak self] (result: Result<[Event], Error>) in
             DispatchQueue.main.async {
-                // Скрываем индикатор загрузки
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
                 
@@ -191,13 +189,18 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - UITableViewDelegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // Обработка выбора ячейки
         let selectedEvent = searchResults[indexPath.row]
-        // Переход к деталям события, если необходимо
+        let detailVC = EventsDetailViewController(event: selectedEvent, segment: .upcoming)
+        detailVC.modalPresentationStyle = .fullScreen
+        if let navController = self.navigationController {
+            navController.pushViewController(detailVC, animated: true)
+        } else {
+            present(detailVC, animated: true)
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 120 // Настройте высоту ячейки по необходимости
+        return 120
     }
 }
 

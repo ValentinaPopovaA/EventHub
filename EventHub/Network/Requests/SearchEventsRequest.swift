@@ -18,7 +18,8 @@ struct SearchEventsRequest: DataRequest {
         [
             "q": query,
             "location": citySlug,
-            "page_size": "10"
+            "page_size": "10",
+            "ctype": "event"
         ]
     }
     

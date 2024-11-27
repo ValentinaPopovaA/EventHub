@@ -92,6 +92,12 @@ class SearchTableViewCell: UITableViewCell {
         } else {
             eventDateAndTimeLabel.text = "Дата не указана"
         }
+        
+        if let imageURL = event.images?.first?.image {
+            eventImageView.loadImage(from: imageURL)
+        } else {
+            eventImageView.image = UIImage(named: "image88")
+        }
     }
     
     required init?(coder: NSCoder) {
