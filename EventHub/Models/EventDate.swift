@@ -8,6 +8,8 @@
 import Foundation
 
 struct EventDate: Decodable {
+    let start_date: Int?
+    let start_time: Int?
     let start: Int?
     let end: Int?
 }
