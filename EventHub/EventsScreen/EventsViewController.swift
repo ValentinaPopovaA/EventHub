@@ -11,9 +11,11 @@ import Foundation
 class EventsViewController: UIViewController, EventsTableViewDelegate {
     
     private let eventsTableView = EventsTableView()
-
     private var upcomingEvents: [Event] = []
     private var pastEvents: [Event] = []
+    
+    private var upcomingContentOffset: CGPoint = .zero
+    private var pastContentOffset: CGPoint = .zero
     
     private let eventsLabel: UILabel = {
         let label = UILabel()
@@ -41,6 +43,8 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         setConstrainst()
         tableView.eventsDelegate = self
         loadEvents()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(cityDidChange), name: .cityDidChange, object: nil)
     }
     
     private func setupViews() {
@@ -59,6 +63,12 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
     }
     
     private func loadEvents() {
+        guard let selectedCity = SelectedCityManager.getSelectedCity() else {
+            noEventsView.isHidden = false
+            tableView.isHidden = true
+            return
+        }
+        
         let currentTime = Int(Date().timeIntervalSince1970)
         let sevenDaysAgo = currentTime - (7 * 24 * 60 * 60)
         let sevenDaysLater = currentTime + (7 * 24 * 60 * 60)
@@ -71,12 +81,13 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         eventService.fetchEvents(
             actualSince: currentTime,
             actualUntil: sevenDaysLater,
-            sortAscending: true // Сортировка по возрастанию для предстоящих событий
-        ) { (result: Result<[Event], Error>) in
+            sortAscending: true, // Сортировка по возрастанию для предстоящих событий
+            location: selectedCity.slug // Передаем slug города
+        ) { [weak self] (result: Result<[Event], Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let events):
-                    self.upcomingEvents = events
+                    self?.upcomingEvents = events
                 case .failure(let error):
                     print("Ошибка при загрузке предстоящих событий: \(error)")
                 }
@@ -89,8 +100,9 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         eventService.fetchEvents(
             actualSince: sevenDaysAgo,
             actualUntil: currentTime,
-            sortAscending: false // Сортировка по убыванию для прошедших событий
-        ) { [weak self] result in
+            sortAscending: false, // Сортировка по убыванию для прошедших событий
+            location: selectedCity.slug // Передаем slug города
+        ) { [weak self] (result: Result<[Event], Error>) in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let events):
@@ -103,16 +115,20 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         }
         
         // Обновление UI после завершения обоих запросов
-        dispatchGroup.notify(queue: .main) {
-            self.updateUI(for: self.segmentedControl.selectedSegmentIndex == 0 ? .upcoming : .past)
+        dispatchGroup.notify(queue: .main) { [weak self] in
+            self?.updateUI(for: self?.segmentedControl.selectedSegmentIndex == 0 ? .upcoming : .past)
         }
     }
     
     @objc private func segmentedChange() {
         if segmentedControl.selectedSegmentIndex == 0 {
+            pastContentOffset = tableView.contentOffset
             updateUI(for: .upcoming)
+            tableView.setContentOffset(upcomingContentOffset, animated: false)
         } else {
+            upcomingContentOffset = tableView.contentOffset
             updateUI(for: .past)
+            tableView.setContentOffset(pastContentOffset, animated: false)
         }
     }
     
@@ -131,9 +147,11 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         case .upcoming:
             tableView.reloadData(with: upcomingEvents)
             noEventsView.isHidden = !upcomingEvents.isEmpty
+            tableView.isHidden = upcomingEvents.isEmpty
         case .past:
             tableView.reloadData(with: pastEvents)
             noEventsView.isHidden = !pastEvents.isEmpty
+            tableView.isHidden = pastEvents.isEmpty
         }
     }
     
@@ -141,6 +159,14 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         let allEventsViewController = AllEventsScreenViewController()
         allEventsViewController.modalPresentationStyle = .fullScreen
         present(allEventsViewController, animated: true)
+    }
+    
+    @objc private func cityDidChange() {
+        loadEvents()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self, name: .cityDidChange, object: nil)
     }
     
     //    private func checkEventsToday() {

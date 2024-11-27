@@ -7,8 +7,7 @@
 
 import UIKit
 
-class SearchViewController: UIViewController,SearchBarDelegate {
-    
+class SearchViewController: UIViewController, SearchBarDelegate {
     
     // MARK: - UI Elements
     
@@ -56,6 +55,7 @@ class SearchViewController: UIViewController,SearchBarDelegate {
         button.semanticContentAttribute = .forceLeftToRight
         button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -5, bottom: 0, right: 5)
+        button.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
         return button
     }()
     
@@ -65,15 +65,26 @@ class SearchViewController: UIViewController,SearchBarDelegate {
         label.font = .systemFont(ofSize: 24)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.isHidden = true // Изначально скрыт
         return label
     }()
+    
+    private let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: SearchTableViewCell.identifier)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        return tableView
+    }()
+    
+    // Данные для таблицы
+    private var events: [Event] = []
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setConstraints()
-        setupActions()
     }
     
     // MARK: - Setup UI
@@ -85,45 +96,68 @@ class SearchViewController: UIViewController,SearchBarDelegate {
         view.addSubview(searchBar)
         view.addSubview(filtersButton)
         view.addSubview(noResultLabel)
+        view.addSubview(tableView)
+        
+        tableView.dataSource = self
+        tableView.delegate = self
     }
     
     // MARK: - Actions
     @objc func backButtonPressed() {
-        self.backButton.alpha = 0.5
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
-            self.backButton.alpha = 1
-        })
         self.dismiss(animated: true)
-    }
-    
-    private func setupActions() {
-        // Действие для кнопки фильтра
-        filtersButton.addTarget(self, action: #selector(didTapFilterButton), for: .touchUpInside)
-        searchBar.delegate = self
     }
     
     @objc private func didTapFilterButton() {
         print("Filters button tapped")
-        // логика для отображения экрана фильтров
+        // Логика для отображения экрана фильтров
+    }
+    
+    // MARK: - SearchBarDelegate
+    func searchBarTextDidChange(_ searchText: String) {
+        print("Search text changed: \(searchText)")
+        // Здесь будет логика поиска
+        // Пока что массив событий пуст
+        events = []
+        tableView.reloadData()
+        noResultLabel.isHidden = !events.isEmpty
+    }
+    
+    func searchBarDidCancel() {
+        print("Search cancelled")
     }
 }
 
-// MARK: - UISearchBarDelegate
-extension SearchViewController: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("Search text: \(searchText)")
-        // логика для поиска
+extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return events.count
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        print("Search button clicked with text: \(searchBar.text ?? "")")
-        searchBar.resignFirstResponder()
-        // логикуадля выполнения поиска
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchTableViewCell.identifier, for: indexPath) as? SearchTableViewCell else {
+            return UITableViewCell()
+        }
+        let event = events[indexPath.row]
+        cell.configure(with: event)
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // Обработка выбора ячейки
+        let selectedEvent = events[indexPath.row]
+        // Переход к деталям события, если необходимо
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100 // Настройте высоту ячейки по необходимости
     }
 }
 
 extension SearchViewController {
-    
     private func setConstraints() {
         NSLayoutConstraint.activate([
             backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 13),
@@ -136,7 +170,7 @@ extension SearchViewController {
             
             searchBar.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 40),
             searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: filtersButton.leadingAnchor, constant: -10),
             searchBar.heightAnchor.constraint(equalToConstant: 50),
             
             filtersButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -144,16 +178,13 @@ extension SearchViewController {
             filtersButton.heightAnchor.constraint(equalToConstant: 32),
             filtersButton.widthAnchor.constraint(equalToConstant: 80),
             
-            noResultLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 200),
-            noResultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            noResultLabel.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+            noResultLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 20),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
-    }
-    
-    func searchBarTextDidChange(_ searchText: String) {
-        print("Search text changed: \(searchText)")
-    }
-    
-    func searchBarDidCancel() {
-        print("Search cancelled")
     }
 }
