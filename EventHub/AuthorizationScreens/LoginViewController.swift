@@ -205,18 +205,15 @@ class LoginViewController: UIViewController {
     @objc func forgotButtonTapped() {
         print("forgotButton tapped!")
         let vc = RessetViewController()
-//        self.navigationController?.pushViewController(vc, animated: true)
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+
         
     }
     @objc func signUpButtonTapped() {
         print("Sign Up Button tapped!")
         let vc = SignUpViewController()
-        
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
-//        self.navigationController?.pushViewController(vc, animated: true)
+       
+        self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
