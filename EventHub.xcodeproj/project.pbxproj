@@ -25,6 +25,7 @@
 		46EE7E8C2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */; };
 		46EE7E8E2CEF668E00473F9B /* AirbnbCereal_W_Md.otf in Resources */ = {isa = PBXBuildFile; fileRef = 46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */; };
 		7901EB942CF727320076080B /* FavoritesTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334652CF44D4D0067A9BC /* FavoritesTableView.swift */; };
+		7901EB962CF744040076080B /* NavBarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7901EB952CF744040076080B /* NavBarExtension.swift */; };
 		79081F2E2CF3737800CE1156 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 79081F2D2CF3737800CE1156 /* FirebaseAuth */; };
 		79081F302CF3737800CE1156 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 79081F2F2CF3737800CE1156 /* FirebaseFirestore */; };
 		79081F322CF3737800CE1156 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 79081F312CF3737800CE1156 /* FirebaseStorage */; };
@@ -117,6 +118,7 @@
 		46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bd.otf; sourceTree = "<group>"; };
 		46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Bk.otf; sourceTree = "<group>"; };
 		46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AirbnbCereal_W_Md.otf; sourceTree = "<group>"; };
+		7901EB952CF744040076080B /* NavBarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBarExtension.swift; sourceTree = "<group>"; };
 		793FEC782CEFC01A002B5F05 /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		793FEC7A2CEFC094002B5F05 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		793FEC7C2CEFC5AD002B5F05 /* ShadowExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowExtension.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 				793FEC7C2CEFC5AD002B5F05 /* ShadowExtension.swift */,
 				A7D5D2662CEE2F40009DAED6 /* DateFormatter+Ext.swift */,
 				A7D5D26A2CEE3E7E009DAED6 /* HTMLToString+Ext.swift */,
+				7901EB952CF744040076080B /* NavBarExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7901EB962CF744040076080B /* NavBarExtension.swift in Sources */,
 				7901EB942CF727320076080B /* FavoritesTableView.swift in Sources */,
 				79081F342CF383E800CE1156 /* UIFont + Extencion.swift in Sources */,
 				79081F332CF383D400CE1156 /* TextFieldExtension.swift in Sources */,

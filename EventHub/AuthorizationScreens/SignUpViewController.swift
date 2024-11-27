@@ -50,6 +50,8 @@ class SignUpViewController: UIViewController {
         
         setupUI()
         self.signInButton.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+        self.navigationController?.navigationBar.isHidden = false
+        configurateNavigationBar(title: "Sign up", backAction: #selector(didTapBack))
         
         
     }
@@ -163,6 +165,10 @@ class SignUpViewController: UIViewController {
     }
     
     
+    @objc private func didTapBack() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @objc func googleButtonTapped() {
         print("Google Up button tapped!")
         
@@ -173,15 +179,12 @@ class SignUpViewController: UIViewController {
         
         print("Sign Up Button tapped!")
         let vc = LoginViewController()
-        
         self.navigationController?.pushViewController(vc, animated: true)
-//        vc.modalPresentationStyle = .fullScreen
-//        self.present(vc, animated: true, completion: nil)
+
     }
     
     // MARK: - UITextFieldDelegate
-    
-    
+
 }
 
 
