@@ -9,6 +9,7 @@ import UIKit
 
 class HeaderView: UICollectionReusableView {
     
+    static let identifire = "headerID"
     private let  headerStack: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
