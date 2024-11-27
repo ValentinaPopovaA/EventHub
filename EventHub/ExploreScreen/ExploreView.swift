@@ -53,7 +53,7 @@ class ExploreView: UIView {
             NearbyEventsCell.self,
             forCellWithReuseIdentifier: NearbyEventsCell.identifire
         )
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderView.identifire)
+        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: HeaderView.identifire)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -131,7 +131,9 @@ class ExploreView: UIView {
                     bottom: 24,
                     trailing: 20
                 )
-                
+                section.boundarySupplementaryItems = [
+                .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top),
+                ]
                 return section
             }
         }
@@ -160,7 +162,7 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HeaderView.identifire, for: indexPath) as! HeaderView
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "Header", withReuseIdentifier: HeaderView.identifire, for: indexPath) as! HeaderView
         headerView.headerLabel.text = "Nearby You"
         return headerView
     }
