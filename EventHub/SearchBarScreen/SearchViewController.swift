@@ -224,7 +224,7 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
                         segment = eventDate > currentTime ? .upcoming : .past
                     }
                     let detailVC = EventsDetailViewController(event: detailedEvent, segment: segment)
-                    self?.navigationController?.pushViewController(detailVC, animated: true)
+                    self?.present(detailVC, animated: true) // TODO: заменить!
                 case .failure(let error):
                     print("Не удалось загрузить детали события: \(error.localizedDescription)")
                     let alert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить детали события. Пожалуйста, попробуйте позже.", preferredStyle: .alert)
