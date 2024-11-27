@@ -14,19 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        guard let windowScene = (scene as? UIWindowScene) else { return }
-//        let window = UIWindow(windowScene: windowScene)
-        
-// dev       let rootViewController = TabBarController()
-        
-//        let rootViewController = LoginViewController()
-//        let nav = UINavigationController(rootViewController: rootViewController)
-//
-//        nav.modalPresentationStyle = .fullScreen
-//        window.rootViewController = rootViewController
-        
-//        self.window = window
-//        window.makeKeyAndVisible()
+
         self.setupWindow(with: scene)
         self.checkAuthentication()
 
@@ -43,10 +31,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     public func checkAuthentication() {
         if Auth.auth().currentUser == nil {
             // на экран авторизации
-            self.goToController(with: OnboardingViewController())
+            let loginVC = LoginViewController()
+            self.goToController(with: loginVC)
         } else {
             // на главный экран
-            self.goToController(with: TabBarController())
+            let mainTabBar = TabBarController()
+            self.goToController(with: mainTabBar)
         }
     }
     

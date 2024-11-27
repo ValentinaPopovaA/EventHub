@@ -35,6 +35,7 @@ class RessetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.setupUI()
+        self.title = "Resset Password"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,11 +76,11 @@ class RessetViewController: UIViewController {
             sendButton.topAnchor.constraint(equalTo: emailField.bottomAnchor, constant: 40),
             sendButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 52),
             sendButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -52),
-           
-            
-           
         ])
     }
+    
+    
+    
     
     // MARK: - Selectors
     

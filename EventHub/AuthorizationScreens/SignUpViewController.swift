@@ -174,8 +174,9 @@ class SignUpViewController: UIViewController {
         print("Sign Up Button tapped!")
         let vc = LoginViewController()
         
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true, completion: nil)
+        self.navigationController?.pushViewController(vc, animated: true)
+//        vc.modalPresentationStyle = .fullScreen
+//        self.present(vc, animated: true, completion: nil)
     }
     
     // MARK: - UITextFieldDelegate
