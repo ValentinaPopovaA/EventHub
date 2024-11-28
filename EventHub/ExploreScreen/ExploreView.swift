@@ -100,12 +100,12 @@ class ExploreView: UIView {
                 section.interGroupSpacing = CGFloat(16)
                 section.contentInsets = .init(
                     top: 24,
-                    leading: 20,
+                    leading: 5,
                     bottom: 24,
                     trailing: 20
                 )
                 section.boundarySupplementaryItems = [
-                .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(20)), elementKind: "Header", alignment: .top),
+                .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top),
                 ]
                 return section
                 
@@ -130,12 +130,12 @@ class ExploreView: UIView {
                 section.interGroupSpacing = CGFloat(16)
                 section.contentInsets = .init(
                     top: 24,
-                    leading: 20,
+                    leading: 5,
                     bottom: 24,
                     trailing: 20
                 )
                 section.boundarySupplementaryItems = [
-                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(20)), elementKind: "Header", alignment: .top),
+                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(25)), elementKind: "Header", alignment: .top),
                 ]
                 return section
             }
@@ -159,7 +159,6 @@ class ExploreView: UIView {
 
 extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     
-
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }

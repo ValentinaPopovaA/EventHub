@@ -167,10 +167,10 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         
             categoriesCollectionView.topAnchor.constraint(equalTo: filtersButton.bottomAnchor, constant: 20),
             categoriesCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
-            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            categoriesCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             categoriesCollectionView.heightAnchor.constraint(equalToConstant: 40),
             
-            exploreView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor,constant: 5),
+            exploreView.topAnchor.constraint(equalTo: categoriesCollectionView.bottomAnchor,constant: 15),
             exploreView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             exploreView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             exploreView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
