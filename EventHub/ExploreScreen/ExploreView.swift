@@ -53,7 +53,8 @@ class ExploreView: UIView {
             NearbyEventsCell.self,
             forCellWithReuseIdentifier: NearbyEventsCell.identifire
         )
-        collectionView.register(HeaderView.self, forSupplementaryViewOfKind: "HeaderView.headerLabel", withReuseIdentifier: "headerID")
+        collectionView.register(UpcomingHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: UpcomingHeaderView.identifire)
+        collectionView.register(NearbyHeaderView.self, forSupplementaryViewOfKind: "Header", withReuseIdentifier: NearbyHeaderView.identifire)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
@@ -99,11 +100,13 @@ class ExploreView: UIView {
                 section.interGroupSpacing = CGFloat(16)
                 section.contentInsets = .init(
                     top: 24,
-                    leading: 20,
+                    leading: 5,
                     bottom: 24,
                     trailing: 20
                 )
-                
+                section.boundarySupplementaryItems = [
+                .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(30)), elementKind: "Header", alignment: .top),
+                ]
                 return section
                 
             case .nearbyCollection:
@@ -127,11 +130,13 @@ class ExploreView: UIView {
                 section.interGroupSpacing = CGFloat(16)
                 section.contentInsets = .init(
                     top: 24,
-                    leading: 20,
+                    leading: 5,
                     bottom: 24,
                     trailing: 20
                 )
-                
+                section.boundarySupplementaryItems = [
+                    .init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(25)), elementKind: "Header", alignment: .top),
+                ]
                 return section
             }
         }
@@ -140,7 +145,6 @@ class ExploreView: UIView {
         backgroundColor = .systemBackground
         addSubview(collectionView)
         collectionView.collectionViewLayout = createLayout()
-        
     }
     func makeConstraints() {
         NSLayoutConstraint.activate([
@@ -158,10 +162,26 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         2
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "headerID", for: indexPath) as! HeaderView
-        return headerView
+        if kind == "Header" {
+            switch indexPath.section {
+            case Section.upcomingCollection.rawValue:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "Header", withReuseIdentifier: UpcomingHeaderView.identifire, for: indexPath) as! UpcomingHeaderView
+                headerView.config(headerLabel: "Upcoming Events", tapAction: didTapSeeAll)
+                return headerView
+            case Section.nearbyCollection.rawValue:
+                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "Header", withReuseIdentifier: NearbyHeaderView.identifire, for: indexPath) as! NearbyHeaderView
+                headerView.config(headerLabel: "Nearby You", tapAction: didTapSeeAll)
+                return headerView
+            default:
+                return UICollectionReusableView()
+            }
+        }
+        return UICollectionReusableView()
+    }
+    @objc func didTapSeeAll() {
+        //Нажатие кнопки seeAll
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         images.count

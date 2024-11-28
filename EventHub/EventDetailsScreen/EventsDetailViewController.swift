@@ -136,6 +136,7 @@ class EventsDetailViewController: UIViewController {
     var locationLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
+        label.numberOfLines = 2
         label.text = "Gala Convention Center"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
