@@ -86,7 +86,16 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
             performSearch(query: query)
         }
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     // MARK: - Setup UI
     private func setupUI() {
         view.backgroundColor = .white
@@ -214,26 +223,46 @@ class SearchViewController: UIViewController, SearchBarDelegate, SearchTableView
             DispatchQueue.main.async {
                 activityIndicator.stopAnimating()
                 activityIndicator.removeFromSuperview()
-                
+ 
                 switch result {
                 case .success(let detailedEvent):
                     let currentTime = Date()
                     var segment: Segment = .upcoming
+                    
                     if let startTimestamp = detailedEvent.daterange?.start_date {
                         let eventDate = Date(timeIntervalSince1970: TimeInterval(startTimestamp))
                         segment = eventDate > currentTime ? .upcoming : .past
                     }
-                    let detailVC = EventsDetailViewController(event: detailedEvent, segment: segment)
-                    self?.present(detailVC, animated: true) // TODO: заменить!
+                    
+                    didSelectEvent(detailedEvent, segment: segment)
+                    
                 case .failure(let error):
                     print("Не удалось загрузить детали события: \(error.localizedDescription)")
-                    let alert = UIAlertController(title: "Ошибка", message: "Не удалось загрузить детали события. Пожалуйста, попробуйте позже.", preferredStyle: .alert)
+                    let alert = UIAlertController(
+                        title: "Ошибка",
+                        message: "Не удалось загрузить детали события. Пожалуйста, попробуйте позже.",
+                        preferredStyle: .alert
+                    )
                     alert.addAction(UIAlertAction(title: "OK", style: .default))
                     self?.present(alert, animated: true)
                 }
+
+            }
+            
+        }
+        func didSelectEvent(_ event: Event, segment: Segment) {
+            let detailVC = EventsDetailViewController(event: event, segment: segment)
+            detailVC.modalPresentationStyle = .fullScreen
+            
+            if let navController = self.navigationController {
+                navController.pushViewController(detailVC, animated: true)
+            } else {
+                present(detailVC, animated: true)
             }
         }
     }
+   
+
     
     func searchBarDidSearch(_ searchText: String) {
         performSearch(query: searchText)
@@ -281,7 +310,7 @@ extension SearchViewController {
             backButton.widthAnchor.constraint(equalToConstant: 30),
             backButton.heightAnchor.constraint(equalToConstant: 22),
             
-            searchLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
+            searchLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 7),
             searchLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             searchBar.topAnchor.constraint(equalTo: searchLabel.bottomAnchor, constant: 40),

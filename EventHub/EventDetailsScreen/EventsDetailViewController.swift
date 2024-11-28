@@ -22,6 +22,24 @@ class EventsDetailViewController: UIViewController {
         return view
     }()
     
+    private let backButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "arrow-left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .white
+        button.addTarget(self, action: #selector (backButtonPressed), for: .touchUpInside)
+        return button
+    }()
+    
+    private let navigationLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Event Details"
+        label.font = .systemFont(ofSize: 24)
+        label.textColor = .white
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private let imageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(named: "eventsDetail")
@@ -339,11 +357,20 @@ class EventsDetailViewController: UIViewController {
             self.shareView.transform = .identity
         }
     }
+    @objc func backButtonPressed() {
+        self.backButton.alpha = 0.5
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2, execute: {
+            self.backButton.alpha = 1
+        })
+        self.dismiss(animated: true)
+    }
+    
         
     private func setupUI() {
         view.backgroundColor = .systemBackground
         view.addSubview(imageView)
-        
+        imageView.addSubview(backButton)
+        imageView.addSubview(navigationLabel)
         imageView.addSubview(saveButton)
         imageView.addSubview(shareButton)
         view.addSubview(scrollView)
@@ -379,10 +406,18 @@ class EventsDetailViewController: UIViewController {
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.heightAnchor.constraint(equalToConstant: 244),
             
-            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -10),
+            saveButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -5),
             saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -12),
             saveButton.heightAnchor.constraint(equalToConstant: 36),
             saveButton.widthAnchor.constraint(equalToConstant: 36),
+            
+            backButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: 2),
+            backButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            backButton.widthAnchor.constraint(equalToConstant: 30),
+            backButton.heightAnchor.constraint(equalToConstant: 22),
+            
+            navigationLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor,constant: -1),
+            navigationLabel.leadingAnchor.constraint(equalTo: backButton.trailingAnchor, constant: 5),
             
             shareButton.bottomAnchor.constraint(equalTo: imageView.bottomAnchor, constant: -5),
             shareButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
@@ -451,7 +486,9 @@ class EventsDetailViewController: UIViewController {
             shareView.bottomAnchor.constraint(equalTo:view.bottomAnchor),
             shareView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             shareView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            shareView.heightAnchor.constraint(equalToConstant: 370)
+            shareView.heightAnchor.constraint(equalToConstant: 370),
+           
+            
         ])
     }
 }
