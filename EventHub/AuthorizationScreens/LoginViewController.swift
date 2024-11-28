@@ -57,6 +57,8 @@ class LoginViewController: UIViewController {
         return toggle
     }()
     
+    
+    
     private let forgotButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     private let signUpButton = CustomButton(title: "Sign up", isBlue: true, fontSize: .small)
     
@@ -78,7 +80,7 @@ class LoginViewController: UIViewController {
         
         self.forgotButton.addTarget(self, action: #selector(forgotButtonTapped), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
-
+        toggleSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -128,7 +130,7 @@ class LoginViewController: UIViewController {
         view.addSubview(horizontalStack)
         
         NSLayoutConstraint.activate([
-            horizontalStack.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 40),
+            horizontalStack.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 20),
             horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
             
@@ -143,7 +145,7 @@ class LoginViewController: UIViewController {
         view.addSubview(stackButton)
         
         NSLayoutConstraint.activate([
-            stackButton.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: 30),
+            stackButton.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: 20),
             stackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
         
@@ -268,4 +270,4 @@ class LoginViewController: UIViewController {
 
 }
 
-//#Preview{ LoginViewController()}
+#Preview{ LoginViewController()}

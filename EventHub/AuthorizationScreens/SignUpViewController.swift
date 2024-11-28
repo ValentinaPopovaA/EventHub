@@ -90,13 +90,13 @@ class SignUpViewController: UIViewController {
         let stackButton = UIStackView(arrangedSubviews: [signUpButton,orLabel,  loginGoogleButton])
         stackButton.axis = .vertical
         stackButton.alignment = .center
-        stackButton.spacing = 50
+        stackButton.spacing = 40
         stackButton.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(stackButton)
         
         NSLayoutConstraint.activate([
-            stackButton.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 50),
+            stackButton.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 40),
             stackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
         ])
 
@@ -227,4 +227,4 @@ class SignUpViewController: UIViewController {
 }
 
 
-//#Preview{SignUpViewController()}
+#Preview{SignUpViewController()}
