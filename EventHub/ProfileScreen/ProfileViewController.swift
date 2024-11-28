@@ -9,6 +9,15 @@ import UIKit
 
 class ProfileViewController: UIViewController, UITextViewDelegate {
     //MARK: - UI Elements
+    private lazy var navigationLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Profile"
+        label.textAlignment = .center
+        label.font = .systemFont(ofSize: 24)
+        return label
+    }()
+    
     private lazy var profileImageView: UIImageView  = {
         let element = UIImageView()
         element.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
@@ -29,7 +38,6 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         element.addSubview(iconImageView)
         element.addSubview(titleLabel)
         element.addTarget(self, action: #selector(editProfileButtonTapped), for: .touchUpInside)
-           
         return element
     }()
     
@@ -42,7 +50,7 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
     }()
     
     private lazy var nameLabel: UILabel = UILabel.makeCustomLabel(
-        text: "Ashfak Sayem",
+        text: "",
         font: .systemFont(ofSize: 24, weight: .regular),
         textColor: .black,
         numberOfLines: 1,
@@ -57,9 +65,9 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         textAligment: nil
     )
     
-    private lazy var aboutMeLabel: UILabel = UILabel.makeCustomLabelBold(
+    private lazy var aboutMeLabel: UILabel = UILabel.makeCustomLabel(
         text: "About me",
-        fontSize: 18,
+        font: .systemFont(ofSize: 20, weight: .regular),
         textColor: .black,
         numberOfLines: 1,
         textAligment: .left
@@ -96,10 +104,22 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         view.backgroundColor = .white
         aboutMeTextView.delegate = self
         setupUI()
-        
+        self.navigationItem.titleView = navigationLabel
+        updateProfileData()
+       
     }
     
     //MARK: - Setup UI
+    
+    func updateProfileData() {
+        
+        AuthService.shared.fetchUserName { [weak self] username in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                self.nameLabel.text = username ?? "Алёша"
+            }
+        }
+    }
     
     private func setupUI() {
         view.addSubview(profileImageView)
@@ -151,17 +171,15 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
             signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -135),
             signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
-        
-        
     }
 
+    //MARK: - Methods
     @objc private func readMoreButtonTapped() {
     }
+    
     @objc private func editProfileButtonTapped() {
-
         let editProfileViewController = EditProfileViewController()
-
-        self.present(editProfileViewController, animated: true, completion: nil)
+        navigationController?.pushViewController(editProfileViewController, animated: true)
     }
 
 //    @objc private func signOutButtonTapped() {
@@ -206,8 +224,6 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
         let readMoreAttributedString = NSAttributedString(string: readMoreText, attributes: readMoreAttributes)
 
         attributedString.append(readMoreAttributedString)
-        
-        
         return attributedString
     }
     

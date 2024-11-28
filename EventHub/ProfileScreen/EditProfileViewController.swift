@@ -71,7 +71,6 @@ class EditProfileViewController: UIViewController {
         config.imagePlacement = .leading
         config.imagePadding = 8
         element.configuration = config
-        //        element.addTarget(self, action: #selector(signOutButtonTapped), for: .touchUpInside)
         return element
     }()
     //MARK: - Life Cycle
@@ -79,11 +78,11 @@ class EditProfileViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         loadUserData()
+        setupNavigationBar()
         
         
     }
     //MARK: - Setup UI
-    
     private func setupUI() {
         view.backgroundColor = .white
         
@@ -96,37 +95,71 @@ class EditProfileViewController: UIViewController {
         view.addSubview(signOutButton)
         
         NSLayoutConstraint.activate([
+//          Profile Image View
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
             profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             profileImageView.widthAnchor.constraint(equalToConstant: 100),
             profileImageView.heightAnchor.constraint(equalToConstant: 100),
             
+//          Name Label
             nameLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 16),
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            
+//          Edit Name Button
             editNameButton.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor),
             editNameButton.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor, constant: 18),
             
+//          About Me Label
             aboutMeLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 50),
             aboutMeLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor,constant: 24),
             aboutMeLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -275),
             
+//          Edit About Me Button
             editAboutMeButton.centerYAnchor.constraint(equalTo: aboutMeLabel.centerYAnchor),
             editAboutMeButton.leadingAnchor.constraint(equalTo: aboutMeLabel.trailingAnchor, constant: -8),
             
+//          About Me Text View
             aboutMeTextView.topAnchor.constraint(equalTo: aboutMeLabel.bottomAnchor, constant: 19),
             aboutMeTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 19.5),
             aboutMeTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
+//          Sign Out Button
             signOutButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -135),
             signOutButton.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
+    //MARK: - Private Methods
+    private func setupNavigationBar() {
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(backButtonTapped))
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+        let titleLabel = UILabel()
+        titleLabel.text = "Profile"
+        titleLabel.font = UIFont.systemFont(ofSize: 24)
+        titleLabel.textColor = .label
+        titleLabel.textAlignment = .center
+        navigationItem.titleView = titleLabel
+    }
+    
+    @objc private func backButtonTapped() {
+        navigationController?.popViewController(animated: true)
+    }
+
+    
     private func loadUserData() {
         let defaults = UserDefaults.standard
-        nameLabel.text = defaults.string(forKey: "userName") ?? "Your name"
+        
+        AuthService.shared.fetchUserName { [weak self] username in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                self.nameLabel.text = username ?? "Алёша"
+            }
+        }
+//        nameLabel.text = /*defaults.string(forKey: "userName") ?? "Your name"*/
         aboutMeTextView.text = defaults.string(forKey: "userAbout") ?? "Enjoy your favorite dish and a lovely time with your friends and family and have a great time. Food from local food trucks will be available for purchase"
 
     }
@@ -135,25 +168,31 @@ class EditProfileViewController: UIViewController {
         let alert = UIAlertController(title: "Edit Name", message: nil, preferredStyle: .alert)
         alert.addTextField { textField in
             textField.text = self.nameLabel.text
-        }
-        
+    }
         let saveAction = UIAlertAction(title: "Save", style: .default) { action in
             
             if let newName = alert.textFields?.first?.text {
                 if !newName .isEmpty {
                     self.nameLabel.text = newName
                     
-                    UserDefaults.standard.set(newName, forKey: "userName")
+                    
+                    AuthService.shared.updateUserNameForFB(newUsername: newName) { success, error in
+                        if success {
+                            print("Имя успешно обновлено!")
+                        } else if let error = error {
+                            print("Ошибка обновления имени: \(error.localizedDescription)")
+                        }
+                    }
+//                    UserDefaults.standard.set(newName, forKey: "userName")
                 }
                 
             }
         }
-        
         alert.addAction(saveAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         present(alert, animated: true)
         
-    }
+}
     
     @objc private func editAboutMeTapped() {
         let alert = UIAlertController(title: "Edit About Me", message: nil, preferredStyle: .alert)
@@ -161,7 +200,6 @@ class EditProfileViewController: UIViewController {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
-      
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.text = aboutMeTextView.text
@@ -172,7 +210,6 @@ class EditProfileViewController: UIViewController {
      
         containerView.addSubview(textView)
         
-   
         NSLayoutConstraint.activate([
             textView.topAnchor.constraint(equalTo: containerView.topAnchor),
             textView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
@@ -205,6 +242,4 @@ class EditProfileViewController: UIViewController {
             textView.becomeFirstResponder()
         }
     }
-    
-    
 }
