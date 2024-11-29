@@ -81,17 +81,12 @@ class AuthHeaderView: UIView {
             self.logoImageView.topAnchor.constraint(equalTo: self.layoutMarginsGuide.topAnchor, constant: 20),
             self.logoImageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 80),
             self.logoImageView.widthAnchor.constraint(equalToConstant: 65),
-            self.logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor)
-            
-        ])
-        
-        NSLayoutConstraint.activate([
+            self.logoImageView.heightAnchor.constraint(equalTo: logoImageView.widthAnchor),
+      
             self.titleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 10),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 45)
-        ])
+            self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 45),
         
-        NSLayoutConstraint.activate([
-            self.subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            self.subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 30),
             self.subTitleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30)
         ])
         

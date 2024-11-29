@@ -12,7 +12,7 @@ extension UIButton {
                                  target: Any?,
                                  action: Selector) -> UIButton {
         let button = UIButton()
-        button.backgroundColor = .primaryBlue
+        button.backgroundColor = .blueForButtonExplore
         button.layer.cornerRadius = 15
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -33,8 +33,6 @@ extension UIButton {
             imageView.widthAnchor.constraint(equalToConstant: 30),
             imageView.heightAnchor.constraint(equalToConstant: 30),
             
-            button.titleLabel!.centerXAnchor.constraint(equalTo: button.centerXAnchor),
-            button.titleLabel!.centerYAnchor.constraint(equalTo: button.centerYAnchor),
             button.widthAnchor.constraint(equalToConstant: 271),
             button.heightAnchor.constraint(equalToConstant: 58)
         ])
@@ -60,10 +58,12 @@ extension UIButton {
         containerStackView.alignment = .center
         containerStackView.spacing = 10
         containerStackView.translatesAutoresizingMaskIntoConstraints = false
+        containerStackView.isUserInteractionEnabled = false
+        
+
         
         let imageView = UIImageView(image: UIImage(named: "super_g"))
         imageView.contentMode = .scaleAspectFit
-        imageView.isUserInteractionEnabled = false
         imageView.translatesAutoresizingMaskIntoConstraints = false
        
         imageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
@@ -73,7 +73,6 @@ extension UIButton {
         titleLabel.text = label
         titleLabel.font = UIFont.systemFont(ofSize: 16)
         titleLabel.textColor = .black
-        titleLabel.isUserInteractionEnabled = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         containerStackView.addArrangedSubview(imageView)
