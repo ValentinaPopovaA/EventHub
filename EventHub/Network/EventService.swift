@@ -17,6 +17,8 @@ final class EventService {
         page: Int = 1,
         pageSize: Int = 150,
         location: String? = nil,
+        category: String? = nil,
+        fields: String? = nil,
         completion: @escaping (Result<[Event], Error>) -> Void
     ) {
         let request = EventsRequest(
@@ -24,7 +26,9 @@ final class EventService {
             actualUntil: actualUntil,
             page: page,
             pageSize: pageSize,
-            location: location
+            location: location,
+            category: category,
+            fields: fields
         )
         
         networkService.request(request) { (result: Result<EventsResponse, Error>) in
@@ -67,4 +71,65 @@ final class EventService {
         let request = PlaceDetailsRequest(placeID: placeID)
         networkService.request(request, completion: completion)
     }
+    
+    // Получение Upcoming Events без указания местоположения
+    func fetchUpcomingEvents(
+        completion: @escaping (Result<[Event], Error>) -> Void
+    ) {
+        let actualSince = Int(Date().timeIntervalSince1970)
+        let actualUntil = actualSince + 60 * 60 * 24 * 30 // Ближайшие 30 дней
+        
+        fetchEvents(
+            actualSince: actualSince,
+            actualUntil: actualUntil,
+            sortAscending: true,
+            page: 1,
+            pageSize: 50,
+            location: nil,
+            category: nil,
+            completion: completion
+        )
+    }
+    
+    // Получение Nearby Events по выбранному городу
+    func fetchNearbyEvents(
+        for citySlug: String,
+        completion: @escaping (Result<[Event], Error>) -> Void
+    ) {
+        let actualSince = Int(Date().timeIntervalSince1970)
+        let actualUntil = actualSince + 60 * 60 * 24 * 30 // Так же на ближайшие 30 дней
+        
+        fetchEvents(
+            actualSince: actualSince,
+            actualUntil: actualUntil,
+            sortAscending: true,
+            page: 1,
+            pageSize: 50,
+            location: citySlug,
+            category: nil,
+            completion: completion
+        )
+    }
+    
+    // Получение событий по категории и городу
+    func fetchEvents(
+        for category: String,
+        in citySlug: String?,
+        completion: @escaping (Result<[Event], Error>) -> Void
+    ) {
+        let actualSince = Int(Date().timeIntervalSince1970)
+        let actualUntil = actualSince + 60 * 60 * 24 * 30
+        
+        fetchEvents(
+            actualSince: actualSince,
+            actualUntil: actualUntil,
+            sortAscending: true,
+            page: 1,
+            pageSize: 50,
+            location: citySlug,
+            category: category,
+            completion: completion
+        )
+    }
 }
+

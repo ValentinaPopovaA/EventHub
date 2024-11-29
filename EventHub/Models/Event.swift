@@ -16,7 +16,7 @@ struct Event: Decodable {
     let publicationDate: Int?        // Дата публикации (в Unix)
     let title: String                // Название события
     let slug: String?                 // Уникальный идентификатор события
-    let place: Place?                // Место проведения
+    var place: Place?                // Место проведения
     let categories: [String]?
     let description: String?         // Краткое описание (в формате HTML)
     let bodyText: String?            // Полный текст (в формате HTML)
@@ -29,6 +29,7 @@ struct Event: Decodable {
     let first_image: EventImage?
     let thumbnails: [String: String]?
     let daterange: EventDate?
+    let favoritesCount: Int?
     
     var formattedTitle: String {
         return title.prefix(1).uppercased() + title.dropFirst().lowercased()

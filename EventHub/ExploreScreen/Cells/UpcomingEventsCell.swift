@@ -10,6 +10,7 @@ import UIKit
 class UpcomingEventsCell: UICollectionViewCell {
     
     static let identifire = "UpcomingEventsCell"
+    private let eventService = EventService()
     
     private let backgroungCell: UIView = {
         let view = UIView()
@@ -43,15 +44,29 @@ class UpcomingEventsCell: UICollectionViewCell {
     
     private var dateView: UIView = {
         let view = UIView()
+        view.backgroundColor = .white.withAlphaComponent(0.9)
+        view.layer.cornerRadius = 12
+        view.clipsToBounds = true
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.text = "10 JUN"
+        label.text = "10"
+        label.textColor = .redAccent
+        label.font = UIFont.systemFont(ofSize: 18)
+        label.numberOfLines = 1
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let dateMonthLabel: UILabel = {
+        let label = UILabel()
+        label.text = "JUN"
         label.textColor = .redAccent
         label.font = UIFont.systemFont(ofSize: 10)
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -60,7 +75,7 @@ class UpcomingEventsCell: UICollectionViewCell {
         let button = UIButton()
         button.setImage(UIImage(named: "Bookmark_white"), for: .normal)
         button.setImage(UIImage(named: "Bookmark_red"), for: .selected)
-        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        button.backgroundColor = .white.withAlphaComponent(0.5)
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
@@ -101,13 +116,12 @@ class UpcomingEventsCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.image = UIImage(named:"Map_pin")
-//        imageView.layer.cornerRadius = 12
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    private let locationLabel: UILabel = {
+    private var locationLabel: UILabel = {
         let label = UILabel()
         label.text = "36 Guild Street London, UK "
         label.textColor = .subColor
@@ -128,17 +142,54 @@ class UpcomingEventsCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func config(imageView: UIImage, dateLabel: String, nameLabel: String, numbersLabel: String, locationLabel: String ) {
-        
-        DispatchQueue.main.async {
-            self.imageView.image = imageView
-            self.dateLabel.text = dateLabel
-            self.saveButton.isUserInteractionEnabled = true
-            self.nameLabel.text = nameLabel
-            self.numbersLabel.text = numbersLabel
-            self.locationLabel.text = locationLabel
+    func configure(with event: Event) {
+        if let imageUrl = event.images?.first?.image {
+            imageView.loadImage(from: imageUrl)
+        } else {
+            imageView.image = UIImage(named: "placeholder")
         }
-    }
+        
+        nameLabel.text = event.title.capitalized
+        
+        numbersLabel.text = "+\(event.favoritesCount ?? 0) Going"
+        
+        locationLabel.text = "Loading address..."
+        
+        if let place = event.place, let placeID = place.id {
+            eventService.fetchPlaceDetails(placeID: placeID) { [weak self] result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let fetchedPlace):
+                        let placeTitle = fetchedPlace.title ?? "Unknown Place"
+                        let cityName = fetchedPlace.location.flatMap { fetchedPlace.cityName(for: $0) } ?? ""
+                        
+                        self?.locationLabel.text = cityName.isEmpty ? placeTitle : "\(placeTitle), \(cityName)"
+                    case .failure(let error):
+                        print("Failed to fetch place details: \(error)")
+                        self?.locationLabel.text = "Unknown Location"
+                    }
+                }
+            }
+        } else {
+            locationLabel.text = "Unknown Location"
+        }
+        
+        if let nextDate = event.nextDate {
+            dateLabel.text = nextDate.start?.formattedDateComponent() ?? "N/A"
+            dateMonthLabel.text = nextDate.start?.formattedMonth() ?? ""
+        } else {
+            dateLabel.text = "N/A"
+            dateMonthLabel.text = ""
+        }
+        
+        if let favoritesCount = event.favoritesCount {
+            numbersLabel.text = "+ \(favoritesCount) Going"
+        } else {
+            numbersLabel.text = "+ 0 Going"
+        }
+
+         saveButton.isUserInteractionEnabled = true
+     }
     
     @objc func saveButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
@@ -147,16 +198,21 @@ class UpcomingEventsCell: UICollectionViewCell {
     private func setupUI() {
         addSubview(backgroungCell)
         backgroungCell.addSubview(eventBackgroungView)
+        
         eventBackgroungView.addSubview(imageView)
-        imageView.addSubview(dateView)
-        dateView.addSubview(dateLabel)
-        imageView.addSubview(saveButton)
+        eventBackgroungView.addSubview(saveButton)
+        eventBackgroungView.addSubview(dateView)
+        
         eventBackgroungView.addSubview(nameLabel)
         eventBackgroungView.addSubview(peopleImageView)
         eventBackgroungView.addSubview(numbersLabel)
         eventBackgroungView.addSubview(locationImageView)
         eventBackgroungView.addSubview(locationLabel)
+        
+        dateView.addSubview(dateLabel)
+        dateView.addSubview(dateMonthLabel)
     }
+    
     private func setupConstrains() {
         NSLayoutConstraint.activate([
             backgroungCell.topAnchor.constraint(equalTo: topAnchor),
@@ -174,39 +230,37 @@ class UpcomingEventsCell: UICollectionViewCell {
             imageView.topAnchor.constraint(equalTo: eventBackgroungView.topAnchor, constant: 10),
             imageView.heightAnchor.constraint(equalToConstant: 131),
             
-            dateView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 2),
-            dateView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -2),
-            dateView.widthAnchor.constraint(equalToConstant: 46),
-            dateView.heightAnchor.constraint(equalToConstant: 45),
-            
-            dateLabel.centerXAnchor.constraint(equalTo: dateView.centerXAnchor),
-            dateLabel.centerYAnchor.constraint(equalTo: dateView.centerYAnchor),
-            
-            saveButton.trailingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: -2),
-            saveButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: -2),
+            saveButton.trailingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: -10),
+            saveButton.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 10),
             saveButton.heightAnchor.constraint(equalToConstant: 30),
             saveButton.widthAnchor.constraint(equalToConstant: 30),
             
-            nameLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 5),
-            nameLabel.trailingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: -5),
-            nameLabel.topAnchor.constraint(equalTo: eventBackgroungView.bottomAnchor, constant: 5),
+            dateView.leadingAnchor.constraint(equalTo: imageView.leadingAnchor, constant: 8),
+            dateView.topAnchor.constraint(equalTo: imageView.topAnchor, constant: 8),
+            dateView.widthAnchor.constraint(equalToConstant: 45),
+            dateView.heightAnchor.constraint(equalToConstant: 45),
             
-            peopleImageView.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 5),
-            peopleImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            peopleImageView.trailingAnchor.constraint(equalTo: numbersLabel.leadingAnchor, constant: 2),
+            dateLabel.topAnchor.constraint(equalTo: dateView.topAnchor, constant: 4),
+            dateLabel.centerXAnchor.constraint(equalTo: dateView.centerXAnchor),
             
-            numbersLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 2),
-            numbersLabel.trailingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 2),
-            numbersLabel.bottomAnchor.constraint(equalTo: locationLabel.topAnchor, constant: 2),
+            dateMonthLabel.topAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 2),
+            dateMonthLabel.centerXAnchor.constraint(equalTo: dateView.centerXAnchor),
             
-            locationImageView.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 5),
-            locationImageView.topAnchor.constraint(equalTo: peopleImageView.bottomAnchor, constant: 2),
-            locationImageView.trailingAnchor.constraint(equalTo: locationLabel.leadingAnchor, constant: 2),
-            locationImageView.bottomAnchor.constraint(equalTo: eventBackgroungView.bottomAnchor, constant: 5),
+            nameLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 10),
+            nameLabel.trailingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: -10),
+            nameLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 10),
             
-            locationLabel.topAnchor.constraint(equalTo: numbersLabel.bottomAnchor, constant: 5),
-            locationLabel.trailingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 2),
-            locationLabel.bottomAnchor.constraint(equalTo: eventBackgroungView.bottomAnchor, constant: 5)
+            peopleImageView.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 14),
+            peopleImageView.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 10),
+            
+            numbersLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 19),
+            numbersLabel.leadingAnchor.constraint(equalTo: peopleImageView.trailingAnchor, constant: 10),
+            
+            locationImageView.topAnchor.constraint(equalTo: peopleImageView.bottomAnchor, constant: 14),
+            locationImageView.leadingAnchor.constraint(equalTo: eventBackgroungView.leadingAnchor, constant: 10),
+
+            locationLabel.topAnchor.constraint(equalTo: locationImageView.topAnchor),
+            locationLabel.leadingAnchor.constraint(equalTo: locationImageView.trailingAnchor, constant: 10)
         ])
     }
 }
