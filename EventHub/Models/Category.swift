@@ -9,6 +9,7 @@ import UIKit
 
 struct Category {
     let name: String
+    let slug: String
     let color: UIColor
     let sfSymbol: String
 }

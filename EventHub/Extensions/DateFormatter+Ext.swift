@@ -30,4 +30,21 @@ extension Int {
         formatter.dateFormat = "HH:mm" // Пример: 19:30
         return formatter.string(from: date)
     }
+    
+    func formattedDateComponent() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd" // "15"
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter.string(from: date)
+    }
+
+    func formattedMonth() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self))
+        let formatter = DateFormatter()
+        formatter.dateFormat = "MMM" // "NOV"
+        formatter.locale = Locale(identifier: "en_US")
+        return formatter.string(from: date).uppercased()
+    }
+
 }

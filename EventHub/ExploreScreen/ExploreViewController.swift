@@ -10,6 +10,8 @@ import UIKit
 final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
     private var selectedCategory: Int?
+    private var upcomingEvents: [Event] = []
+    private let eventService = EventService()
     
     private let buttonsView: ButtonsView = {
         let view = ButtonsView()
@@ -114,6 +116,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
         buttonsView.delegate = self
         exploreView.collectionView.delegate = self
+        fetchAndDisplayUpcomingEvents()
     }
     
     // MARK: - Private Methods
@@ -177,6 +180,32 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         ])
     }
     
+    private func fetchAndDisplayUpcomingEvents() {
+        eventService.fetchUpcomingEvents { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    self?.upcomingEvents = events
+                    self?.exploreView.updateUpcomingEvents(events)
+                case .failure(let error):
+                    print("Ошибка загрузки предстоящих событий: \(error)")
+                }
+            }
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        reloadVisibleCells()
+    }
+    
+    private func reloadVisibleCells() {
+        let visibleIndexPaths = exploreView.collectionView.indexPathsForVisibleItems
+        for indexPath in visibleIndexPaths {
+            guard let cell = exploreView.collectionView.cellForItem(at: indexPath) as? UpcomingEventsCell else { continue }
+            let event = upcomingEvents[indexPath.item]
+            cell.configure(with: event)
+        }
+    }
     func searchBarTextDidChange(_ searchText: String) {
         print("Search text changed: \(searchText)")
     }
@@ -241,6 +270,33 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         searchVC.modalPresentationStyle = .fullScreen
         present(searchVC, animated: true, completion: nil)
     }
+    
+    private func navigateToEventDetail(with event: Event) {
+        let detailVC = EventsDetailViewController(event: event, segment: .upcoming)
+        detailVC.modalPresentationStyle = .fullScreen
+        if let navController = self.navigationController {
+            navController.pushViewController(detailVC, animated: true)
+        } else {
+            present(detailVC, animated: true)
+        }
+    }
+    
+    private func filterEvents(by category: Category) {
+        let categorySlug = category.slug
+        let citySlug = SelectedCityManager.getSelectedCity()?.slug
+        
+        eventService.fetchEvents(for: categorySlug, in: citySlug) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    self?.upcomingEvents = events
+                    self?.exploreView.updateUpcomingEvents(events)
+                case .failure(let error):
+                    print("Failed to fetch events for category \(category.name): \(error)")
+                }
+            }
+        }
+    }
 }
 
 extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -259,16 +315,22 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let previouslySelectedIndex = selectedCategory
-        selectedCategory = indexPath.item
-
-        var indexesToReload: [IndexPath] = [indexPath]
-        if let previousIndex = previouslySelectedIndex, previousIndex != indexPath.item {
-            indexesToReload.append(IndexPath(item: previousIndex, section: 0))
+        if collectionView == categoriesCollectionView {
+            let previouslySelectedIndex = selectedCategory
+            selectedCategory = indexPath.item
+            
+            var indexesToReload: [IndexPath] = [indexPath]
+            if let previousIndex = previouslySelectedIndex, previousIndex != indexPath.item {
+                indexesToReload.append(IndexPath(item: previousIndex, section: 0))
+            }
+            categoriesCollectionView.reloadItems(at: indexesToReload)
+            
+            let selectedCategory = categories[indexPath.item]
+            filterEvents(by: selectedCategory)
+        } else if collectionView == exploreView.collectionView {
+            let selectedEvent = upcomingEvents[indexPath.item]
+            navigateToEventDetail(with: selectedEvent)
         }
-        collectionView.reloadItems(at: indexesToReload)
-
-        print("Selected category: \(categories[indexPath.item].name)")
     }
 }
 
