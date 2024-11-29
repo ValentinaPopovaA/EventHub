@@ -570,7 +570,6 @@
 				797FEAF52CF337A1002C3B58 /* AlertManager.swift in Sources */,
 				7968E83C2CF1E03B00C31277 /* CustomButton.swift in Sources */,
 				793FEC7B2CEFC094002B5F05 /* SignUpViewController.swift in Sources */,
-				A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */,
 				18F334562CF1B74C0067A9BC /* AllEventsScreenViewController.swift in Sources */,
 				A7D5D2442CEDE297009DAED6 /* City.swift in Sources */,
 				A7D5D24C2CEDEB83009DAED6 /* NetworkService.swift in Sources */,
