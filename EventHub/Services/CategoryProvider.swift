@@ -45,10 +45,9 @@ final class CategoryProvider {
                 let categories = apiCategories.enumerated().map { index, apiCategory in
                     let color = self.categoryColors[index % self.categoryColors.count]
                     let sfSymbol = self.sfSymbols[index % self.sfSymbols.count]
-                    
                     let shortenedName = self.nameShortcuts[apiCategory.name] ?? apiCategory.name
                     
-                    return Category(name: shortenedName, color: color, sfSymbol: sfSymbol)
+                    return Category(name: shortenedName, slug: apiCategory.slug, color: color, sfSymbol: sfSymbol)
                 }
                 completion(.success(categories))
             case .failure(let error):

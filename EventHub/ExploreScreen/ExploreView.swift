@@ -7,14 +7,6 @@
 
 import UIKit
 
-struct Images:  Decodable {
-    let image: String
-    let date: String
-    let nameEvents: String
-    let favorites_count: String
-    let location: String
-}
-
 enum Section: Int, CaseIterable {
     case upcomingCollection = 0
     case nearbyCollection = 1
@@ -22,22 +14,7 @@ enum Section: Int, CaseIterable {
 }
 class ExploreView: UIView {
     
-    private var images: [Images] = [
-        Images(
-            image: "image84",
-            date: "123",
-            nameEvents: "123",
-            favorites_count: "123",
-            location: "123"
-        ),
-        Images(
-            image: "image84",
-            date: "123",
-            nameEvents: "123",
-            favorites_count: "123",
-            location: "123"
-        )
-    ]
+    private var upcomingEvents: [Event] = []
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
@@ -59,6 +36,17 @@ class ExploreView: UIView {
         return collectionView
     }()
     
+    private let noEventsLabel: UILabel = {
+        let label = UILabel()
+        label.text = "События не найдены для выбранной категории."
+        label.textColor = .gray
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textAlignment = .center
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
@@ -70,6 +58,22 @@ class ExploreView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func updateUpcomingEvents(_ events: [Event]) {
+        self.upcomingEvents = events
+            DispatchQueue.main.async {
+                if events.isEmpty {
+                    self.noEventsLabel.text = "События не найдены для данной категории"
+                    self.noEventsLabel.isHidden = false
+                    self.collectionView.isHidden = true
+                } else {
+                    self.noEventsLabel.isHidden = true
+                    self.collectionView.isHidden = false
+                    self.collectionView.reloadData()
+                }
+            }
+        collectionView.reloadSections(IndexSet(integer: Section.upcomingCollection.rawValue))
     }
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -144,6 +148,7 @@ class ExploreView: UIView {
     func setupUI() {
         backgroundColor = .systemBackground
         addSubview(collectionView)
+        addSubview(noEventsLabel)
         collectionView.collectionViewLayout = createLayout()
     }
     func makeConstraints() {
@@ -151,16 +156,20 @@ class ExploreView: UIView {
             collectionView.topAnchor.constraint(equalTo: topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            noEventsLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            noEventsLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
+            noEventsLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            noEventsLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20)
         ])
     }
-    
 }
 
 extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        2
+        return Section.allCases.count
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -184,39 +193,31 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
         //Нажатие кнопки seeAll
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        images.count
+        guard let sectionType = Section(rawValue: section) else { return 0 }
+        switch sectionType {
+        case .upcomingCollection:
+            return upcomingEvents.count
+        case .nearbyCollection:
+            return 0
+        }
     }
-
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        switch indexPath.section {
-        case Section.upcomingCollection.rawValue:
+        guard let sectionType = Section(rawValue: indexPath.section) else {
+            return UICollectionViewCell()
+        }
+        
+        switch sectionType {
+        case .upcomingCollection:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UpcomingEventsCell.identifire, for: indexPath) as? UpcomingEventsCell else {
                 return UICollectionViewCell()
             }
-            let image = images[indexPath.item].image
-            let date = images[indexPath.item].date
-            let name = images[indexPath.item].nameEvents
-            let numbers = images[indexPath.item].favorites_count
-            let location = images[indexPath.item].location
-            
-            cell.config(imageView: UIImage(named: image)! , dateLabel: date, nameLabel: name, numbersLabel: numbers, locationLabel: location)
+            let event = upcomingEvents[indexPath.item]
+            cell.configure(with: event)
             return cell
-        case Section.nearbyCollection.rawValue:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier:NearbyEventsCell.identifire, for: indexPath) as? NearbyEventsCell else {
-                return UICollectionViewCell()
-            }
-            let image = images[indexPath.item].image
-            let date = images[indexPath.item].date
-            let name = images[indexPath.item].nameEvents
-            let numbers = images[indexPath.item].favorites_count
-            let location = images[indexPath.item].location
-            cell.config(imageView: UIImage(named: image)! , dateLabel: date, nameLabel: name, numbersLabel: numbers, locationLabel: location)
-            return cell
-        default:
+        case .nearbyCollection:
+            // Пока не реализовано
             return UICollectionViewCell()
         }
-
     }
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             
