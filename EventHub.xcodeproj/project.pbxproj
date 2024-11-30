@@ -97,9 +97,12 @@
 		A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7D5D2762CF08065009DAED6 /* EventService.swift */; };
 		A7DDB4922CEB9E6300015FE1 /* UIButton+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */; };
 		A7DDB4942CEBC24700015FE1 /* UIColor+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */; };
+		E71871E72CF5AE0A00CAAD49 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71871E62CF5AE0A00CAAD49 /* NotificationViewController.swift */; };
+		E71871E92CF5C71000CAAD49 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71871E82CF5C71000CAAD49 /* NotificationCell.swift */; };
 		E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798461F2CF0604000CF249D /* EditProfileViewController.swift */; };
 		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
 		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
+		E7BD699F2CF99BEF00BBCE5C /* NoNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -187,9 +190,12 @@
 		A7D5D2762CF08065009DAED6 /* EventService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventService.swift; sourceTree = "<group>"; };
 		A7DDB4912CEB9E6300015FE1 /* UIButton+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Ext.swift"; sourceTree = "<group>"; };
 		A7DDB4932CEBC24700015FE1 /* UIColor+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Ext.swift"; sourceTree = "<group>"; };
+		E71871E62CF5AE0A00CAAD49 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		E71871E82CF5C71000CAAD49 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		E798461F2CF0604000CF249D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNotificationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +266,7 @@
 				46EE7E892CEF652E00473F9B /* AirbnbCereal_W_Bd.otf */,
 				46EE7E8B2CEF65A600473F9B /* AirbnbCereal_W_Bk.otf */,
 				46EE7E8D2CEF668E00473F9B /* AirbnbCereal_W_Md.otf */,
+				E71871E52CF5ADDC00CAAD49 /* NotificationScreen */,
 				A7BA04A82CE88B30009A9EF3 /* App */,
 				A7DDB4952CECDAA600015FE1 /* Components */,
 				A7CAF9882CEA092000719F7D /* Models */,
@@ -488,6 +495,16 @@
 			path = MapScreen;
 			sourceTree = "<group>";
 		};
+		E71871E52CF5ADDC00CAAD49 /* NotificationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				E71871E62CF5AE0A00CAAD49 /* NotificationViewController.swift */,
+				E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */,
+				E71871E82CF5C71000CAAD49 /* NotificationCell.swift */,
+			);
+			path = NotificationScreen;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -633,6 +650,8 @@
 				A761B76E2CF71F7900969F78 /* SearchTableViewCell.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
+				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
+				E71871E72CF5AE0A00CAAD49 /* NotificationViewController.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */,
 				466A70112CF9DA3800D52205 /* ButtonsView.swift in Sources */,
@@ -642,11 +661,13 @@
 				A720E9362CF3629400AA61FE /* SelectedCityManager.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				797FEAF12CF23526002C3B58 /* LoginUserRequest.swift in Sources */,
+				E7BD699F2CF99BEF00BBCE5C /* NoNotificationViewController.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 				793FEC7D2CEFC5AD002B5F05 /* ShadowExtension.swift in Sources */,
 				797FEAEB2CF21FD7002C3B58 /* AuthService.swift in Sources */,
 				797FEAF32CF26388002C3B58 /* Validator.swift in Sources */,
 				18F3345A2CF1B7A60067A9BC /* EventsTableViewCell.swift in Sources */,
+				E71871E92CF5C71000CAAD49 /* NotificationCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

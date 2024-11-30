@@ -57,6 +57,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         button.backgroundColor = .blueForButtonExplore
         button.layer.cornerRadius = 18
         button.layer.masksToBounds = true
+        button.addTarget(self, action: #selector(openNotificationsView), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -241,6 +242,11 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     
     func searchBarDidCancel() {
         print("Search cancelled")
+    }
+    @objc private func openNotificationsView() {
+        let noNotificationsVC = NoNotificationsViewController()
+        noNotificationsVC.modalPresentationStyle = .fullScreen
+        present(noNotificationsVC, animated: true)
     }
     
     private func loadCategories() {
