@@ -125,6 +125,7 @@ class UpcomingEventsCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "36 Guild Street London, UK "
         label.textColor = .subColor
+        label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 2
         label.translatesAutoresizingMaskIntoConstraints = false

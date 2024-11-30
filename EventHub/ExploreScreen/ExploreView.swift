@@ -15,6 +15,7 @@ enum Section: Int, CaseIterable {
 class ExploreView: UIView {
     
     private var upcomingEvents: [Event] = []
+    private var nearbyEvents: [Event] = []
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
@@ -74,6 +75,22 @@ class ExploreView: UIView {
                 }
             }
         collectionView.reloadSections(IndexSet(integer: Section.upcomingCollection.rawValue))
+    }
+    
+    func updateNearbyEvents(_ events: [Event]) {
+        self.nearbyEvents = events
+        DispatchQueue.main.async {
+            if  self.nearbyEvents.isEmpty {
+                self.noEventsLabel.text = "События не найдены для данной категории"
+                self.noEventsLabel.isHidden = false
+                self.collectionView.isHidden = true
+            } else {
+                self.noEventsLabel.isHidden = true
+                self.collectionView.isHidden = false
+                self.collectionView.reloadData()
+            }
+        }
+        collectionView.reloadSections(IndexSet(integer: Section.nearbyCollection.rawValue))
     }
     
     private func createLayout() -> UICollectionViewCompositionalLayout {
@@ -198,7 +215,7 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
         case .upcomingCollection:
             return upcomingEvents.count
         case .nearbyCollection:
-            return 0
+            return nearbyEvents.count
         }
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -216,9 +233,15 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
             return cell
         case .nearbyCollection:
             // Пока не реализовано
-            return UICollectionViewCell()
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NearbyEventsCell.identifire, for: indexPath) as? NearbyEventsCell else {
+                return UICollectionViewCell()
+            }
+            let event = nearbyEvents[indexPath.item]
+            cell.configure(with: event)
+            return cell
         }
     }
+    
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             
         }

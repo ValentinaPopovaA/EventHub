@@ -11,6 +11,8 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
     private var selectedCategory: Int?
     private var upcomingEvents: [Event] = []
+    private var nearbyEvents: [Event] = []
+    private var slug: Place?
     private let eventService = EventService()
     
     private let buttonsView: ButtonsView = {
@@ -117,6 +119,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         buttonsView.delegate = self
         exploreView.collectionView.delegate = self
         fetchAndDisplayUpcomingEvents()
+        fetchAndDisplayNearbyEvents()
     }
     
     // MARK: - Private Methods
@@ -194,8 +197,26 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         }
     }
     
+    private func fetchAndDisplayNearbyEvents() {
+        guard let selectedCity = SelectedCityManager.getSelectedCity() else {
+            return
+        }
+        eventService.fetchNearbyEvents(for: selectedCity.slug) { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let events):
+                    self?.nearbyEvents = events
+                    self?.exploreView.updateNearbyEvents(events)
+                case .failure(let error):
+                    print("Ошибка загрузки предстоящих событий: \(error)")
+                }
+            }
+        }
+    }
+    
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         reloadVisibleCells()
+        reloadVisibleCell()
     }
     
     private func reloadVisibleCells() {
@@ -203,6 +224,14 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         for indexPath in visibleIndexPaths {
             guard let cell = exploreView.collectionView.cellForItem(at: indexPath) as? UpcomingEventsCell else { continue }
             let event = upcomingEvents[indexPath.item]
+            cell.configure(with: event)
+        }
+    }
+    private func reloadVisibleCell() {
+        let visibleIndexPaths = exploreView.collectionView.indexPathsForVisibleItems
+        for indexPath in visibleIndexPaths {
+            guard let cell = exploreView.collectionView.cellForItem(at: indexPath) as? NearbyEventsCell else { continue }
+            let event = nearbyEvents[indexPath.item]
             cell.configure(with: event)
         }
     }
@@ -251,6 +280,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             self?.cityLabel.text = city.name
             SelectedCityManager.saveSelectedCity(city)
             self?.loadEvents(for: city.slug)
+            self?.fetchAndDisplayNearbyEvents()
         }
         present(citySelectionVC, animated: true)
     }
