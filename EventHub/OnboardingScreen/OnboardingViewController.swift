@@ -145,9 +145,7 @@ class OnboardingViewController: UIViewController {
         nextButton.addTarget(self, action: #selector(pressedNextButton), for: .touchUpInside)
         skipButton.addTarget(self, action: #selector(pressedSkipButton), for: .touchUpInside)
     }
-    
-    
-    
+ 
     
     // MARK: - UI Setup
     
@@ -160,59 +158,49 @@ class OnboardingViewController: UIViewController {
         overlayStackView.addArrangedSubview(titleLabel)
         overlayStackView.addArrangedSubview(descriptionLabel)
         overlayStackView.addArrangedSubview(buttonStack)
-        
-        
+    
     }
     
     // MARK: - Setup Constraint
     
     private func setupConstraints() {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
+        overlayStackView.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        buttonStack.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             backgroundImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             backgroundImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             backgroundImageView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.75),
-            backgroundImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.75)
-        ])
-
-        overlayStackView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            backgroundImageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.75),
+            
             overlayStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             overlayStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            overlayStackView.heightAnchor.constraint(equalToConstant: 288),
-            overlayStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: overlayStackView.topAnchor, constant: 40),
+            overlayStackView.topAnchor.constraint(equalTo: view.bottomAnchor, constant: -288),
+            overlayStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
+            titleLabel.topAnchor.constraint(equalTo: overlayStackView.topAnchor, constant: 20),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
-        ])
-        
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20)
-        ])
-        
-        buttonStack.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            titleLabel.heightAnchor.constraint(equalToConstant: 100),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 10),
+            descriptionLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            descriptionLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: 50),
+            
+            
             buttonStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             buttonStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
-            buttonStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -37)
+            buttonStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
-    
-    
-    
+  
     
     //MARK: - Methods
-    
-    
-    
-    
+ 
     @objc private func pressedNextButton() {
         guard currentIndexPage < titles.count - 1 else {
             pressedSkipButton()
@@ -226,8 +214,9 @@ class OnboardingViewController: UIViewController {
     
     @objc private func pressedSkipButton() {
         let loginVC = LoginViewController()
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC, animated: true, completion: nil)
+//        loginVC.modalPresentationStyle = .fullScreen
+//        self.present(loginVC, animated: true, completion: nil)
+        navigationController?.pushViewController(loginVC, animated: true)
         
     }
     
@@ -240,8 +229,6 @@ class OnboardingViewController: UIViewController {
     
 }
 
-//#Preview {
-//    OnboardingViewController()
-//}
+//#Preview {    OnboardingViewController()}
 
 

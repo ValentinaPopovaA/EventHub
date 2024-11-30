@@ -32,9 +32,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     public func checkAuthentication() {
         if Auth.auth().currentUser == nil {
-            // на экран авторизации
-            let loginVC = LoginViewController()
-            self.goToController(with: loginVC)
+            // на экран онбординга
+            let onVC = OnboardingViewController()
+            self.goToController(with: onVC)
         } else {
             // на главный экран
             let mainTabBar = TabBarController()

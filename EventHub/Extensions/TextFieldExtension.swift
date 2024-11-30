@@ -41,7 +41,7 @@ extension UITextField {
         self.textContentType = .newPassword
         
         let showPasswordButton = UIButton(type: .custom)
-        showPasswordButton.setImage(UIImage(named: "Hidden"), for: .normal)
+        showPasswordButton.setImage(UIImage(systemName: "eye.slash"), for: .normal)
         showPasswordButton.tintColor = UIColor.systemGray
         
         let padding: CGFloat = 10
@@ -63,7 +63,7 @@ extension UITextField {
         guard let container = sender.superview,
               let textField = container.superview as? UITextField else { return }
         textField.isSecureTextEntry.toggle()
-        let buttonImage = textField.isSecureTextEntry ? UIImage(systemName: "eye") : UIImage(systemName: "eye.slash")
+        let buttonImage = textField.isSecureTextEntry ? UIImage(systemName: "eye.slash") : UIImage(systemName: "eye")
         sender.setImage(buttonImage, for: .normal)
     }
     

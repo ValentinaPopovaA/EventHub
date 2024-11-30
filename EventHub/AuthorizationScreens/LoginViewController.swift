@@ -15,6 +15,9 @@ class LoginViewController: UIViewController {
     // MARK: - UI Components
     
     private let headerView = AuthHeaderView(title: "EventHub", subTitle: "Sign in")
+    private let userDefaults = UserDefaults.standard
+    private let emailKey = "SavedEmail"
+    private let passwordKey = "SavedPassword"
     
     let emailField = UITextField()
     let passwordField = UITextField()
@@ -23,15 +26,15 @@ class LoginViewController: UIViewController {
         let label = UILabel()
         label.textColor = .label
         label.textAlignment = .center
-        label.font = .systemFont(ofSize: 14, weight: .regular)
-        label.text = "Remember Me"
+        label.font = UIFont(name: "AirbnbCereal_W_Bk", size: 14)
+        label.text = "Remember Me "
         return label
     }()
     
     private let orLabel: UILabel = {
         let label = UILabel()
         label.text = "OR"
-        label.font = UIFont.systemFont(ofSize: 15)
+        label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .gray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -40,7 +43,7 @@ class LoginViewController: UIViewController {
     private let dontLabel: UILabel = {
         let label = UILabel()
         label.text = "Don’t have an account?"
-        label.font = UIFont.systemFont(ofSize: 14)
+        label.font = UIFont.systemFont(ofSize: 15)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -48,8 +51,8 @@ class LoginViewController: UIViewController {
     
     private let toggleSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = true
-        toggle.onTintColor = .blue
+        toggle.isOn = false
+        toggle.onTintColor = .blueForButtonExplore
         toggle.thumbTintColor = .white
         toggle.backgroundColor = .systemGray4
         toggle.layer.cornerRadius = 16
@@ -57,15 +60,49 @@ class LoginViewController: UIViewController {
         return toggle
     }()
     
+    private let stackField: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.spacing = 19
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private let horizontalStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 30
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private let stackButton: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .vertical
+        stack.alignment = .center
+        stack.spacing = 40
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private let downStack: UIStackView = {
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 5
+        stack.alignment = .center
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    
+    
     private let forgotButton = CustomButton(title: "Forgot Password?", fontSize: .small)
     private let signUpButton = CustomButton(title: "Sign up", isBlue: true, fontSize: .small)
     
     private let signInButton = UIButton.makePurpleButton(label: "SING IN", target: self, action: #selector(signInButtonTapped))
     
     private let loginGoogleButton = UIButton.makeWhiteButton(label: "Login with Google", target: self, action: #selector(googleButtonTapped))
-    
-    
-    
+ 
     
     // MARK: - LifeCycle
     
@@ -78,7 +115,10 @@ class LoginViewController: UIViewController {
         
         self.forgotButton.addTarget(self, action: #selector(forgotButtonTapped), for: .touchUpInside)
         self.signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
+        toggleSwitch.addTarget(self, action: #selector(didChangeSwitch), for: .valueChanged)
+        toggleSwitch.transform = CGAffineTransform(scaleX: 0.75, y: 0.75)
 
+        autoFillField()
         
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -97,67 +137,45 @@ class LoginViewController: UIViewController {
         self.view.addSubview(headerView)
         self.headerView.translatesAutoresizingMaskIntoConstraints = false
         
+        stackField.addArrangedSubview(emailField)
+        stackField.addArrangedSubview(passwordField)
+
+        horizontalStack.addArrangedSubview(toggleSwitch)
+        horizontalStack.addArrangedSubview(rememberLabel)
+        horizontalStack.addArrangedSubview(forgotButton)
         
-        NSLayoutConstraint.activate([
-            self.headerView.topAnchor.constraint(equalTo: self.headerView.topAnchor),
-            self.headerView.leadingAnchor.constraint(equalTo: self.headerView.leadingAnchor),
-            self.headerView.trailingAnchor.constraint(equalTo: self.headerView.trailingAnchor),
-            self.headerView.widthAnchor.constraint(equalToConstant: 270)
-        ])
+        stackButton.addArrangedSubview(signInButton)
+        stackButton.addArrangedSubview(orLabel)
+        stackButton.addArrangedSubview(loginGoogleButton)
         
-        
-        let stackField = UIStackView(arrangedSubviews: [emailField, passwordField])
-        stackField.axis = .vertical
-        stackField.spacing = 19
-        stackField.translatesAutoresizingMaskIntoConstraints = false
+        downStack.addArrangedSubview(dontLabel)
+        downStack.addArrangedSubview(signUpButton)
+
         
         view.addSubview(stackField)
-        
-        NSLayoutConstraint.activate([
-            stackField.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
-            stackField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            stackField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
-        ])
-        
-        let horizontalStack = UIStackView(arrangedSubviews: [toggleSwitch, rememberLabel, forgotButton])
-        horizontalStack.axis = .horizontal
-        horizontalStack.spacing = 30
-        horizontalStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        
         view.addSubview(horizontalStack)
-        
-        NSLayoutConstraint.activate([
-            horizontalStack.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 40),
-            horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
-            horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30)
-            
-        ])
-        
-        let stackButton = UIStackView(arrangedSubviews: [signInButton, orLabel,  loginGoogleButton])
-        stackButton.axis = .vertical
-        stackButton.alignment = .center
-        stackButton.spacing = 40
-        stackButton.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(stackButton)
-        
-        NSLayoutConstraint.activate([
-            stackButton.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: 30),
-            stackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        ])
-        
-        let downStack = UIStackView(arrangedSubviews: [dontLabel, signUpButton])
-        downStack.axis = .horizontal
-        downStack.spacing = 5
-        downStack.alignment = .center
-        downStack.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(downStack)
         
         NSLayoutConstraint.activate([
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            headerView.heightAnchor.constraint(equalToConstant: 100),
+            
+            stackField.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 130),
+            stackField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            stackField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            
+            horizontalStack.topAnchor.constraint(equalTo: stackField.bottomAnchor, constant: 20),
+            horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            
+            stackButton.topAnchor.constraint(equalTo: horizontalStack.bottomAnchor, constant: 20),
+            stackButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
             downStack.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            downStack.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
+            downStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -236,21 +254,17 @@ class LoginViewController: UIViewController {
         let vc = TabBarController()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    
+
     @objc func forgotButtonTapped() {
         print("forgotButton tapped!")
         let vc = RessetViewController()
         self.navigationController?.pushViewController(vc, animated: true)
-
-        
     }
+    
     @objc func signUpButtonTapped() {
         print("Sign Up Button tapped!")
         let vc = SignUpViewController()
         self.navigationController?.pushViewController(vc, animated: true)
-        
     }
     
     @objc private func didTapLogout() {
@@ -266,6 +280,36 @@ class LoginViewController: UIViewController {
         }
     }
 
+    @objc private func didChangeSwitch() {
+        if toggleSwitch.isOn {
+            guard let email = emailField.text, !email.isEmpty,
+                  let password = passwordField.text, !password.isEmpty else { return }
+            
+            userDefaults.set(email, forKey: emailKey)
+            userDefaults.set(password, forKey: passwordKey)
+            print("Debug Test", "saved email, pass")
+        } else {
+            userDefaults.removeObject(forKey: emailKey)
+            userDefaults.removeObject(forKey: passwordKey)
+            print("Debug Test", "delete email, pass")
+        }
+    }
+    
+    //MARK: - автозаполнение при входе
+    
+    private func autoFillField() {
+        if let savedEmail = userDefaults.string(forKey: emailKey),
+           let savedPass = userDefaults.string(forKey: passwordKey) {
+            emailField.text = savedEmail
+            passwordField.text = savedPass
+            toggleSwitch.isOn = true
+        } else {
+            toggleSwitch.isOn = false
+        }
+        
+    }
+    
+    
 }
 
 //#Preview{ LoginViewController()}
