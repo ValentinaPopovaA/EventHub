@@ -109,10 +109,10 @@ class ProfileViewController: UIViewController, UITextViewDelegate {
        
     }
     
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        updateProfileData()
-//    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        updateProfileData()
+    }
     
     //MARK: - Setup UI
     
