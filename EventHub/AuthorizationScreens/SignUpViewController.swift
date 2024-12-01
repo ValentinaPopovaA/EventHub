@@ -87,6 +87,8 @@ class SignUpViewController: UIViewController {
         
 //MARK: - Buttons
         
+        
+        
         let stackButton = UIStackView(arrangedSubviews: [signUpButton,orLabel,  loginGoogleButton])
         stackButton.axis = .vertical
         stackButton.alignment = .center
