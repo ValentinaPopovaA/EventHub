@@ -83,7 +83,7 @@ import UIKit
         
     }
 //MARK: - Extension
-    extension NoNotificationViewController {
+    extension NoNotificationView {
         private func setConstraints() {
             NSLayoutConstraint.activate([
 //              No Notification Image View

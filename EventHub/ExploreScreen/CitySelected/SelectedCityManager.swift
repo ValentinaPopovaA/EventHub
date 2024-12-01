@@ -24,6 +24,13 @@ struct SelectedCityManager {
         }
         return nil
     }
+    
+    static func initializeDefaultCity() {
+          if getSelectedCity() == nil {
+              let moscow = City(slug: "msk", name: "Москва")
+              saveSelectedCity(moscow)
+          }
+      }
 }
 
 extension Notification.Name {

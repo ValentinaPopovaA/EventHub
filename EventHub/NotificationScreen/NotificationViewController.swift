@@ -110,7 +110,7 @@ class NotificationViewController: UIViewController, UITableViewDataSource {
 }
 class NoNotificationsViewController: UIViewController {
     
-    private let noNotificationView = NoNotificationViewController(frame: .zero)
+    private let noNotificationView = NoNotificationView(frame: .zero)
     private let backButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false

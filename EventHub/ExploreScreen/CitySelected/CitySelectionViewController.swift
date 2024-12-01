@@ -36,6 +36,8 @@ final class CitySelectionViewController: UIViewController {
         view.backgroundColor = UIColor.black.withAlphaComponent(0.5)
         setupUI()
         fetchCities()
+        
+        selectedCity = SelectedCityManager.getSelectedCity()
     }
     
     private func setupUI() {
