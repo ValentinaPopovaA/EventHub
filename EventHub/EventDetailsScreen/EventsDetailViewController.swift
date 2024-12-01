@@ -4,7 +4,7 @@
 //
 //  Created by Валентина Попова on 17.11.2024.
 //
-
+import RealmSwift
 import UIKit
 
 class EventsDetailViewController: UIViewController {
@@ -12,6 +12,7 @@ class EventsDetailViewController: UIViewController {
     private let event: Event
     private let eventService = EventService()
     private let segment: Segment
+    private var currentEvent: Event?
     
     private var overlayView: UIView?
     private let shareView: ShareView = {
@@ -27,7 +28,7 @@ class EventsDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "arrow-left")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
-        button.addTarget(self, action: #selector (backButtonPressed), for: .touchUpInside)
+        button.addTarget(EventsDetailViewController.self, action: #selector (backButtonPressed), for: .touchUpInside)
         return button
     }()
     
@@ -65,6 +66,7 @@ class EventsDetailViewController: UIViewController {
         let button = UIButton()
         button.setImage(UIImage(named: "share icon"), for: .normal)
         button.addTarget(self, action: #selector(sharePressedButton), for: .touchUpInside)
+        //button.addTarget(self, action: #selector(sharePressedButton), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -213,17 +215,28 @@ class EventsDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
-        makeConstraits()
-        makeAttributedText()
-        shareView.isHidden = true
-        shareView.delegate = self
-        configure(with: event)
+        let realm = try! Realm()
+        let favorites = realm.objects(FavoriteEvent.self)
+
+        for favorite in favorites {
+            print("ID: \(favorite.id), Title: \(favorite.title)")
+            setupUI()
+            makeConstraits()
+            makeAttributedText()
+            shareView.isHidden = true
+            shareView.delegate = self
+            configure(with: event)
+            
+//            let favoritesService = FavoritesService()
+//            saveButton.isSelected = favoritesService.getFavorites(eventID: event.id)
+        }
     }
     
     func configure(with event: Event) {
         // Название события
         eventLabel.text = event.title.capitalized
+        
+        self.currentEvent = event
         
         // Краткое описание
         descriptionLabel.text = event.bodyText?.htmlToString() ?? "Description not available"
@@ -322,6 +335,28 @@ class EventsDetailViewController: UIViewController {
     }
     
     @objc private func saveToFavorites(_ sender: UIButton) {
+        guard let event = currentEvent else {
+            print("Ошибка: текущее событие не найдено.")
+            return
+        }
+
+        let favoritesService = FavoritesService()
+        
+        if sender.isSelected {
+            favoritesService.removeFromFavorites(eventID: event.id)
+            print("Событие удалено из избранного: \(event.title)")
+
+
+        
+            print("ID: \(event.id), Title: \(event.title), Plase: \(event.place)")
+        
+            
+        } else {
+            favoritesService.addToFavorites(event: event)
+            print("Событие добавлено в избранное: \(event.title)")
+        }
+
+        // Переключаем состояние кнопки
         sender.isSelected.toggle()
     }
     

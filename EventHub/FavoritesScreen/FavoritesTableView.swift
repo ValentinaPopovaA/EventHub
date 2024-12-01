@@ -6,8 +6,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoritesTableView: UITableView {
+    
+    private var favorites: Results<FavoriteEvent>!
+    private let favoritesService = FavoritesService()
+    private var notificationToken: NotificationToken?
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -15,6 +20,10 @@ class FavoritesTableView: UITableView {
         configure()
         setDelegates()
         register(FavoritesTableViewCell.self, forCellReuseIdentifier: EventsUITableViewCell.idTableViewCell)
+        
+        loadFavorites()
+        observeFavoritesChanges()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -33,11 +42,25 @@ class FavoritesTableView: UITableView {
         dataSource = self
         delegate = self
     }
+    
+    private func loadFavorites() {
+            favorites = favoritesService.getFavorites()
+        }
+        
+        private func observeFavoritesChanges() {
+            notificationToken = favorites.observe { [weak self] _ in
+                self?.reloadData()
+            }
+        }
+        
+        deinit {
+            notificationToken?.invalidate()
+    }
 }
 
 extension FavoritesTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        6
+        return favorites?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -45,6 +68,9 @@ extension FavoritesTableView: UITableViewDataSource {
                                                        for: indexPath) as? FavoritesTableViewCell  else {
             return UITableViewCell()
         }
+        
+        let favorite = favorites[indexPath.row]
+        cell.configure(with: favorite)
         return cell
     }
 }
@@ -55,13 +81,28 @@ extension FavoritesTableView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "") { _, _, _ in
-            print("delete cell")
-        }
-        
-        action.backgroundColor = .white
-        action.image = UIImage(named: "delete")
-        
-        return UISwipeActionsConfiguration(actions: [action])
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] _, _, completionHandler in
+                    guard let self = self else { return }
+                    
+                    // Получаем объект события из списка
+                    let favoriteEvent = self.favorites[indexPath.row]
+                    
+                    // Удаляем из базы данных
+                    let favoritesService = FavoritesService()
+                    favoritesService.removeFromFavorites(eventID: favoriteEvent.id)
+                    
+                    // Обновляем таблицу (удаляем строку)
+                    // Вызываем метод `deleteRows(at:with:)`
+                    self.deleteRows(at: [indexPath], with: .automatic)
+                    
+                    completionHandler(true)  // Завершаем действие
+                }
+                
+                // Настройка внешнего вида действия
+                deleteAction.backgroundColor = .red  // Цвет фона для кнопки
+                deleteAction.image = UIImage(named: "delete")  // Иконка для удаления
+                
+                // Возвращаем конфигурацию для действия
+                return UISwipeActionsConfiguration(actions: [deleteAction])
     }
 }

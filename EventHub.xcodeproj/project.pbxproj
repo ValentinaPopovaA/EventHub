@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18D64D3F2CFAFFDD00CEDDC3 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 18D64D3E2CFAFFDD00CEDDC3 /* RealmSwift */; };
+		18D64D412CFAFFF400CEDDC3 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D64D402CFAFFEB00CEDDC3 /* RealmModel.swift */; };
+		18D64D452CFB005200CEDDC3 /* RealmServise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D64D442CFB003800CEDDC3 /* RealmServise.swift */; };
 		18F334542CF1B72A0067A9BC /* EventTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334532CF1B70D0067A9BC /* EventTableView.swift */; };
 		18F334562CF1B74C0067A9BC /* AllEventsScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334552CF1B74A0067A9BC /* AllEventsScreenViewController.swift */; };
 		18F3345A2CF1B7A60067A9BC /* EventsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F334592CF1B7880067A9BC /* EventsTableViewCell.swift */; };
@@ -104,6 +107,8 @@
 
 /* Begin PBXFileReference section */
 		188F51452CEBD89500963E42 /* UIFont + Extencion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont + Extencion.swift"; sourceTree = "<group>"; };
+		18D64D402CFAFFEB00CEDDC3 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
+		18D64D442CFB003800CEDDC3 /* RealmServise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmServise.swift; sourceTree = "<group>"; };
 		18F334532CF1B70D0067A9BC /* EventTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventTableView.swift; sourceTree = "<group>"; };
 		18F334552CF1B74A0067A9BC /* AllEventsScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllEventsScreenViewController.swift; sourceTree = "<group>"; };
 		18F334592CF1B7880067A9BC /* EventsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsTableViewCell.swift; sourceTree = "<group>"; };
@@ -200,6 +205,7 @@
 				79081F2E2CF3737800CE1156 /* FirebaseAuth in Frameworks */,
 				797FEAE92CF21B0B002C3B58 /* FirebaseStorage in Frameworks */,
 				797FEAE32CF21B0B002C3B58 /* FirebaseAuth in Frameworks */,
+				18D64D3F2CFAFFDD00CEDDC3 /* RealmSwift in Frameworks */,
 				7901EB9B2CF74F9C0076080B /* GoogleSignInSwift in Frameworks */,
 				79081F322CF3737800CE1156 /* FirebaseStorage in Frameworks */,
 				797FEAE72CF21B0B002C3B58 /* FirebaseFirestore in Frameworks */,
@@ -430,6 +436,8 @@
 		A7CAF98F2CEA0C6900719F7D /* FavoritesScreen */ = {
 			isa = PBXGroup;
 			children = (
+				18D64D442CFB003800CEDDC3 /* RealmServise.swift */,
+				18D64D402CFAFFEB00CEDDC3 /* RealmModel.swift */,
 				18F334672CF44D8E0067A9BC /* FavoritesTableViewCell.swift */,
 				18F334652CF44D4D0067A9BC /* FavoritesTableView.swift */,
 				18F334632CF3C0110067A9BC /* NIFavoritesView.swift */,
@@ -535,6 +543,7 @@
 			packageReferences = (
 				797FEAE12CF21B0B002C3B58 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				7901EB972CF74F9C0076080B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				18D64D3D2CFAFFDD00CEDDC3 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = A7BA04922CE888D0009A9EF3 /* Products */;
 			projectDirPath = "";
@@ -573,7 +582,6 @@
 				797FEAF52CF337A1002C3B58 /* AlertManager.swift in Sources */,
 				7968E83C2CF1E03B00C31277 /* CustomButton.swift in Sources */,
 				793FEC7B2CEFC094002B5F05 /* SignUpViewController.swift in Sources */,
-				A7CAF9A92CEA0E7C00719F7D /* SearchBarViewController.swift in Sources */,
 				18F334562CF1B74C0067A9BC /* AllEventsScreenViewController.swift in Sources */,
 				A7D5D2442CEDE297009DAED6 /* City.swift in Sources */,
 				A7D5D24C2CEDEB83009DAED6 /* NetworkService.swift in Sources */,
@@ -635,6 +643,8 @@
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */,
+				18D64D412CFAFFF400CEDDC3 /* RealmModel.swift in Sources */,
+				18D64D452CFB005200CEDDC3 /* RealmServise.swift in Sources */,
 				466A70112CF9DA3800D52205 /* ButtonsView.swift in Sources */,
 				A720E9302CF3323700AA61FE /* CategoryProvider.swift in Sources */,
 				A7AA28062CF0F6600027ACDF /* SearchBar.swift in Sources */,
@@ -868,6 +878,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		18D64D3D2CFAFFDD00CEDDC3 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		7901EB972CF74F9C0076080B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
@@ -887,6 +905,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18D64D3E2CFAFFDD00CEDDC3 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18D64D3D2CFAFFDD00CEDDC3 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
+		};
 		7901EB982CF74F9C0076080B /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 7901EB972CF74F9C0076080B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;

@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class FavoritesTableViewCell: UITableViewCell {
+    
+    private var currentEvent: Event?
     
     private let backgroungCell: UIView = {
         let view = UIView()
@@ -43,12 +46,25 @@ class FavoritesTableViewCell: UITableViewCell {
     
     private let favoritImageView: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "bookmark"), for: .normal)
-        button.contentMode = .scaleAspectFill
+        button.setImage(UIImage(named: "Bookmark_white"), for: .selected)
+        button.setImage(UIImage(named: "Bookmark_red"), for: .normal)
+        button.backgroundColor = .lightGray.withAlphaComponent(0.5)
+        //button.layer.cornerRadius = 10
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(saveToFavorites), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
+//    private let favoritImageView: UIButton = {
+//        let button = UIButton()
+//        button.setImage(UIImage(named: "bookmark"), for: .normal)
+//        button.contentMode = .scaleAspectFill
+//        button.clipsToBounds = true
+//        button.addTarget(self, action: #selector(saveToFavorites), for: .touchUpInside)
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+//    }()
     
     private let eventDateAndTimeLabel: UILabel = {
         let label = UILabel()
@@ -103,7 +119,7 @@ class FavoritesTableViewCell: UITableViewCell {
         addSubview(backgroungCell)
         addSubview(eventBackgroungView)
         addSubview(eventImageView)
-        addSubview(favoritImageView)
+//        addSubview(favoritImageView)
         addSubview(eventDateAndTimeLabel)
         addSubview(eventNameLabel)
         eventLocationStaskView = UIStackView(arrangedSubviews: [mapPinImageView,
@@ -111,7 +127,35 @@ class FavoritesTableViewCell: UITableViewCell {
                                              axis: .horizontal,
                                              spacinng: 5)
         addSubview(eventLocationStaskView)
+        addSubview(favoritImageView)
     }
+    
+    @objc private func saveToFavorites(_ sender: UIButton) {
+        guard let event = currentEvent else {
+            print("Ошибка: текущее событие не найдено.")
+            return
+        }
+
+        let favoritesService = FavoritesService()
+        
+        if sender.isSelected {
+            favoritesService.removeFromFavorites(eventID: event.id)
+            print("Событие удалено из избранного: \(event.title)")
+
+
+        
+            print("ID: \(event.id), Title: \(event.title), Plase: \(event.place)")
+        
+            
+        } else {
+            favoritesService.addToFavorites(event: event)
+            print("Событие добавлено в избранное: \(event.title)")
+        }
+
+        // Переключаем состояние кнопки
+        sender.isSelected.toggle()
+    }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -156,5 +200,44 @@ extension FavoritesTableViewCell {
             eventLocationStaskView.heightAnchor.constraint(equalToConstant: 18),
             
         ])
+    }
+}
+
+extension UIImageView {
+    func loadImage(from url: URL) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            if let error = error {
+                print("Error loading image: \(error.localizedDescription)")
+                DispatchQueue.main.async {
+                    self.image = UIImage(named: "placeholder")  // Отображаем placeholder при ошибке
+                }
+                return
+            }
+            guard let data = data else {
+                print("No data returned for image")
+                DispatchQueue.main.async {
+                    self.image = UIImage(named: "placeholder")  // Отображаем placeholder, если данных нет
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self.image = UIImage(data: data)
+            }
+        }.resume()
+    }
+}
+
+extension FavoritesTableViewCell {
+    func configure(with favorite: FavoriteEvent) {
+        eventNameLabel.text = favorite.title
+        eventDateAndTimeLabel.text = "\(String(describing: favorite.publicationDate))"
+        eventLocationLabel.text = favorite.location
+        
+        if let url = URL(string: favorite.imageURL ?? "") {
+            eventImageView.loadImage(from: url)
+            print(favorite.imageURL ?? "")
+        } else {
+            eventImageView.image = UIImage(named: "placeholder")
+        }
     }
 }
