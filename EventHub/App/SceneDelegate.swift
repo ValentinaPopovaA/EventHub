@@ -14,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    SelectedCityManager.initializeDefaultCity()
 
-        self.setupWindow(with: scene)
-        self.checkAuthentication()
+           self.setupWindow(with: scene)
+           self.checkAuthentication()
 
-    }
+       }
     
     private func setupWindow(with scene: UIScene) {
         guard let windowScene = (scene as? UIWindowScene) else { return }

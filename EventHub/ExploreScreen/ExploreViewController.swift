@@ -176,7 +176,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
             buttonsView.bottomAnchor.constraint(equalTo: exploreView.topAnchor, constant: -14),
             buttonsView.heightAnchor.constraint(equalToConstant: 38),
             
-            exploreView.topAnchor.constraint(equalTo: buttonsView.bottomAnchor,constant: 15),
+            exploreView.topAnchor.constraint(equalTo: buttonsView.bottomAnchor,constant: 14),
             exploreView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             exploreView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             exploreView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -315,21 +315,33 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     }
     
     private func filterEvents(by category: Category) {
-        let categorySlug = category.slug
-        let citySlug = SelectedCityManager.getSelectedCity()?.slug
-        
-        eventService.fetchEvents(for: categorySlug, in: citySlug) { [weak self] result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let events):
-                    self?.upcomingEvents = events
-                    self?.exploreView.updateUpcomingEvents(events)
-                case .failure(let error):
-                    print("Failed to fetch events for category \(category.name): \(error)")
-                }
-            }
-        }
-    }
+           let categorySlug = category.slug
+           let citySlug = SelectedCityManager.getSelectedCity()?.slug
+           
+           eventService.fetchEvents(for: categorySlug, in: citySlug) { [weak self] result in
+               DispatchQueue.main.async {
+                   switch result {
+                   case .success(let events):
+                       self?.upcomingEvents = events
+                       self?.exploreView.updateUpcomingEvents(events)
+                   case .failure(let error):
+                       print("Failed to fetch events for category \(category.name): \(error)")
+                   }
+               }
+           }
+           
+           eventService.fetchEvents(for: categorySlug, in: citySlug) { [weak self] result in
+               DispatchQueue.main.async {
+                   switch result {
+                   case .success(let events):
+                       self?.nearbyEvents = events
+                       self?.exploreView.updateNearbyEvents(events)
+                   case .failure(let error):
+                       print("Failed to fetch events for category \(category.name): \(error)")
+                   }
+               }
+           }
+       }
 }
 
 extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -361,7 +373,20 @@ extension ExploreViewController: UICollectionViewDataSource, UICollectionViewDel
             let selectedCategory = categories[indexPath.item]
             filterEvents(by: selectedCategory)
         } else if collectionView == exploreView.collectionView {
-            let selectedEvent = upcomingEvents[indexPath.item]
+            guard let sectionType = Section(rawValue: indexPath.section) else {
+                return
+            }
+            
+            let selectedEvent: Event
+            switch sectionType {
+            case .upcomingCollection:
+                guard indexPath.item < upcomingEvents.count else { return }
+                selectedEvent = upcomingEvents[indexPath.item]
+            case .nearbyCollection:
+                guard indexPath.item < nearbyEvents.count else { return }
+                selectedEvent = nearbyEvents[indexPath.item]
+            }
+            
             navigateToEventDetail(with: selectedEvent)
         }
     }
@@ -380,26 +405,26 @@ extension ExploreViewController: UICollectionViewDelegateFlowLayout {
         let iconWidth: CGFloat = 20
         let spacing: CGFloat = 6
         let padding: CGFloat = 16
-
+        
         // Итоговая ширина ячейки
         let totalWidth = iconWidth + spacing + padding + textWidth
         
         return CGSize(width: max(106, totalWidth), height: 40)
     }
     
-
+    
     @objc private func didTapLogout() {
-            AuthService.shared.signOut { [weak self] error in
-                guard let self = self else {return }
-                if let error = error {
-                    
-                    return
-                }
-                if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
-                    sceneDelegate.checkAuthentication()
-                }
+        AuthService.shared.signOut { [weak self] error in
+            guard let self = self else {return }
+            if let error = error {
+                
+                return
+            }
+            if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+                sceneDelegate.checkAuthentication()
             }
         }
+    }
 }
 
 extension ExploreViewController: ButtonsViewDelegate {

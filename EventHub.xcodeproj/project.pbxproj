@@ -102,7 +102,7 @@
 		E79846202CF0604000CF249D /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E798461F2CF0604000CF249D /* EditProfileViewController.swift */; };
 		E7A57CFF2CEB2D2000824B7E /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */; };
 		E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */; };
-		E7BD699F2CF99BEF00BBCE5C /* NoNotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */; };
+		E7BD699F2CF99BEF00BBCE5C /* NoNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BD699E2CF99BEF00BBCE5C /* NoNotificationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -195,7 +195,7 @@
 		E798461F2CF0604000CF249D /* EditProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
 		E7A57CFE2CEB2D2000824B7E /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E7A57D1C2CEB3F1E00824B7E /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
-		E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNotificationViewController.swift; sourceTree = "<group>"; };
+		E7BD699E2CF99BEF00BBCE5C /* NoNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoNotificationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -499,7 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				E71871E62CF5AE0A00CAAD49 /* NotificationViewController.swift */,
-				E7BD699E2CF99BEF00BBCE5C /* NoNotificationViewController.swift */,
+				E7BD699E2CF99BEF00BBCE5C /* NoNotificationView.swift */,
 				E71871E82CF5C71000CAAD49 /* NotificationCell.swift */,
 			);
 			path = NotificationScreen;
@@ -649,7 +649,6 @@
 				A761B76E2CF71F7900969F78 /* SearchTableViewCell.swift in Sources */,
 				A7BA04972CE888D0009A9EF3 /* SceneDelegate.swift in Sources */,
 				A7D5D2772CF08065009DAED6 /* EventService.swift in Sources */,
-				A7D5D2592CEE0B24009DAED6 /* EventsLast7DaysRequest.swift in Sources */,
 				E71871E72CF5AE0A00CAAD49 /* NotificationViewController.swift in Sources */,
 				A7D5D2632CEE1618009DAED6 /* UIImageView.swift in Sources */,
 				A720E9392CF362C900AA61FE /* CitiesRequest.swift in Sources */,
@@ -660,7 +659,7 @@
 				A720E9362CF3629400AA61FE /* SelectedCityManager.swift in Sources */,
 				46C94BC32CEE575D000E5E4F /* ShareView.swift in Sources */,
 				797FEAF12CF23526002C3B58 /* LoginUserRequest.swift in Sources */,
-				E7BD699F2CF99BEF00BBCE5C /* NoNotificationViewController.swift in Sources */,
+				E7BD699F2CF99BEF00BBCE5C /* NoNotificationView.swift in Sources */,
 				E7A57D1D2CEB3F1E00824B7E /* MapViewController.swift in Sources */,
 				793FEC7D2CEFC5AD002B5F05 /* ShadowExtension.swift in Sources */,
 				797FEAEB2CF21FD7002C3B58 /* AuthService.swift in Sources */,
