@@ -42,6 +42,7 @@
 		7944DAC62CF105BC00345908 /* RessetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC52CF105BC00345908 /* RessetViewController.swift */; };
 		7944DAC82CF105F700345908 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC72CF105F700345908 /* HomeViewController.swift */; };
 		7944DACA2CF107F900345908 /* AuthHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7944DAC92CF107F900345908 /* AuthHeaderView.swift */; };
+		79613A152CFB905600508850 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 79613A142CFB905600508850 /* Kingfisher */; };
 		7968E83C2CF1E03B00C31277 /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7968E83B2CF1E03B00C31277 /* CustomButton.swift */; };
 		797FEADE2CF20D95002C3B58 /* WebViewerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 797FEADD2CF20D95002C3B58 /* WebViewerController.swift */; };
 		797FEAE32CF21B0B002C3B58 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 797FEAE22CF21B0B002C3B58 /* FirebaseAuth */; };
@@ -208,6 +209,7 @@
 				797FEAE92CF21B0B002C3B58 /* FirebaseStorage in Frameworks */,
 				797FEAE32CF21B0B002C3B58 /* FirebaseAuth in Frameworks */,
 				7901EB9B2CF74F9C0076080B /* GoogleSignInSwift in Frameworks */,
+				79613A152CFB905600508850 /* Kingfisher in Frameworks */,
 				79081F322CF3737800CE1156 /* FirebaseStorage in Frameworks */,
 				793F7AA42CFB6038009F730A /* IQKeyboardManagerSwift in Frameworks */,
 				797FEAE72CF21B0B002C3B58 /* FirebaseFirestore in Frameworks */,
@@ -555,6 +557,7 @@
 				797FEAE12CF21B0B002C3B58 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				7901EB972CF74F9C0076080B /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				793F7AA22CFB6038009F730A /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
+				79613A132CFB905600508850 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = A7BA04922CE888D0009A9EF3 /* Products */;
 			projectDirPath = "";
@@ -906,6 +909,14 @@
 				minimumVersion = 8.0.0;
 			};
 		};
+		79613A132CFB905600508850 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = exactVersion;
+				version = 7.12.0;
+			};
+		};
 		797FEAE12CF21B0B002C3B58 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -946,6 +957,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 793F7AA22CFB6038009F730A /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
 			productName = IQKeyboardManagerSwift;
+		};
+		79613A142CFB905600508850 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 79613A132CFB905600508850 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 		797FEAE22CF21B0B002C3B58 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
