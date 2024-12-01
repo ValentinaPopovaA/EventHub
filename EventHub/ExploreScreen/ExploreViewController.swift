@@ -116,6 +116,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         loadCategories()
         setupSavedCity()
         categoriesCollectionView.delegate = self
+        exploreView.parentViewController = self
         currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
         buttonsView.delegate = self
         exploreView.collectionView.delegate = self
