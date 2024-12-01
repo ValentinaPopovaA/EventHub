@@ -47,6 +47,8 @@ class EventsViewController: UIViewController, EventsTableViewDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(cityDidChange), name: .cityDidChange, object: nil)
     }
     
+    
+    
     private func setupViews() {
         view.addSubview(segmentedControl)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false

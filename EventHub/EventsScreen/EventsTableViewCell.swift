@@ -75,7 +75,8 @@ class EventsUITableViewCell: UITableViewCell {
         let label = UILabel()
         label.text = "Radius Gallery • Santa Cruz, CA"
         label.textColor = .subColor
-        label.font = .systemFont(ofSize: 13)
+        label.numberOfLines = 2
+        label.font = .systemFont(ofSize: 12)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -185,12 +186,13 @@ extension EventsUITableViewCell {
             
             eventNameLabel.topAnchor.constraint(equalTo: eventDateAndTimeLabel.bottomAnchor, constant: 3),
             eventNameLabel.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor,constant: 10),
-            eventNameLabel.widthAnchor.constraint(equalToConstant: 100),
+            eventNameLabel.widthAnchor.constraint(equalToConstant: 80),
             eventNameLabel.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
             
-            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor,constant: 10),
+            eventLocationStaskView.topAnchor.constraint(equalTo: eventNameLabel.bottomAnchor, constant: 10),
             eventLocationStaskView.leadingAnchor.constraint(equalTo: eventBackgroungView.trailingAnchor, constant: 10),
-            eventLocationStaskView.heightAnchor.constraint(equalToConstant: 18),
+            eventLocationStaskView.trailingAnchor.constraint(equalTo: backgroungCell.trailingAnchor, constant: -10),
+            eventLocationStaskView.bottomAnchor.constraint(equalTo: backgroungCell.bottomAnchor, constant: -8),
             
         ])
     }
