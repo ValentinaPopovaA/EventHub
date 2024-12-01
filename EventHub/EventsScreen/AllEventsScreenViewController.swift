@@ -33,7 +33,7 @@ class AllEventsScreenViewController: UIViewController {
     
     private let eventsLabel: UILabel = {
         let label = UILabel()
-        label.text = "Upcoming Events"
+        label.text = "Explore Events"
         label.font = .systemFont(ofSize: 24)
         label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false

@@ -310,11 +310,8 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     private func navigateToEventDetail(with event: Event) {
         let detailVC = EventsDetailViewController(event: event, segment: .upcoming)
         detailVC.modalPresentationStyle = .fullScreen
-        if let navController = self.navigationController {
-            navController.pushViewController(detailVC, animated: true)
-        } else {
-            present(detailVC, animated: true)
-        }
+       present(detailVC, animated: true)
+        
     }
     
     private func filterEvents(by category: Category) {
