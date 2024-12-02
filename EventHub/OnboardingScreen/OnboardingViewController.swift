@@ -9,23 +9,23 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
     
-    private let titles = ["Explore Upcoming and    Nearby Events",
-                          "Web Have Modern Events Calendar Feature",
-                          "To Look Up More Events or Activities Nearby By Map"
+    private let titles = ["Welcome to EventHub",
+                          "Explore Upcoming and    Nearby Events",
+                          "Your Personalized Event Schedule"
     ]
     
-    private let descriptions = ["Discover events happening around you and stay updated with the latest happenings in your area",
-                                "Keep track of all your events with our modern and easy-to-use calendar feature",
-                                "Find more events and activities near you using our interactive map feature"
+    private let descriptions = ["Your personal guide to exciting events, tailored to your interests. Sign in to unlock the experience!",
+                                "Discover events happening around you and stay updated with the latest happenings in your area",
+                                "Keep track of all upcoming and past events, and never miss out on moments that matter to you."
     ]
     
-    
+    private let imageNames = ["Scr1", "Scr2", "Scr3"]
     private var currentIndexPage = 0
     
     // MARK: - UI Elements
     
     private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "Image1"))
+        let imageView = UIImageView(image: UIImage(named: "Scr1"))
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
@@ -47,7 +47,7 @@ class OnboardingViewController: UIViewController {
     
     private let titleLabel: UILabel = {
         let label = UILabel()
-        let text = "Explore Upcoming and    Nearby Events"
+        let text = "Welcome to EventHub"
 
         label.font = UIFont.systemFont(ofSize: 22, weight: .bold)
         label.numberOfLines = 0
@@ -76,7 +76,7 @@ class OnboardingViewController: UIViewController {
     
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        let text = "Discover events happening around you and stay updated with the latest happenings in your area"
+        let text = "Your personal guide to exciting events, tailored to your interests. Sign in to unlock the experience!"
 //        label.font = UIFont.systemFont(ofSize: 15, weight: .medium)
         label.font = UIFont(name: "AirbnbCerealWBd", size: 15)
         label.textColor = .white
@@ -224,6 +224,9 @@ class OnboardingViewController: UIViewController {
         titleLabel.text = titles[currentIndexPage]
         descriptionLabel.text = descriptions[currentIndexPage]
         pageControl.currentPage = currentIndexPage
+        
+        let imageName = imageNames[currentIndexPage]
+        backgroundImageView.image = UIImage(named: imageName)
     }
     
     
