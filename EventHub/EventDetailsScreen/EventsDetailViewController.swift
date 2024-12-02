@@ -28,7 +28,7 @@ class EventsDetailViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "arrow-left")?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.tintColor = .white
-        button.addTarget(EventsDetailViewController.self, action: #selector (backButtonPressed), for: .touchUpInside)
+        button.addTarget(nil, action: #selector (backButtonPressed), for: .touchUpInside)
         return button
     }()
     

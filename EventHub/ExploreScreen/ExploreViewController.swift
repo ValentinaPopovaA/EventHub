@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
     private var selectedCategory: Int?
@@ -14,6 +13,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var nearbyEvents: [Event] = []
     private var slug: Place?
     private let eventService = EventService()
+    
     private let buttonsView: ButtonsView = {
         let view = ButtonsView()
         view.isUserInteractionEnabled = true
@@ -118,6 +118,7 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         exploreView.parentViewController = self
         currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
         buttonsView.delegate = self
+        exploreView.collectionView.delegate = self
         fetchAndDisplayUpcomingEvents()
         fetchAndDisplayNearbyEvents()
     }
