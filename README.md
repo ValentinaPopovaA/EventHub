@@ -4,6 +4,8 @@
 
 **Event Hub** is a mobile application for discovering and managing events. It helps users stay updated on interesting activities, save favorites, and share events with friends.
 
+![iphone](https://www.dropbox.com/scl/fi/b7n759do2gejvtxgcz94u/EventHub.jpeg?rlkey=dwxqoht2qmv8m01fxmexe574z&st=5yf3dmfs&dl=0&raw=1)
+
 ---
 ### Project created by:
 <p align="left"> 
