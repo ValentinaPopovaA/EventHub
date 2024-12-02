@@ -6,7 +6,10 @@
 
 import UIKit
 
-class EditProfileViewController: UIViewController {
+class EditProfileViewController: UIViewController,UIImagePickerControllerDelegate {
+    
+    
+    
     //MARK: - UI Elements
     private lazy var profileImageView: UIImageView  = {
         let element = UIImageView()
@@ -73,13 +76,15 @@ class EditProfileViewController: UIViewController {
         element.configuration = config
         return element
     }()
+    
+    let imagePicker = ImagePicker()
     //MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         loadUserData()
         setupNavigationBar()
-        
+        setupGestureRecognizer()
         
     }
     //MARK: - Setup UI
@@ -149,6 +154,24 @@ class EditProfileViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+    
+    @objc private func pickImage() {
+        
+//        print("Tapped")
+        imagePicker.showImagePicker(in: self) { image in
+            self.profileImageView.image = image
+        }
+        
+        
+    }
+    
+    private func setupGestureRecognizer() {
+        
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(self.pickImage))
+        profileImageView.addGestureRecognizer(gesture)
+        profileImageView.isUserInteractionEnabled = true
+        
+    }
     
     private func loadUserData() {
         let defaults = UserDefaults.standard
@@ -241,5 +264,23 @@ class EditProfileViewController: UIViewController {
         present(alert, animated: true) {
             textView.becomeFirstResponder()
         }
+    }
+}
+
+extension ProfileViewController {
+    
+    private struct Constants {
+        
+        static let screenHeight = UIScreen.main.bounds.height
+        static let screenWidth = UIScreen.main.bounds.width
+        
+        
+        static let avatarWidth = screenWidth * (72/375)
+        static let avatarHeight = avatarWidth
+        
+        static let buttonHeight = screenHeight * (56/812)
+        static let spacing = screenWidth * (20/375)
+        
+        
     }
 }
