@@ -16,6 +16,8 @@ class ExploreView: UIView {
     
     private var upcomingEvents: [Event] = []
     private var nearbyEvents: [Event] = []
+    weak var parentViewController: UIViewController?
+
     
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
@@ -193,12 +195,24 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
         if kind == "Header" {
             switch indexPath.section {
             case Section.upcomingCollection.rawValue:
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "Header", withReuseIdentifier: UpcomingHeaderView.identifire, for: indexPath) as! UpcomingHeaderView
-                headerView.config(headerLabel: "Upcoming Events", tapAction: didTapSeeAll)
+                let headerView = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: "Header",
+                    withReuseIdentifier: UpcomingHeaderView.identifire,
+                    for: indexPath
+                ) as! UpcomingHeaderView
+                headerView.config(headerLabel: "Upcoming Events") { [weak self] in
+                    self?.didTapSeeAll(section: .upcomingCollection)
+                }
                 return headerView
             case Section.nearbyCollection.rawValue:
-                let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "Header", withReuseIdentifier: NearbyHeaderView.identifire, for: indexPath) as! NearbyHeaderView
-                headerView.config(headerLabel: "Nearby You", tapAction: didTapSeeAll)
+                let headerView = collectionView.dequeueReusableSupplementaryView(
+                    ofKind: "Header",
+                    withReuseIdentifier: NearbyHeaderView.identifire,
+                    for: indexPath
+                ) as! NearbyHeaderView
+                headerView.config(headerLabel: "Nearby You") { [weak self] in
+                    self?.didTapSeeAll(section: .nearbyCollection)
+                }
                 return headerView
             default:
                 return UICollectionReusableView()
@@ -206,9 +220,29 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
         }
         return UICollectionReusableView()
     }
-    @objc func didTapSeeAll() {
-        //Нажатие кнопки seeAll
+
+    func didTapSeeAll(section: Section) {
+        guard let navigationController = parentViewController?.navigationController else {
+            print("Parent ViewController is nil")
+            return
+        }
+        switch section {
+        case .upcomingCollection:
+            let upcomingEventsVC = AllEventsExploreViewController()
+            upcomingEventsVC.title = "All Upcoming Events"
+            upcomingEventsVC.updateEvents(upcomingEvents)
+            navigationController.present(upcomingEventsVC, animated: true, completion: nil)
+            //            navigationController.navigationController?.pushViewController(upcomingEventsVC, animated: true)
+        case .nearbyCollection:
+            let nearbyEventsVC = AllEventsExploreViewController()
+            nearbyEventsVC.title = "All Nearby Events"
+            nearbyEventsVC.updateEvents(nearbyEvents)
+            navigationController.present(nearbyEventsVC, animated: true, completion: nil)
+            //            navigationController.navigationController?.pushViewController(nearbyEventsVC, animated: true)
+        }
     }
+
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let sectionType = Section(rawValue: section) else { return 0 }
         switch sectionType {

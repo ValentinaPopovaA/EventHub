@@ -32,20 +32,24 @@ class NearbyHeaderView: UICollectionReusableView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func buttonTapped () {
+    @objc func buttonTapped() {
         buttonEvent?()
     }
+    
     func config(headerLabel: String,tapAction: (@escaping () -> Void)) {
         self.headerLabel.text = headerLabel
         self.button.isUserInteractionEnabled = true
         buttonEvent = tapAction
     }
+    
     func setupUI () {
         addSubview(headerLabel)
         addSubview(button)
