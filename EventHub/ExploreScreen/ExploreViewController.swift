@@ -12,7 +12,6 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var selectedCategory: Int?
     private var upcomingEvents: [Event] = []
     private let eventService = EventService()
-    
     private let buttonsView: ButtonsView = {
         let view = ButtonsView()
         view.isUserInteractionEnabled = true
@@ -115,7 +114,6 @@ final class ExploreViewController: UIViewController, SearchBarDelegate {
         categoriesCollectionView.delegate = self
         currentLocationButton.addTarget(self, action: #selector(didTapChangeCity), for: .touchUpInside)
         buttonsView.delegate = self
-        exploreView.collectionView.delegate = self
         fetchAndDisplayUpcomingEvents()
     }
     
@@ -383,4 +381,3 @@ extension ExploreViewController: ButtonsViewDelegate {
     }
     
 }
-

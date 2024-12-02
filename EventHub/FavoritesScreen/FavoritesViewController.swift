@@ -8,6 +8,7 @@ import UIKit
 import RealmSwift
 
 class FavoritesViewController: UIViewController {
+    let exploreView = ExploreView()
     
     private var favorites: Results<FavoriteEvent>!
     private var notificationToken: NotificationToken?
@@ -39,8 +40,13 @@ class FavoritesViewController: UIViewController {
         setupViews()
         loadFavorites()
         setConstraints()
+        NotificationCenter.default.addObserver(self, selector: #selector(updateFavoritesTable), name: Notification.Name("UpdateFavoritesTable"), object: nil)
     }
-    
+
+    @objc func updateFavoritesTable() {
+        // Обновляем таблицу
+        tableView.reloadData()
+    }
     private func setupViews() {
         view.addSubview(favoritesLabel)
         view.addSubview(searchButton)
@@ -78,6 +84,7 @@ class FavoritesViewController: UIViewController {
 
         deinit {
             notificationToken?.invalidate()
+            NotificationCenter.default.removeObserver(self)
         }
 }
 

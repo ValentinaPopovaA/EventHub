@@ -6,11 +6,15 @@
 //
 
 import UIKit
+protocol ButtonsSaveDelegate: AnyObject {
+    func tapSave(for index: Int)
 
+}
 class UpcomingEventsCell: UICollectionViewCell {
     
     static let identifire = "UpcomingEventsCell"
     private let eventService = EventService()
+    var delegate: ButtonsSaveDelegate?
     
     private let backgroungCell: UIView = {
         let view = UIView()
@@ -140,7 +144,14 @@ class UpcomingEventsCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    var indexPath: IndexPath? // Храним индекс ячейки
+
+    @objc func saveButtonTapped(_ sender: UIButton) {
+        guard let indexPath = indexPath else { return }
+        delegate?.tapSave(for: indexPath.item)
+    }
+
     func configure(with event: Event) {
         if let imageUrl = event.images?.first?.image {
             imageView.loadImage(from: imageUrl)
@@ -189,10 +200,6 @@ class UpcomingEventsCell: UICollectionViewCell {
 
          saveButton.isUserInteractionEnabled = true
      }
-    
-    @objc func saveButtonTapped(_ sender: UIButton) {
-        sender.isSelected.toggle()
-    }
     
     private func setupUI() {
         addSubview(backgroungCell)

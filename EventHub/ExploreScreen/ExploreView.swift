@@ -13,9 +13,11 @@ enum Section: Int, CaseIterable {
     
 }
 class ExploreView: UIView {
-    
+    var index = 0
+
     private var upcomingEvents: [Event] = []
     
+    private var favoritesService = FavoritesService()
     let collectionView: UICollectionView = {
         let collectionView = UICollectionView(
             frame: .null,
@@ -171,7 +173,15 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return Section.allCases.count
     }
-
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let sectionType = Section(rawValue: section) else { return 0 }
+        switch sectionType {
+        case .upcomingCollection:
+            return upcomingEvents.count
+        case .nearbyCollection:
+            return 0
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == "Header" {
             switch indexPath.section {
@@ -192,15 +202,7 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
     @objc func didTapSeeAll() {
         //Нажатие кнопки seeAll
     }
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let sectionType = Section(rawValue: section) else { return 0 }
-        switch sectionType {
-        case .upcomingCollection:
-            return upcomingEvents.count
-        case .nearbyCollection:
-            return 0
-        }
-    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let sectionType = Section(rawValue: indexPath.section) else {
             return UICollectionViewCell()
@@ -213,6 +215,8 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
             }
             let event = upcomingEvents[indexPath.item]
             cell.configure(with: event)
+            cell.delegate = self
+            cell.indexPath = indexPath // Устанавливаем индекс
             return cell
         case .nearbyCollection:
             // Пока не реализовано
@@ -220,7 +224,33 @@ extension ExploreView: UICollectionViewDataSource, UICollectionViewDelegate {
         }
     }
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            
+            let selectedEvent = upcomingEvents[indexPath.item]
+            print("upcomingEvents[indexPath.item].id \(upcomingEvents[indexPath.item].id)")
+            index = selectedEvent.id
         }
     }
+
+extension ExploreView: ButtonsSaveDelegate {
+    func tapSave(for index: Int) {
+        let event = upcomingEvents[index]
+        favoritesService.addToFavorites(event: event)
+
+        // Проверяем, есть ли это событие в массиве
+        if upcomingEvents.contains(where: { $0.id == event.id }) {
+            print("Event with ID \(event.id) is already in the list")
+            return
+        }
+
+        // Сначала обновляем массив
+        upcomingEvents.append(event)
+        collectionView.reloadSections(IndexSet(integer: Section.upcomingCollection.rawValue))
+        
+        // Отправляем уведомление, чтобы обновить таблицу
+        NotificationCenter.default.post(name: Notification.Name("UpdateFavoritesTable"), object: nil)
+
+    }
+}
+
+
+
 
