@@ -149,6 +149,7 @@ class UpcomingEventsCell: UICollectionViewCell {
     var indexPath: IndexPath? // Храним индекс ячейки
 
     @objc func saveButtonTapped(_ sender: UIButton) {
+        sender.isSelected.toggle()
         guard let indexPath = indexPath else { return }
         delegate?.tapSave(for: indexPath.item)
     }
