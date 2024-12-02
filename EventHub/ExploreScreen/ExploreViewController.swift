@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 final class ExploreViewController: UIViewController, SearchBarDelegate {
     private var categories: [Category] = []
     private var selectedCategory: Int?
@@ -442,4 +441,3 @@ extension ExploreViewController: ButtonsViewDelegate {
     }
     
 }
-
